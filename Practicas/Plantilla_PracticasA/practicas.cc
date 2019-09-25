@@ -123,7 +123,7 @@ int main( int argc, char **argv )
 
    // llamada para crear la ventana, indicando el titulo
    // SUSTITUIR EL NOMBRE DEL ALUMNO
-   glutCreateWindow("Practicas IG: NOMBRE DEL ALUMNO");
+   glutCreateWindow("Practicas IG: ALEJANDRO MANZANARES LEMUS");
 
    // asignación de la funcion llamada "dibujar" al evento de dibujo
    glutDisplayFunc( draw_scene );
