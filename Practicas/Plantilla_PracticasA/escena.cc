@@ -60,11 +60,13 @@ void Escena::dibujar()
     // COMPLETAR
     //   Dibujar los diferentes elementos de la escena
     // Habrá que tener en esta primera práctica una variable que indique qué objeto se ha de visualizar
-    // y hacer 
+    // y hacer
     // cubo.draw()
     // o
     // tetraedro.draw()
-    
+    cubo = new Cubo(50);
+    cubo->draw();
+
 }
 
 //**************************************************************************
@@ -84,14 +86,14 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
    {
       case 'Q' :
          if (modoMenu!=NADA)
-            modoMenu=NADA;            
+            modoMenu=NADA;
          else {
             salir=true ;
          }
          break ;
       case 'O' :
          // ESTAMOS EN MODO SELECCION DE OBJETO
-         modoMenu=SELOBJETO; 
+         modoMenu=SELOBJETO;
          break ;
         case 'V' :
          // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
@@ -102,7 +104,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          modoMenu=SELDIBUJADO;
          break ;
          // COMPLETAR con los diferentes opciones de teclado
-            
+
    }
    return salir;
 }
