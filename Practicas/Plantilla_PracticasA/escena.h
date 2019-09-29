@@ -7,6 +7,7 @@
 #include "tetraedro.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO} menu;
+typedef enum {CUBO, TETRAEDRO} malla;
 class Escena
 {
 
@@ -34,6 +35,7 @@ class Escena
 
    menu modoMenu=NADA;
    GLenum modoVis=GL_TRIANGLES;
+   malla objMalla=CUBO;
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'

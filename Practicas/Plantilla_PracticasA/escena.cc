@@ -41,6 +41,9 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
+
+  cubo = new Cubo(50);
+  tetraedro = new Tetraedro(50);
 }
 
 
@@ -64,9 +67,17 @@ void Escena::dibujar()
     // cubo.draw()
     // o
     // tetraedro.draw()
-    tetraedro = new Tetraedro(50);
-    tetraedro->cambiar_modo(modoVis);
-    tetraedro->draw();
+    switch (objMalla) {
+      case CUBO:
+        cubo->cambiar_modo(modoVis);
+        cubo->draw();
+        break;
+      case TETRAEDRO:
+        tetraedro->cambiar_modo(modoVis);
+        tetraedro->draw();
+        break;
+    }
+
 
 }
 
@@ -122,6 +133,18 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de solido" << endl;
             modoVis = GL_FILL;
+          }
+         break ;
+       case 'C':
+          if(modoMenu == SELOBJETO){
+            cout << "Seleccionado cubo" << endl;
+            objMalla = CUBO;
+          }
+         break ;
+       case 'T':
+          if(modoMenu == SELOBJETO){
+            cout << "Seleccionado tetraedro" << endl;
+            objMalla = TETRAEDRO;
           }
          break ;
 
