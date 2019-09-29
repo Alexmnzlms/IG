@@ -43,6 +43,7 @@ class Malla3D
    std::vector<Tupla3i> f ; // una terna de 3 enteros por cada cara o triángulo
 
    // completar: tabla de colores, tabla de normales de vértices
+   std::vector<Tupla3f> c ;
 } ;
 
 

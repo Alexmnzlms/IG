@@ -15,12 +15,16 @@ void Malla3D::draw_ModoInmediato()
   // completar (práctica 1)
   // ...
   glEnableClientState( GL_VERTEX_ARRAY );
+  glEnableClientState(GL_COLOR_ARRAY);
   glVertexPointer( 3, GL_FLOAT, 0, v.data() );
+  glColorPointer(3, GL_FLOAT, 0, c.data() );
   glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
   glEnable( GL_CULL_FACE );
   glPointSize(3.0);
   glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT,f.data() );
   glDisableClientState( GL_VERTEX_ARRAY );
+
+
 }
 // -----------------------------------------------------------------------------
 // Visualización en modo diferido con 'glDrawElements' (usando VBOs)

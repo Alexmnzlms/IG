@@ -53,4 +53,21 @@ Cubo::Cubo(float lado)
    Tupla3i c12(2,3,7);
    f.push_back(c12);
 
+   Tupla3f rgb0(0,0,0);
+   c.push_back(rgb0);
+   Tupla3f rgb1(0,0,0);
+   c.push_back(rgb1);
+   Tupla3f rgb2(0,0,0);
+   c.push_back(rgb2);
+   Tupla3f rgb3(0,0,0);
+   c.push_back(rgb3);
+   Tupla3f rgb4(0,0,0);
+   c.push_back(rgb4);
+   Tupla3f rgb5(0,0,0);
+   c.push_back(rgb5);
+   Tupla3f rgb6(0,0,0);
+   c.push_back(rgb6);
+   Tupla3f rgb7(0,0,0);
+   c.push_back(rgb7);
+
 }
