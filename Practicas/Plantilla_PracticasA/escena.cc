@@ -106,6 +106,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case 'O' :
          // ESTAMOS EN MODO SELECCION DE OBJETO
          modoMenu=SELOBJETO;
+         cout << "Seleccione objeto" << endl;
          break ;
       case 'V' :
          // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
