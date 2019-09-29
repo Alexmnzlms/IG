@@ -33,10 +33,12 @@ class Malla3D
    // o bien a 'draw_ModoDiferido' (modo diferido, VBOs)
    void draw() ;
 
+   void cambiar_modo(GLenum) ;
+
    protected:
 
    void calcular_normales() ; // calcula tabla de normales de vértices (práctica 3)
-
+   GLenum modo_dibujado;
    std::vector<Tupla3f> v ;   // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
    std::vector<Tupla3i> f ; // una terna de 3 enteros por cada cara o triángulo
 

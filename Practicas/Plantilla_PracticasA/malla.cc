@@ -16,6 +16,9 @@ void Malla3D::draw_ModoInmediato()
   // ...
   glEnableClientState( GL_VERTEX_ARRAY );
   glVertexPointer( 3, GL_FLOAT, 0, v.data() );
+  glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+  glEnable( GL_CULL_FACE );
+  glPointSize(3.0);
   glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT,f.data() );
   glDisableClientState( GL_VERTEX_ARRAY );
 }
@@ -36,4 +39,8 @@ void Malla3D::draw()
 {
    // completar .....(práctica 1)
    draw_ModoInmediato();
+}
+
+void Malla3D::cambiar_modo(GLenum modo){
+  modo_dibujado = modo;
 }

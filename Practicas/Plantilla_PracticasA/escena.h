@@ -12,10 +12,10 @@ class Escena
 
    private:
 
-   
+
 
  // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)
-       
+
        // variables que definen la posicion de la camara en coordenadas polares
    GLfloat Observer_distance;
    GLfloat Observer_angle_x;
@@ -27,18 +27,19 @@ class Escena
     // Transformación de cámara
 	void change_projection( const float ratio_xy );
 	void change_observer();
-    
+
 
 
    void clear_window();
 
    menu modoMenu=NADA;
+   GLenum modoVis=GL_TRIANGLES;
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'
    Tetraedro * tetraedro= nullptr ; // es importante inicializarlo a 'nullptr'
 
-   
+
    public:
 
     Escena();

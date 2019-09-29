@@ -65,6 +65,7 @@ void Escena::dibujar()
     // o
     // tetraedro.draw()
     cubo = new Cubo(50);
+    cubo->cambiar_modo(modoVis);
     cubo->draw();
 
 }
@@ -95,15 +96,37 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          // ESTAMOS EN MODO SELECCION DE OBJETO
          modoMenu=SELOBJETO;
          break ;
-        case 'V' :
+      case 'V' :
          // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
          modoMenu=SELVISUALIZACION;
+         cout << "Seleccione modo de visualización" << endl;
          break ;
-       case 'D' :
+      case 'D' :
          // ESTAMOS EN MODO SELECCION DE DIBUJADO
          modoMenu=SELDIBUJADO;
          break ;
          // COMPLETAR con los diferentes opciones de teclado
+       case 'P':
+          if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado visualización de punto" << endl;
+            modoVis = GL_POINT;
+            modoMenu = NADA;
+          }
+         break ;
+       case 'L':
+          if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado visualización de linea" << endl;
+            modoVis = GL_LINE;
+            modoMenu = NADA;
+          }
+         break ;
+       case 'S':
+          if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado visualización de solido" << endl;
+            modoVis = GL_FILL;
+            modoMenu = NADA;
+          }
+         break ;
 
    }
    return salir;
