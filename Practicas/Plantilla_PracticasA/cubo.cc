@@ -7,19 +7,19 @@ Cubo::Cubo(float lado)
 {
 
    // inicializar la tabla de vértices
-   Tupla3f v0(0.0,0.0,0.0);
+   Tupla3f v0(-lado,-lado,-lado);
    v.push_back(v0);
-   Tupla3f v1(0.0,0.0,lado);
+   Tupla3f v1(-lado,-lado,lado);
    v.push_back(v1);
-   Tupla3f v2(0.0,lado,0.0);
+   Tupla3f v2(-lado,lado,-lado);
    v.push_back(v2);
-   Tupla3f v3(0.0,lado,lado);
+   Tupla3f v3(-lado,lado,lado);
    v.push_back(v3);
-   Tupla3f v4(lado,0.0,0.0);
+   Tupla3f v4(lado,-lado,-lado);
    v.push_back(v4);
-   Tupla3f v5(lado,0.0,lado);
+   Tupla3f v5(lado,-lado,lado);
    v.push_back(v5);
-   Tupla3f v6(lado,lado,0.0);
+   Tupla3f v6(lado,lado,-lado);
    v.push_back(v6);
    Tupla3f v7(lado,lado,lado);
    v.push_back(v7);
