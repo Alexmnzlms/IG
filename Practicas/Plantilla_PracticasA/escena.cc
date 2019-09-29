@@ -110,21 +110,18 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de punto" << endl;
             modoVis = GL_POINT;
-            modoMenu = NADA;
           }
          break ;
        case 'L':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de linea" << endl;
             modoVis = GL_LINE;
-            modoMenu = NADA;
           }
          break ;
        case 'S':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de solido" << endl;
             modoVis = GL_FILL;
-            modoMenu = NADA;
           }
          break ;
 
