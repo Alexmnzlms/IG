@@ -64,9 +64,9 @@ void Escena::dibujar()
     // cubo.draw()
     // o
     // tetraedro.draw()
-    cubo = new Cubo(50);
-    cubo->cambiar_modo(modoVis);
-    cubo->draw();
+    tetraedro = new Tetraedro(50);
+    tetraedro->cambiar_modo(modoVis);
+    tetraedro->draw();
 
 }
 

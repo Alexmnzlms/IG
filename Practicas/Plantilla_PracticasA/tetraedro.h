@@ -19,12 +19,12 @@
 // *****************************************************************************
 
 // *****************************************************************************
-// Tetraedro con centro en el origen 
+// Tetraedro con centro en el origen
 
 class Tetraedro: public Malla3D
 {
    public:
-      Tetraedro();
+   Tetraedro(float l=1);
 
 } ;
 
