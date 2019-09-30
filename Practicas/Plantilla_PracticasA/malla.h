@@ -44,6 +44,7 @@ class Malla3D
 
    // completar: tabla de colores, tabla de normales de vértices
    std::vector<Tupla3f> c ;
+   //float colorArray[8];
 } ;
 
 
