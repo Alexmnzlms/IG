@@ -21,6 +21,7 @@ void Malla3D::draw_ModoInmediato()
   glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
   glEnable( GL_CULL_FACE );
   glPointSize(3.0);
+  glShadeModel(GL_FLAT);
   glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT,f.data() );
   glDisableClientState( GL_VERTEX_ARRAY );
 
