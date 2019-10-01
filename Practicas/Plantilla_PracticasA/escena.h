@@ -34,7 +34,9 @@ class Escena
    void clear_window();
 
    menu modoMenu=NADA;
-   GLenum modoVis=GL_TRIANGLES;
+   bool linea = false;
+   bool punto = false;
+   bool solido = true;
    malla objMalla=CUBO;
    // Objetos de la escena
    Ejes ejes;

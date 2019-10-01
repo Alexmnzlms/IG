@@ -57,8 +57,9 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 
 void Escena::dibujar()
 {
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
+
 	change_observer();
+  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
     ejes.draw();
     // COMPLETAR
     //   Dibujar los diferentes elementos de la escena
@@ -69,12 +70,32 @@ void Escena::dibujar()
     // tetraedro.draw()
     switch (objMalla) {
       case CUBO:
-        cubo->cambiar_modo(modoVis);
-        cubo->draw();
+        if(punto){
+          cubo->cambiar_modo(GL_POINT);
+          cubo->draw();
+        }
+        if(linea){
+          cubo->cambiar_modo(GL_LINE);
+          cubo->draw();
+        }
+        if(solido){
+          cubo->cambiar_modo(GL_FILL);
+          cubo->draw();
+        }
         break;
       case TETRAEDRO:
-        tetraedro->cambiar_modo(modoVis);
-        tetraedro->draw();
+        if(punto){
+          tetraedro->cambiar_modo(GL_POINT);
+          tetraedro->draw();
+        }
+        if(linea){
+          tetraedro->cambiar_modo(GL_LINE);
+          tetraedro->draw();
+        }
+        if(solido){
+          tetraedro->cambiar_modo(GL_FILL);
+          tetraedro->draw();
+        }
         break;
     }
 
@@ -97,8 +118,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
    switch( toupper(tecla) )
    {
       case 'Q' :
-         if (modoMenu!=NADA)
+         if (modoMenu!=NADA){
             modoMenu=NADA;
+          }
          else {
             salir=true ;
          }
@@ -121,19 +143,28 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
        case 'P':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de punto" << endl;
-            modoVis = GL_POINT;
-          }
+            if(punto)
+              punto = false;
+            else
+              punto = true;
+            }
          break ;
        case 'L':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de linea" << endl;
-            modoVis = GL_LINE;
-          }
+            if(linea)
+              linea = false;
+            else
+              linea = true;
+            }
          break ;
        case 'S':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de solido" << endl;
-            modoVis = GL_FILL;
+            if(solido)
+              solido = false;
+            else
+              solido = true;
           }
          break ;
        case 'C':
