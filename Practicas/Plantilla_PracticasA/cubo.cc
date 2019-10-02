@@ -7,7 +7,23 @@ Cubo::Cubo(float lado)
 {
 
    // inicializar la tabla de vértices
-   Tupla3f v0(-lado,-lado,-lado);
+   Tupla3f v0(0,0,0);
+   v.push_back(v0);
+   Tupla3f v1(0,0,lado);
+   v.push_back(v1);
+   Tupla3f v2(0,lado,0);
+   v.push_back(v2);
+   Tupla3f v3(0,lado,lado);
+   v.push_back(v3);
+   Tupla3f v4(lado,0,0);
+   v.push_back(v4);
+   Tupla3f v5(lado,0,lado);
+   v.push_back(v5);
+   Tupla3f v6(lado,lado,0);
+   v.push_back(v6);
+   Tupla3f v7(lado,lado,lado);
+   v.push_back(v7);
+   /*Tupla3f v0(-lado,-lado,-lado);
    v.push_back(v0);
    Tupla3f v1(-lado,-lado,lado);
    v.push_back(v1);
@@ -23,6 +39,7 @@ Cubo::Cubo(float lado)
    v.push_back(v6);
    Tupla3f v7(lado,lado,lado);
    v.push_back(v7);
+   */
 
 
    // inicializar la tabla de caras o triángulos:
@@ -55,19 +72,19 @@ Cubo::Cubo(float lado)
 
    Tupla3f rgb0(255,0,0);
    c.push_back(rgb0);
-   Tupla3f rgb1(0,0,255);
+   Tupla3f rgb1(255,0,0);
    c.push_back(rgb1);
-   Tupla3f rgb2(255,0,0);
+   Tupla3f rgb2(05,0,0);
    c.push_back(rgb2);
-   Tupla3f rgb3(0,0,255);
+   Tupla3f rgb3(255,0,0);
    c.push_back(rgb3);
-   Tupla3f rgb4(255,0,0);
+   Tupla3f rgb4(0,0,0);
    c.push_back(rgb4);
-   Tupla3f rgb5(0,0,255);
+   Tupla3f rgb5(255,0,0);
    c.push_back(rgb5);
-   Tupla3f rgb6(255,0,0);
+   Tupla3f rgb6(0,0,0);
    c.push_back(rgb6);
-   Tupla3f rgb7(0,0,255);
+   Tupla3f rgb7(255,0,0);
    c.push_back(rgb7);
 
 }
