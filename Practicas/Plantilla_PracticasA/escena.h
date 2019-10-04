@@ -37,7 +37,9 @@ class Escena
    bool linea = false;
    bool punto = false;
    bool solido = true;
+   bool ajedrez = false;
    malla objMalla=CUBO;
+   dibujo tipo_draw=INMED;
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'

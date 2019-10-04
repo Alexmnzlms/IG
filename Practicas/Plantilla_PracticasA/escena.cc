@@ -21,6 +21,8 @@ Escena::Escena()
     // crear los objetos de la escena....
     // .......completar: ...
     // .....
+    cubo = new Cubo(75);
+    tetraedro = new Tetraedro(75);
 
 }
 
@@ -41,9 +43,6 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
-
-  cubo = new Cubo(75);
-  tetraedro = new Tetraedro(75);
 }
 
 
@@ -71,29 +70,35 @@ void Escena::dibujar()
     switch (objMalla) {
       case CUBO:
         if(punto){
-          cubo->cambiar_modo(GL_POINT);
+          cubo->cambiar_modo(GL_POINT, ajedrez);
+          cubo->cambiar_draw(tipo_draw);
           cubo->draw();
         }
         if(linea){
-          cubo->cambiar_modo(GL_LINE);
+          cubo->cambiar_modo(GL_LINE, ajedrez);
+          cubo->cambiar_draw(tipo_draw);
           cubo->draw();
         }
-        if(solido){
-          cubo->cambiar_modo(GL_FILL);
+        if(solido || ajedrez){
+          cubo->cambiar_modo(GL_FILL, ajedrez);
+          cubo->cambiar_draw(tipo_draw);
           cubo->draw();
         }
         break;
       case TETRAEDRO:
         if(punto){
-          tetraedro->cambiar_modo(GL_POINT);
+          tetraedro->cambiar_modo(GL_POINT, ajedrez);
+          tetraedro->cambiar_draw(tipo_draw);
           tetraedro->draw();
         }
         if(linea){
-          tetraedro->cambiar_modo(GL_LINE);
+          tetraedro->cambiar_modo(GL_LINE, ajedrez);
+          tetraedro->cambiar_draw(tipo_draw);
           tetraedro->draw();
         }
-        if(solido){
-          tetraedro->cambiar_modo(GL_FILL);
+        if(solido || ajedrez){
+          tetraedro->cambiar_modo(GL_FILL, ajedrez);
+          tetraedro->cambiar_draw(tipo_draw);
           tetraedro->draw();
         }
         break;
@@ -143,43 +148,51 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
        case 'P':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de punto" << endl;
-            if(punto)
-              punto = false;
-            else
-              punto = true;
-            }
+            punto = !punto;
+         }
          break ;
        case 'L':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de linea" << endl;
-            if(linea)
-              linea = false;
-            else
-              linea = true;
-            }
+            linea = !linea;
+         }
          break ;
        case 'S':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de solido" << endl;
-            if(solido)
-              solido = false;
-            else
-              solido = true;
+            solido = !solido;
           }
+         break ;
+      case 'A':
+         if(modoMenu == SELVISUALIZACION){
+          cout << "Seleccionado visualización de ajedrez" << endl;
+          ajedrez = !ajedrez;
+         }
          break ;
        case 'C':
           if(modoMenu == SELOBJETO){
             cout << "Seleccionado cubo" << endl;
             objMalla = CUBO;
           }
-         break ;
+          break ;
        case 'T':
           if(modoMenu == SELOBJETO){
             cout << "Seleccionado tetraedro" << endl;
             objMalla = TETRAEDRO;
           }
+          break ;
+      case '1':
+         if(modoMenu == SELDIBUJADO){
+           cout << "Seleccionado modo inmediato" << endl;
+           tipo_draw = INMED;
+         }
          break ;
-
+       case '2':
+          if(modoMenu == SELDIBUJADO){
+            cout << "Seleccionado modo diferido" << endl;
+            tipo_draw = DIFER;
+          }
+          break ;
    }
    return salir;
 }
