@@ -23,10 +23,10 @@ class Malla3D
    public:
 
    // dibuja el objeto en modo inmediato
-   void draw_ModoInmediato();
+   void draw_ModoInmediato(bool ajedrez);
 
    // dibuja el objeto en modo diferido (usando VBOs)
-   void draw_ModoDiferido();
+   void draw_ModoDiferido(bool ajedrez);
 
    // función que redibuja el objeto
    // está función llama a 'draw_ModoInmediato' (modo inmediato)
@@ -43,12 +43,15 @@ class Malla3D
    GLenum modo_dibujado;
    bool ajedrez;
    dibujo tipo_draw;
-   GLuint id_vbo_ver = 0, id_vbo_tri = 0;
+   GLuint id_vbo_ver = 0, id_vbo_tri = 0, id_vbo_tri1 = 0, id_vbo_tri2 = 0;
    std::vector<Tupla3f> v ;   // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
    std::vector<Tupla3i> f ; // una terna de 3 enteros por cada cara o triángulo
+   std::vector<Tupla3i> f1;
+   std::vector<Tupla3i> f2;
 
    // completar: tabla de colores, tabla de normales de vértices
    std::vector<Tupla3f> c ;
+   std::vector<Tupla3f> c_aux;
    //float colorArray[8];
 } ;
 

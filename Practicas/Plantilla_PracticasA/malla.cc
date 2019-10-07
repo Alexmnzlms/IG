@@ -9,27 +9,39 @@
 
 // Visualización en modo inmediato con 'glDrawElements'
 
-void Malla3D::draw_ModoInmediato()
+void Malla3D::draw_ModoInmediato(bool ajedrez)
 {
   // visualizar la malla usando glDrawElements,
   // completar (práctica 1)
   // ...
-  glEnableClientState( GL_VERTEX_ARRAY );
-  glEnableClientState(GL_COLOR_ARRAY);
-  glVertexPointer( 3, GL_FLOAT, 0, v.data() );
-  glColorPointer(3, GL_FLOAT, 0, c.data() );
-  glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-  glEnable( GL_CULL_FACE );
-  glPointSize(5.0);
-  glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT,f.data() );
-  glDisableClientState( GL_VERTEX_ARRAY );
 
+   glEnableClientState( GL_VERTEX_ARRAY );
+
+   glVertexPointer( 3, GL_FLOAT, 0, v.data() );
+   glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+   glEnable( GL_CULL_FACE );
+   glPointSize(5.0);
+
+   if(ajedrez){
+      glEnableClientState(GL_COLOR_ARRAY);
+      glColorPointer(3, GL_FLOAT, 0, c.data() );
+      glDrawElements( GL_TRIANGLES, f1.size()*3, GL_UNSIGNED_INT,f1.data() );
+      glColorPointer(3, GL_FLOAT, 0, c_aux.data() );
+      glDrawElements( GL_TRIANGLES, f2.size()*3, GL_UNSIGNED_INT,f2.data() );
+      glDisableClientState( GL_VERTEX_ARRAY );
+   }
+   else{
+      glEnableClientState(GL_COLOR_ARRAY);
+      glColorPointer(3, GL_FLOAT, 0, c.data() );
+      glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT,f.data() );
+      glDisableClientState( GL_VERTEX_ARRAY );
+   }
 
 }
 // -----------------------------------------------------------------------------
 // Visualización en modo diferido con 'glDrawElements' (usando VBOs)
 
-void Malla3D::draw_ModoDiferido()
+void Malla3D::draw_ModoDiferido(bool ajedrez)
 {
    // (la primera vez, se deben crear los VBOs y guardar sus identificadores en el objeto)
    // completar (práctica 1)
@@ -38,6 +50,10 @@ void Malla3D::draw_ModoDiferido()
       id_vbo_ver = CrearVBO(GL_ARRAY_BUFFER, (3*v.size()) * sizeof(float), v.data());
       id_vbo_tri = CrearVBO(GL_ELEMENT_ARRAY_BUFFER, (3*f.size()) * sizeof(int), f.data());
    }
+   if(id_vbo_tri1 == 0 || id_vbo_tri2 == 0){
+      id_vbo_tri1 = CrearVBO(GL_ELEMENT_ARRAY_BUFFER, (3*f1.size()) * sizeof(int), f1.data());
+      id_vbo_tri2 = CrearVBO(GL_ELEMENT_ARRAY_BUFFER, (3*f2.size()) * sizeof(int), f2.data());
+   }
    glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
    glEnable( GL_CULL_FACE );
    glPointSize(5.0);
@@ -45,10 +61,23 @@ void Malla3D::draw_ModoDiferido()
    glVertexPointer( 3, GL_FLOAT, 0, 0 );
    glBindBuffer( GL_ARRAY_BUFFER, 0);
    glEnableClientState( GL_VERTEX_ARRAY );
-   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id_vbo_tri);
-   glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT, 0);
-   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
 
+   if (ajedrez){
+      glColorPointer(3, GL_FLOAT, 0, c.data() );
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id_vbo_tri1);
+      glDrawElements( GL_TRIANGLES, f2.size()*3, GL_UNSIGNED_INT, 0);
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
+      glColorPointer(3, GL_FLOAT, 0, c_aux.data() );
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id_vbo_tri2);
+      glDrawElements( GL_TRIANGLES, f2.size()*3, GL_UNSIGNED_INT, 0);
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
+   }
+   else{
+      glColorPointer(3, GL_FLOAT, 0, c.data() );
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id_vbo_tri);
+      glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT, 0);
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
+   }
 }
 // -----------------------------------------------------------------------------
 // Función de visualización de la malla,
@@ -57,42 +86,90 @@ void Malla3D::draw_ModoDiferido()
 void Malla3D::draw()
 {
    // completar .....(práctica 1)
-   switch(modo_dibujado){
-      case GL_POINT:
-         c.clear();
-         for(int i = 0; i < v.size(); i++){
-            Tupla3f rgb(255,0,0);
-            c.push_back(rgb);
+   Tupla3f rgb1(0,255,0);
+   Tupla3f rgb2(0,0,0);
+   Tupla3f rgbpi(255,0,0);
+   Tupla3f rgbpd(255,255,0);
+   Tupla3f rgbli(0,0,0);
+   Tupla3f rgbld(0,255,0);
+   Tupla3f rgbfi(0,0,255);
+   Tupla3f rgbfd(255,0,255);
+
+   if(ajedrez){
+      c.clear();
+      c_aux.clear();
+      for(int i = 0; i < v.size(); i++){
+         switch (tipo_draw) {
+            case INMED:
+               c.push_back(rgb1);
+               c_aux.push_back(rgb2);
+               break;
+            case DIFER:
+               c.push_back(rgb2);
+               c_aux.push_back(rgb1);
+               break;
          }
-         break;
-      case GL_LINE:
-         c.clear();
-         for(int i = 0; i < v.size(); i++){
-            Tupla3f rgb(0,0,0);
-            c.push_back(rgb);
-         }
-         break;
-      case GL_FILL:
-         c.clear();
-         if(ajedrez){
-            
+      }
+      for(int i = 0; i < f.size(); i++){
+         if(i%2==0){
+            f1.push_back(f[i]);
          }
          else{
-            for(int i = 0; i < v.size(); i++){
-               Tupla3f rgb(0,0,255);
-               c.push_back(rgb);
-            }
+            f2.push_back(f[i]);
          }
+      }
+   }
+   else{
+      switch(modo_dibujado){
+         case GL_POINT:
+            c.clear();
+            for(int i = 0; i < v.size(); i++){
+               switch (tipo_draw) {
+                  case INMED:
+                     c.push_back(rgbpi);
+                     break;
+                  case DIFER:
+                     c.push_back(rgbpd);
+                     break;
+               }
+            }
+            break;
+         case GL_LINE:
+            c.clear();
+            for(int i = 0; i < v.size(); i++){
+               switch (tipo_draw) {
+                  case INMED:
+                     c.push_back(rgbli);
+                     break;
+                  case DIFER:
+                     c.push_back(rgbld);
+                     break;
+               }
+            }
+            break;
+         case GL_FILL:
+            c.clear();
+            for(int i = 0; i < v.size(); i++){
+               switch (tipo_draw) {
+                  case INMED:
+                     c.push_back(rgbfi);
+                     break;
+                  case DIFER:
+                     c.push_back(rgbfd);
+                     break;
+               }
+            }
+            break;
+      }
+   }
+   switch(tipo_draw){
+      case INMED:
+         draw_ModoInmediato(ajedrez);
          break;
-      }
-      switch(tipo_draw){
-         case INMED:
-            draw_ModoInmediato();
-            break;
-         case DIFER:
-            draw_ModoDiferido();
-            break;
-      }
+      case DIFER:
+         draw_ModoDiferido(ajedrez);
+         break;
+   }
 }
 
 GLuint Malla3D::CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram ){
