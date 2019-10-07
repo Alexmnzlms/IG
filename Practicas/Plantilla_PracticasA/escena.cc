@@ -34,6 +34,8 @@ Escena::Escena()
 
 void Escena::inicializar( int UI_window_width, int UI_window_height )
 {
+   using namespace std;
+
 	glClearColor( 1.0, 1.0, 1.0, 1.0 );// se indica cual sera el color para limpiar la ventana	(r,v,a,al)
 
 	glEnable( GL_DEPTH_TEST );	// se habilita el z-bufer
@@ -43,6 +45,13 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
+
+   cout << "Seleccione menu" << endl;
+   cout << "O: Seleccion de objeto" << endl;
+   cout << "V: seleccion de visualizacion" << endl;
+   cout << "D: seleccion de dibujado" << endl;
+   cout << "Q: salir" << endl;
+   cout << endl;
 }
 
 
@@ -124,6 +133,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
    {
       case 'Q' :
          if (modoMenu!=NADA){
+            cout << "Seleccione menu" << endl;
+            cout << "O: Seleccion de objeto" << endl;
+            cout << "V: seleccion de visualizacion" << endl;
+            cout << "D: seleccion de dibujado" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
             modoMenu=NADA;
           }
          else {
@@ -134,62 +149,117 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          // ESTAMOS EN MODO SELECCION DE OBJETO
          modoMenu=SELOBJETO;
          cout << "Seleccione objeto" << endl;
+         cout << "C: Cubo" << endl;
+         cout << "T: Tetraedro" << endl;
+         cout << "Q: salir" << endl;
+         cout << endl;
          break ;
       case 'V' :
          // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
          modoMenu=SELVISUALIZACION;
          cout << "Seleccione modo de visualización" << endl;
+         cout << "P: Modo punto" << endl;
+         cout << "L: Modo linea" << endl;
+         cout << "S: Modo Solido" << endl;
+         cout << "A: Modo ajedrez" << endl;
+         cout << "Q: salir" << endl;
+         cout << endl;
          break ;
       case 'D' :
          // ESTAMOS EN MODO SELECCION DE DIBUJADO
          modoMenu=SELDIBUJADO;
+         cout << "Seleccione modo de visualización" << endl;
+         cout << "1: Modo inmediato" << endl;
+         cout << "2: Modo diferido" << endl;
+         cout << "Q: salir" << endl;
+         cout << endl;
          break ;
          // COMPLETAR con los diferentes opciones de teclado
        case 'P':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de punto" << endl;
+            cout << "P: Modo punto" << endl;
+            cout << "L: Modo linea" << endl;
+            cout << "S: Modo Solido" << endl;
+            cout << "A: Modo ajedrez" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
             punto = !punto;
          }
          break ;
        case 'L':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de linea" << endl;
+            cout << "P: Modo punto" << endl;
+            cout << "L: Modo linea" << endl;
+            cout << "S: Modo Solido" << endl;
+            cout << "A: Modo ajedrez" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
             linea = !linea;
          }
          break ;
        case 'S':
           if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de solido" << endl;
+            cout << "P: Modo punto" << endl;
+            cout << "L: Modo linea" << endl;
+            cout << "S: Modo Solido" << endl;
+            cout << "A: Modo ajedrez" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
             solido = !solido;
           }
          break ;
       case 'A':
          if(modoMenu == SELVISUALIZACION){
           cout << "Seleccionado visualización de ajedrez" << endl;
+          cout << "P: Modo punto" << endl;
+          cout << "L: Modo linea" << endl;
+          cout << "S: Modo Solido" << endl;
+          cout << "A: Modo ajedrez" << endl;
+          cout << "Q: salir" << endl;
+          cout << endl;
           ajedrez = !ajedrez;
          }
          break ;
        case 'C':
           if(modoMenu == SELOBJETO){
             cout << "Seleccionado cubo" << endl;
+            cout << "C: Cubo" << endl;
+            cout << "T: Tetraedro" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
             objMalla = CUBO;
           }
           break ;
        case 'T':
           if(modoMenu == SELOBJETO){
             cout << "Seleccionado tetraedro" << endl;
+            cout << "C: Cubo" << endl;
+            cout << "T: Tetraedro" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
             objMalla = TETRAEDRO;
           }
           break ;
       case '1':
          if(modoMenu == SELDIBUJADO){
            cout << "Seleccionado modo inmediato" << endl;
+           cout << "1: Modo inmediato" << endl;
+           cout << "2: Modo diferido" << endl;
+           cout << "Q: salir" << endl;
+           cout << endl;
            tipo_draw = INMED;
          }
          break ;
        case '2':
           if(modoMenu == SELDIBUJADO){
             cout << "Seleccionado modo diferido" << endl;
+            cout << "1: Modo inmediato" << endl;
+            cout << "2: Modo diferido" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
             tipo_draw = DIFER;
           }
           break ;
