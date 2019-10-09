@@ -78,12 +78,12 @@ void Escena::dibujar()
     // tetraedro.draw()
     switch (objMalla) {
       case CUBO:
-        if(punto){
+        if(punto && !ajedrez){
           cubo->cambiar_modo(GL_POINT);
           cubo->cambiar_draw(tipo_draw);
           cubo->draw();
         }
-        if(linea){
+        if(linea && !ajedrez){
           cubo->cambiar_modo(GL_LINE);
           cubo->cambiar_draw(tipo_draw);
           cubo->draw();
@@ -233,6 +233,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           cout << endl;
           ajedrez = !ajedrez;
           solido = !solido;
+          punto = false;
+          linea = false;
          }
          break ;
        case 'C':
