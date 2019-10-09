@@ -17,23 +17,25 @@
 // clase para objetos 3D (mallas indexadas)
 //
 // *****************************************************************************
-typedef enum {INMED, DIFER} dibujo;
+typedef enum {INMED, DIFER, CHEST} dibujo;
 class Malla3D
 {
    public:
 
    // dibuja el objeto en modo inmediato
-   void draw_ModoInmediato(bool ajedrez);
+   void draw_ModoInmediato();
 
    // dibuja el objeto en modo diferido (usando VBOs)
-   void draw_ModoDiferido(bool ajedrez);
+   void draw_ModoDiferido();
+
+   void draw_ModoAjedrez();
 
    // función que redibuja el objeto
    // está función llama a 'draw_ModoInmediato' (modo inmediato)
    // o bien a 'draw_ModoDiferido' (modo diferido, VBOs)
    void draw() ;
 
-   void cambiar_modo(GLenum, bool) ;
+   void cambiar_modo(GLenum) ;
    void cambiar_draw(dibujo);
    GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );
 
@@ -43,7 +45,7 @@ class Malla3D
    GLenum modo_dibujado;
    bool ajedrez;
    dibujo tipo_draw;
-   GLuint id_vbo_ver = 0, id_vbo_tri = 0, id_vbo_tri1 = 0, id_vbo_tri2 = 0;
+   GLuint id_vbo_ver = 0, id_vbo_tri = 0;
    std::vector<Tupla3f> v ;   // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
    std::vector<Tupla3i> f ; // una terna de 3 enteros por cada cara o triángulo
    std::vector<Tupla3i> f1;

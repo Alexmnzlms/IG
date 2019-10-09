@@ -79,35 +79,45 @@ void Escena::dibujar()
     switch (objMalla) {
       case CUBO:
         if(punto){
-          cubo->cambiar_modo(GL_POINT, ajedrez);
+          cubo->cambiar_modo(GL_POINT);
           cubo->cambiar_draw(tipo_draw);
           cubo->draw();
         }
         if(linea){
-          cubo->cambiar_modo(GL_LINE, ajedrez);
+          cubo->cambiar_modo(GL_LINE);
           cubo->cambiar_draw(tipo_draw);
           cubo->draw();
         }
-        if(solido || ajedrez){
-          cubo->cambiar_modo(GL_FILL, ajedrez);
+        if(solido){
+          cubo->cambiar_modo(GL_FILL);
           cubo->cambiar_draw(tipo_draw);
+          cubo->draw();
+        }
+        if(ajedrez){
+          cubo->cambiar_modo(GL_FILL);
+          cubo->cambiar_draw(CHEST);
           cubo->draw();
         }
         break;
       case TETRAEDRO:
         if(punto){
-          tetraedro->cambiar_modo(GL_POINT, ajedrez);
+          tetraedro->cambiar_modo(GL_POINT);
           tetraedro->cambiar_draw(tipo_draw);
           tetraedro->draw();
         }
         if(linea){
-          tetraedro->cambiar_modo(GL_LINE, ajedrez);
+          tetraedro->cambiar_modo(GL_LINE);
           tetraedro->cambiar_draw(tipo_draw);
           tetraedro->draw();
         }
-        if(solido || ajedrez){
-          tetraedro->cambiar_modo(GL_FILL, ajedrez);
+        if(solido){
+          tetraedro->cambiar_modo(GL_FILL);
           tetraedro->cambiar_draw(tipo_draw);
+          tetraedro->draw();
+        }
+        if(ajedrez){
+          tetraedro->cambiar_modo(GL_FILL);
+          tetraedro->cambiar_draw(CHEST);
           tetraedro->draw();
         }
         break;
@@ -209,6 +219,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             solido = !solido;
+            ajedrez = !ajedrez;
           }
          break ;
       case 'A':
@@ -221,6 +232,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           cout << "Q: salir" << endl;
           cout << endl;
           ajedrez = !ajedrez;
+          solido = !solido;
          }
          break ;
        case 'C':
