@@ -9,16 +9,16 @@
 .PHONY: x
 
 exe             := pracs_exe
-units_cc        := $(wildcard *.cc) $(wildcard *.cpp)
-units_o         := $(addsuffix .o, $(basename $(units_cc)))
-headers         := $(wildcard *.h*)
+units_cc        := $(wildcard $(addprefix src/, *.cc)) $(wildcard $(addprefix src/, *.cpp))
+units_o         := $(addprefix obj/, $(addsuffix .o, $(notdir $(basename $(units_cc)))))
+headers         := $(wildcard $(addprefix include/, *.h*))
 uname           := $(shell uname -s)
 en_macos        := $(findstring Darwin,$(uname))
 en_linux        := $(findstring Linux,$(uname))
 compiler        := $(if $(en_linux), g++, clang++ )
 sistoper        := $(if $(en_macos), macOS, Linux )
 
-cc_flags_common := -std=c++11 -g -I/usr/include -I.
+cc_flags_common := -std=c++11 -g -I/usr/include -I./include
 cc_flags_linux  := -DLINUX
 cc_flags_macos  := -DMACOS
 cc_flags        := $(cc_flags_common) $(if $(en_linux), $(cc_flags_linux), $(cc_flags_macos))
@@ -47,4 +47,12 @@ $(units_cc) : $(headers)
 	touch $(units_cc)
 
 clean:
-	rm -f *.o *_exe
+	rm -rf *.o *_exe
+
+echo:
+	@echo $(units_cc)
+	@echo $(headers)
+	@echo $(units_o)
+	@echo $(compiler) -o $(exe)  $(units_o) $(ld_libs)
+	@echo $(compiler) -c  $(cc_flags) $<
+	@echo $(exe): $(units_o) makefile
