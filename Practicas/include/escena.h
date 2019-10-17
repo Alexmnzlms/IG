@@ -5,6 +5,9 @@
 #include "malla.h"
 #include "cubo.h"
 #include "tetraedro.h"
+/*#include "objply.h"
+#include "objrevolucion.h"
+#include "ply_reader.h"*/
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO} menu;
 typedef enum {CUBO, TETRAEDRO} malla;
