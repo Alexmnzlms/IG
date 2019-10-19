@@ -23,6 +23,7 @@ Escena::Escena()
     // .....
     cubo = new Cubo(75);
     tetraedro = new Tetraedro(75);
+    objply = new ObjPLY("ply/ant.ply",10);
 
 }
 
@@ -66,9 +67,10 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 void Escena::dibujar()
 {
 
-	change_observer();
-  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
-    ejes.draw();
+   change_observer();
+   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
+   ejes.draw();
+
     // COMPLETAR
     //   Dibujar los diferentes elementos de la escena
     // Habrá que tener en esta primera práctica una variable que indique qué objeto se ha de visualizar
@@ -76,52 +78,76 @@ void Escena::dibujar()
     // cubo.draw()
     // o
     // tetraedro.draw()
-    switch (objMalla) {
+
+   switch (objMalla) {
       case CUBO:
-        if(punto && !ajedrez){
-          cubo->cambiar_modo(GL_POINT);
-          cubo->cambiar_draw(tipo_draw);
-          cubo->draw();
-        }
-        if(linea && !ajedrez){
-          cubo->cambiar_modo(GL_LINE);
-          cubo->cambiar_draw(tipo_draw);
-          cubo->draw();
-        }
-        if(solido){
-          cubo->cambiar_modo(GL_FILL);
-          cubo->cambiar_draw(tipo_draw);
-          cubo->draw();
-        }
-        if(ajedrez){
-          cubo->cambiar_modo(GL_FILL);
-          cubo->cambiar_draw(CHEST);
-          cubo->draw();
-        }
-        break;
+         if(punto && !ajedrez){
+            cubo->cambiar_modo(GL_POINT);
+            cubo->cambiar_draw(tipo_draw);
+            cubo->draw();
+         }
+         if(linea && !ajedrez){
+            cubo->cambiar_modo(GL_LINE);
+            cubo->cambiar_draw(tipo_draw);
+            cubo->draw();
+         }
+         if(solido){
+            cubo->cambiar_modo(GL_FILL);
+            cubo->cambiar_draw(tipo_draw);
+            cubo->draw();
+         }
+         if(ajedrez){
+            cubo->cambiar_modo(GL_FILL);
+            cubo->cambiar_draw(CHEST);
+            cubo->draw();
+         }
+         break;
       case TETRAEDRO:
-        if(punto){
-          tetraedro->cambiar_modo(GL_POINT);
-          tetraedro->cambiar_draw(tipo_draw);
-          tetraedro->draw();
-        }
-        if(linea){
-          tetraedro->cambiar_modo(GL_LINE);
-          tetraedro->cambiar_draw(tipo_draw);
-          tetraedro->draw();
-        }
-        if(solido){
-          tetraedro->cambiar_modo(GL_FILL);
-          tetraedro->cambiar_draw(tipo_draw);
-          tetraedro->draw();
-        }
-        if(ajedrez){
-          tetraedro->cambiar_modo(GL_FILL);
-          tetraedro->cambiar_draw(CHEST);
-          tetraedro->draw();
-        }
-        break;
-    }
+         if(punto){
+            tetraedro->cambiar_modo(GL_POINT);
+            tetraedro->cambiar_draw(tipo_draw);
+            tetraedro->draw();
+         }
+         if(linea){
+            tetraedro->cambiar_modo(GL_LINE);
+            tetraedro->cambiar_draw(tipo_draw);
+            tetraedro->draw();
+         }
+         if(solido){
+            tetraedro->cambiar_modo(GL_FILL);
+            tetraedro->cambiar_draw(tipo_draw);
+            tetraedro->draw();
+         }
+         if(ajedrez){
+            tetraedro->cambiar_modo(GL_FILL);
+            tetraedro->cambiar_draw(CHEST);
+            tetraedro->draw();
+         }
+         break;
+      case PLY:
+         if(punto){
+            objply->cambiar_modo(GL_POINT);
+            objply->cambiar_draw(tipo_draw);
+            objply->draw();
+         }
+         if(linea){
+            objply->cambiar_modo(GL_LINE);
+            objply->cambiar_draw(tipo_draw);
+            objply->draw();
+         }
+         if(solido){
+            objply->cambiar_modo(GL_FILL);
+            objply->cambiar_draw(tipo_draw);
+            objply->draw();
+         }
+         if(ajedrez){
+            objply->cambiar_modo(GL_FILL);
+            objply->cambiar_draw(CHEST);
+            objply->draw();
+         }
+      break;
+
+   }
 
 
 }
@@ -161,6 +187,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          cout << "Seleccione objeto" << endl;
          cout << "C: Cubo" << endl;
          cout << "T: Tetraedro" << endl;
+         cout << "Y: Archivo PLY" << endl;
          cout << "Q: salir" << endl;
          cout << endl;
          break ;
@@ -219,7 +246,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             solido = !solido;
-            ajedrez = !ajedrez;
           }
          break ;
       case 'A':
@@ -232,7 +258,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           cout << "Q: salir" << endl;
           cout << endl;
           ajedrez = !ajedrez;
-          solido = !solido;
+          solido = false;
           punto = false;
           linea = false;
          }
@@ -242,6 +268,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Seleccionado cubo" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
+            cout << "Y: Archivo PLY" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = CUBO;
@@ -252,11 +279,23 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Seleccionado tetraedro" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
+            cout << "Y: Archivo PLY" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = TETRAEDRO;
           }
           break ;
+          case 'Y':
+             if(modoMenu == SELOBJETO){
+               cout << "Seleccionado tetraedro" << endl;
+               cout << "C: Cubo" << endl;
+               cout << "T: Tetraedro" << endl;
+               cout << "Y: Archivo PLY" << endl;
+               cout << "Q: salir" << endl;
+               cout << endl;
+               objMalla = PLY;
+             }
+             break ;
       case '1':
          if(modoMenu == SELDIBUJADO){
            cout << "Seleccionado modo inmediato" << endl;

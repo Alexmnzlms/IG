@@ -53,7 +53,8 @@ void read
 (
    const std::string &     nombre_archivo_pse, // entrada: nombre de archivo
    std::vector<Tupla3f> &  vertices,           // salida:  vector de coords. de vert.
-   std::vector<Tupla3i> &  caras               // salida:  vector de triángulos (índices)
+   std::vector<Tupla3i> &  caras,               // salida:  vector de triángulos (índices)
+   int mult
 );
 
 

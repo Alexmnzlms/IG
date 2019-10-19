@@ -56,7 +56,7 @@ void leer_cabecera( ifstream & src,
                     const bool lee_num_caras ) ;
 void error( const char *msg_error ) ;
 void leer_vertices(  unsigned num_vertices, vector<Tupla3f> & vertices,
-                     ifstream & src  ) ;
+                     ifstream & src, int mult  ) ;
 void leer_caras( unsigned num_vertices,
                  unsigned num_caras, vector<Tupla3i> & caras,
                  ifstream & src  ) ;
@@ -67,7 +67,8 @@ void read
 (
    const std::string &     nombre_archivo_pse, // entrada: nombre de archivo
    std::vector<Tupla3f> &  vertices,           // salida:  vector de coords. de vert.
-   std::vector<Tupla3i> &  caras               // salida:  vector de triángulos (índices)
+   std::vector<Tupla3i> &  caras,               // salida:  vector de triángulos (índices)
+   int                     mult
 )
 {
    unsigned
@@ -83,7 +84,7 @@ void read
 
    abrir_archivo( na, src ) ;
    leer_cabecera( src, num_vertices, num_caras, true ) ;
-   leer_vertices( num_vertices, vertices, src ) ;
+   leer_vertices( num_vertices, vertices, src, mult ) ;
    leer_caras( num_vertices, num_caras, caras, src ) ;
 
    cout << "archivo ply '" << na << "' leido: núm. vértices == " << num_vertices << ", núm caras == " << num_caras << endl << flush ;
@@ -109,7 +110,7 @@ void read_vertices
 
    abrir_archivo( na, src ) ;
    leer_cabecera( src, num_vertices, num_caras, false ) ;
-   leer_vertices( num_vertices, vertices, src ) ;
+   leer_vertices( num_vertices, vertices, src , 1) ;
 
    cout << "archivo ply '" << na << "' leido: núm. vértices == " << num_vertices << " (caras no leídas)." << endl << flush ;
 }
@@ -120,7 +121,8 @@ void leer_vertices
 (
    unsigned          num_vertices,
    vector<Tupla3f> & vertices,
-   ifstream &        src
+   ifstream &        src,
+   int               mult
 )
 {
    char
@@ -147,7 +149,7 @@ void leer_vertices
       src.getline( buffer, tam_buffer ); // ignore more properties, so far ...
 
       // add new vertex
-      vertices[iv] = Tupla3f(x,y,z) ;
+      vertices[iv] = Tupla3f(x*mult,y*mult,z*mult) ;
    }
    //cout << "  fin de la lista de vértices" << endl << flush ;
 }

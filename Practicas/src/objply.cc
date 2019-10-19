@@ -1,6 +1,6 @@
 #include "objply.h"
 #include "ply_reader.h"
- 
+
 
 // *****************************************************************************
 //
@@ -8,10 +8,8 @@
 //
 // *****************************************************************************
 
-ObjPLY::ObjPLY( const std::string & nombre_archivo )
+ObjPLY::ObjPLY( const std::string & nombre_archivo, int mult )
 {
    // leer la lista de caras y vértices
-   ply::read( nombre_archivo, this->v, this->f );
+   ply::read( nombre_archivo, this->v, this->f, mult );
 }
-
-

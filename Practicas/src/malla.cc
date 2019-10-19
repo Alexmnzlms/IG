@@ -19,7 +19,7 @@ void Malla3D::draw_ModoInmediato()
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
    glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
    glEnable( GL_CULL_FACE );
-   glPointSize(5.0);
+   glPointSize(3.0);
    glEnableClientState(GL_COLOR_ARRAY);
    glColorPointer(3, GL_FLOAT, 0, c.data() );
    glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT,f.data() );
@@ -33,7 +33,6 @@ void Malla3D::draw_ModoAjedrez()
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
    glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
    glEnable( GL_CULL_FACE );
-   glPointSize(5.0);
    glEnableClientState(GL_COLOR_ARRAY);
    glColorPointer(3, GL_FLOAT, 0, c.data() );
    glDrawElements( GL_TRIANGLES, f1.size()*3, GL_UNSIGNED_INT,f1.data() );
