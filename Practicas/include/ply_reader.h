@@ -78,7 +78,8 @@ void read
 void read_vertices
 (
    const std::string &    nombre_archivo_pse, // entrada: nombre de archivo
-   std::vector<Tupla3f> & vertices            // salida:  vector de coords. de vert.
+   std::vector<Tupla3f> & vertices,            // salida:  vector de coords. de vert.
+   int mult
 );
 
 } ; // fin namespace ply

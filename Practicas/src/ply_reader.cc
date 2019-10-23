@@ -94,7 +94,8 @@ void read
 
 void read_vertices
 (  const std::string & nombre_archivo_pse,
-   vector<Tupla3f> &   vertices
+   vector<Tupla3f> &   vertices,
+   int mult
 )
 {
    unsigned
@@ -110,7 +111,7 @@ void read_vertices
 
    abrir_archivo( na, src ) ;
    leer_cabecera( src, num_vertices, num_caras, false ) ;
-   leer_vertices( num_vertices, vertices, src , 1) ;
+   leer_vertices( num_vertices, vertices, src , mult) ;
 
    cout << "archivo ply '" << na << "' leido: núm. vértices == " << num_vertices << " (caras no leídas)." << endl << flush ;
 }

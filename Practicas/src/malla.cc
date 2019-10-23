@@ -113,9 +113,35 @@ void Malla3D::draw()
          for(int i = 0; i < v.size(); i++){
             switch (tipo_draw) {
                case INMED:
+                  if(f.empty()){
+                     for(int i = 0, j = 0; i < f1.size()+f2.size(); i++){
+                        if(i%2==0){
+                           f.push_back(f1[j]);
+                        }
+                        else{
+                           f.push_back(f2[j]);
+                           j++;
+                        }
+                     }
+                     f1.clear();
+                     f2.clear();
+                  }
                   c.push_back(rgbfi);
                   break;
                case DIFER:
+                  if(f.empty()){
+                     for(int i = 0, j = 0; i < f1.size()+f2.size(); i++){
+                        if(i%2==0){
+                           f.push_back(f1[j]);
+                        }
+                        else{
+                           f.push_back(f2[j]);
+                           j++;
+                        }
+                     }
+                     f1.clear();
+                     f2.clear();
+                  }
                   c.push_back(rgbfd);
                   break;
                case CHEST:
@@ -133,6 +159,7 @@ void Malla3D::draw()
                         f2.push_back(f[i]);
                      }
                   }
+                  f.clear();
                   break;
             }
          }

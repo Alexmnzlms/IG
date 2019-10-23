@@ -6,12 +6,10 @@
 #include "cubo.h"
 #include "tetraedro.h"
 #include "objply.h"
-/*#include "objply.h"
 #include "objrevolucion.h"
-#include "ply_reader.h"*/
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO} menu;
-typedef enum {CUBO, TETRAEDRO, PLY} malla;
+typedef enum {CUBO, TETRAEDRO, PLY, ROT} malla;
 class Escena
 {
 
@@ -42,13 +40,16 @@ class Escena
    bool punto = false;
    bool solido = true;
    bool ajedrez = false;
-   malla objMalla=PLY;
+   malla objMalla=ROT;
    dibujo tipo_draw=INMED;
+   std::string ply = "ply/ant.ply";
+   std::string plyrot = "ply/peon.ply";
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'
    Tetraedro * tetraedro= nullptr ; // es importante inicializarlo a 'nullptr'
    ObjPLY * objply = nullptr ;
+   ObjRevolucion * objrot = nullptr;
 
 
    public:
