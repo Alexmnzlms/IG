@@ -34,11 +34,6 @@ ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, in
       v = aux;
    }
    crearMalla(v, num_instancias);
-   using namespace std;
-   cout << v.front() << endl;
-   cout << v.back() << endl;
-
-
 }
 
 // *****************************************************************************
@@ -46,7 +41,7 @@ ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, in
 
 
 ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, bool tapa_sup, bool tapa_inf) {
-
+   crearMalla(archivo, num_instancias);
 }
 
 void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias) {

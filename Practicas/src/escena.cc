@@ -25,7 +25,8 @@ Escena::Escena()
     tetraedro = new Tetraedro(75);
     objply = new ObjPLY(ply,7);
     objrot = new ObjRevolucion(plyrot, 36, 65);
-
+    esfera = new Esfera(10, 20, 75.0);
+    cono = new Cono(10, 20, 100.0, 75.0);
 }
 
 //**************************************************************************
@@ -169,6 +170,50 @@ void Escena::dibujar()
             objrot->draw();
          }
       break;
+      case CON:
+         if(punto){
+            cono->cambiar_modo(GL_POINT);
+            cono->cambiar_draw(tipo_draw);
+            cono->draw();
+         }
+         if(linea){
+            cono->cambiar_modo(GL_LINE);
+            cono->cambiar_draw(tipo_draw);
+            cono->draw();
+         }
+         if(solido){
+            cono->cambiar_modo(GL_FILL);
+            cono->cambiar_draw(tipo_draw);
+            cono->draw();
+         }
+         if(ajedrez){
+            cono->cambiar_modo(GL_FILL);
+            cono->cambiar_draw(CHEST);
+            cono->draw();
+         }
+      break;
+      case ESF:
+         if(punto){
+            esfera->cambiar_modo(GL_POINT);
+            esfera->cambiar_draw(tipo_draw);
+            esfera->draw();
+         }
+         if(linea){
+            esfera->cambiar_modo(GL_LINE);
+            esfera->cambiar_draw(tipo_draw);
+            esfera->draw();
+         }
+         if(solido){
+            esfera->cambiar_modo(GL_FILL);
+            esfera->cambiar_draw(tipo_draw);
+            esfera->draw();
+         }
+         if(ajedrez){
+            esfera->cambiar_modo(GL_FILL);
+            esfera->cambiar_draw(CHEST);
+            esfera->draw();
+         }
+      break;
 
    }
 
@@ -212,6 +257,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          cout << "T: Tetraedro" << endl;
          cout << "Y: Archivo PLY" << endl;
          cout << "R: Archivo PLY rotacion" << endl;
+         cout << "E: Esfera" << endl;
+         cout << "3: Cono" << endl;
          cout << "Q: salir" << endl;
          cout << endl;
          break ;
@@ -295,6 +342,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
             cout << "R: Archivo PLY rotacion" << endl;
+            cout << "E: Esfera" << endl;
+            cout << "3: Cono" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = CUBO;
@@ -307,6 +356,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
             cout << "R: Archivo PLY rotacion" << endl;
+            cout << "E: Esfera" << endl;
+            cout << "3: Cono" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = TETRAEDRO;
@@ -319,6 +370,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
             cout << "R: Archivo PLY rotacion" << endl;
+            cout << "E: Esfera" << endl;
+            cout << "3: Cono" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = PLY;
@@ -331,11 +384,41 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
             cout << "R: Archivo PLY rotacion" << endl;
+            cout << "E: Esfera" << endl;
+            cout << "3: Cono" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = ROT;
           }
           break ;
+       case 'E':
+          if(modoMenu == SELOBJETO){
+            cout << "Seleccionado tetraedro" << endl;
+            cout << "C: Cubo" << endl;
+            cout << "T: Tetraedro" << endl;
+            cout << "Y: Archivo PLY" << endl;
+            cout << "R: Archivo PLY rotacion" << endl;
+            cout << "E: Esfera" << endl;
+            cout << "3: Cono" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
+            objMalla = ESF;
+          }
+          break ;
+          case '3':
+            if(modoMenu == SELOBJETO){
+              cout << "Seleccionado tetraedro" << endl;
+              cout << "C: Cubo" << endl;
+              cout << "T: Tetraedro" << endl;
+              cout << "Y: Archivo PLY" << endl;
+              cout << "R: Archivo PLY rotacion" << endl;
+              cout << "E: Esfera" << endl;
+              cout << "3: Cono" << endl;
+              cout << "Q: salir" << endl;
+              cout << endl;
+              objMalla = CON;
+            }
+            break ;
       case '1':
          if(modoMenu == SELDIBUJADO){
            cout << "Seleccionado modo inmediato" << endl;
