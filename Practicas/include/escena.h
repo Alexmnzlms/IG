@@ -9,9 +9,10 @@
 #include "objrevolucion.h"
 #include "esfera.h"
 #include "cono.h"
+#include "cilindro.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO} menu;
-typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF} malla;
+typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL} malla;
 class Escena
 {
 
@@ -42,10 +43,10 @@ class Escena
    bool punto = false;
    bool solido = true;
    bool ajedrez = false;
-   malla objMalla=CON;
+   malla objMalla=ROT;
    dibujo tipo_draw=INMED;
    std::string ply = "ply/ant.ply";
-   std::string plyrot = "ply/peon.ply";
+   std::string plyrot = "ply/peon_inv.ply";
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'
@@ -54,6 +55,7 @@ class Escena
    ObjRevolucion * objrot = nullptr;
    Esfera * esfera = nullptr;
    Cono * cono = nullptr;
+   Cilindro *cilindro = nullptr;
 
 
    public:
