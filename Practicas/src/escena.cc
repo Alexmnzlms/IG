@@ -21,13 +21,15 @@ Escena::Escena()
     // crear los objetos de la escena....
     // .......completar: ...
     // .....
+    int num_vert = 10;
+    int num_rot = 20;
     cubo = new Cubo(75);
     tetraedro = new Tetraedro(75);
     objply = new ObjPLY(ply,7);
-    objrot = new ObjRevolucion(plyrot, 20, 65,true,true);
-    esfera = new Esfera(10, 20, 75.0);
-    cono = new Cono(20, 20, 100.0, 50.0);
-    cilindro = new Cilindro(10, 20, 75.0, 75.0);
+    objrot = new ObjRevolucion(plyrot, num_rot, 65,true,true);
+    esfera = new Esfera(num_vert, num_rot, 75.0);
+    cono = new Cono(num_vert, num_rot, 100.0, 100.0);
+    cilindro = new Cilindro(num_vert, num_rot, 100.0, 100.0);
 }
 
 //**************************************************************************
@@ -148,7 +150,7 @@ void Escena::dibujar()
             objply->cambiar_draw(CHEST);
             objply->draw();
          }
-      break;
+         break;
       case ROT:
          if(punto){
             objrot->cambiar_modo(GL_POINT);
@@ -170,7 +172,7 @@ void Escena::dibujar()
             objrot->cambiar_draw(CHEST);
             objrot->draw();
          }
-      break;
+         break;
       case CON:
          if(punto){
             cono->cambiar_modo(GL_POINT);
@@ -192,7 +194,7 @@ void Escena::dibujar()
             cono->cambiar_draw(CHEST);
             cono->draw();
          }
-      break;
+         break;
       case ESF:
          if(punto){
             esfera->cambiar_modo(GL_POINT);
@@ -214,7 +216,7 @@ void Escena::dibujar()
             esfera->cambiar_draw(CHEST);
             esfera->draw();
          }
-      break;
+         break;
       case CIL:
          if(punto){
             cilindro->cambiar_modo(GL_POINT);
@@ -236,6 +238,34 @@ void Escena::dibujar()
             cilindro->cambiar_draw(CHEST);
             cilindro->draw();
          }
+         break;
+      case MULT:
+         glPushMatrix();
+            glPushMatrix();
+               glTranslatef(100,0,0);
+               cilindro->cambiar_modo(GL_FILL);
+               cilindro->cambiar_draw(CHEST);
+               cilindro->draw();
+            glPopMatrix();
+            glPushMatrix();
+               glTranslatef(-150,0,0);
+               cono->cambiar_modo(GL_FILL);
+               cono->cambiar_draw(CHEST);
+               cono->draw();
+            glPopMatrix();
+            glPushMatrix();
+               glTranslatef(0,75,-150);
+               esfera->cambiar_modo(GL_FILL);
+               esfera->cambiar_draw(CHEST);
+               esfera->draw();
+            glPopMatrix();
+            glPushMatrix();
+               glTranslatef(0,90,150);
+               objrot->cambiar_modo(GL_FILL);
+               objrot->cambiar_draw(CHEST);
+               objrot->draw();
+            glPopMatrix();
+         glPopMatrix();
       break;
 
    }

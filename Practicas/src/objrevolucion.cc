@@ -20,32 +20,20 @@ ObjRevolucion::ObjRevolucion() {}
 
 ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, int mult, bool tapa_sup, bool tapa_inf) {
    ply::read_vertices(archivo, v, mult);
-   int num_vertices = v.size();
 
    if(perfilInverso(v)){
       v = invertirPerfil(v);
    }
+
+   int num_vert = v.size();
+
    crearMalla(v, num_instancias);
 
-   /*for(int i = 0; i < v.size(); i++){
-      std::cout << i << " " << v[i] << std::endl;
-   }*/
    if(tapa_sup){
-      float coor_y = v.back()(1);
-      v.push_back({0,coor_y,0});
-      for(int i = 1; i <= num_instancias; i++){
-         //std::cout << i*num_vertices-1 << " " << (i+1)*num_vertices-1 << " " << v.size()-1 << std::endl;
-         f.push_back(Tupla3i(i*num_vertices-1, (i+1)*num_vertices-1, v.size()-1));
-      }
+      ponTapaSup(v, num_instancias, num_vert);
    }
    if(tapa_inf){
-      std::vector<Tupla3f> aux;
-      float coor_y = v.front()(1);
-      v.push_back({0,coor_y,0});
-      for(int i = 0; i < num_instancias; i++){
-         //std::cout << i*num_vertices << " " << (i+1)*num_vertices << " " << v.size()-1 << std::endl;
-         f.push_back(Tupla3i(v.size()-1, (i+1)*num_vertices, i*num_vertices));
-      }
+      ponTapaInf(v, num_instancias, num_vert);
    }
 }
 
@@ -116,12 +104,26 @@ bool ObjRevolucion::detecTapaInf(std::vector<Tupla3f> archivo){
    }
 }
 
-void ObjRevolucion::ponTapaSup(std::vector<Tupla3f> archivo){
-
+void ObjRevolucion::ponTapaSup(std::vector<Tupla3f> archivo, int num_instancias, int num_vertices){
+   std::cout << "TapaSup: " << num_vertices << std::endl;
+   float coor_y = v.back()(1);
+   v.push_back({0,coor_y,0});
+   for(int i = 0; i < v.size(); i++){
+      std::cout << "TapaSup: " << i << " " << v[i] << std::endl;
+   }
+   for(int i = 1; i <= num_instancias; i++){
+      std::cout << "TapaSup: " << i*num_vertices-1 << " " << (i+1)*num_vertices-1 << " " << v.size()-1 << std::endl;
+      f.push_back(Tupla3i(i*num_vertices-1, (i+1)*num_vertices-1, v.size()-1));
+   }
 }
 
-void ObjRevolucion::ponTapaInf(std::vector<Tupla3f> archivo){
-
+void ObjRevolucion::ponTapaInf(std::vector<Tupla3f> archivo, int num_instancias, int num_vertices){
+   float coor_y = v.front()(1);
+   v.push_back({0,coor_y,0});
+   for(int i = 0; i < num_instancias; i++){
+      std::cout << "TapaInf: " << i*num_vertices << " " << (i+1)*num_vertices << " " << v.size()-1 << std::endl;
+      f.push_back(Tupla3i(v.size()-1, (i+1)*num_vertices, i*num_vertices));
+   }
 }
 
 void ObjRevolucion::quitTapaSup(std::vector<Tupla3f> archivo){

@@ -12,7 +12,7 @@
 #include "cilindro.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO} menu;
-typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL} malla;
+typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
 class Escena
 {
 
@@ -43,7 +43,7 @@ class Escena
    bool punto = false;
    bool solido = true;
    bool ajedrez = false;
-   malla objMalla=ROT;
+   malla objMalla=MULT;
    dibujo tipo_draw=INMED;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon_inv.ply";
