@@ -28,8 +28,17 @@ void Malla3D::draw_ModoInmediato()
 
 void Malla3D::draw_ModoAjedrez()
 {
+   std::vector<Tupla3i> f1;
+   std::vector<Tupla3i> f2;
+   for(int i = 0; i < f.size(); i++){
+      if(i%2==0){
+         f1.push_back(f[i]);
+      }
+      else{
+         f2.push_back(f[i]);
+      }
+   }
    glEnableClientState( GL_VERTEX_ARRAY );
-
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
    glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
    glEnable( GL_CULL_FACE );
@@ -72,14 +81,14 @@ void Malla3D::draw_ModoDiferido()
 void Malla3D::draw()
 {
    // completar .....(práctica 1)
-   Tupla3f rgb1(0,255,0);
-   Tupla3f rgb2(0,0,0);
-   Tupla3f rgbpi(255,0,0);
-   Tupla3f rgbpd(255,255,0);
-   Tupla3f rgbli(0,0,0);
-   Tupla3f rgbld(0,255,0);
-   Tupla3f rgbfi(0,0,255);
-   Tupla3f rgbfd(255,0,255);
+   Tupla3f rgb1(0.0f,1.0f,0.0f);
+   Tupla3f rgb2(0.0f,0.0f,0.0f);
+   Tupla3f rgbpi(1.0f,0.0f,0.0f);
+   Tupla3f rgbpd(1.0f,1.0f,0.0f);
+   Tupla3f rgbli(0.0f,0.0f,0.0f);
+   Tupla3f rgbld(0.0f,1.0f,0.0f);
+   Tupla3f rgbfi(0.0f,0.0f,1.0f);
+   Tupla3f rgbfd(1.0f,0.0f,1.0f);
 
    switch(modo_dibujado){
       case GL_POINT:
@@ -110,56 +119,18 @@ void Malla3D::draw()
          break;
       case GL_FILL:
          c.clear();
+         c_aux.clear();
          for(int i = 0; i < v.size(); i++){
             switch (tipo_draw) {
                case INMED:
-                  if(f.empty()){
-                     for(int i = 0, j = 0; i < f1.size()+f2.size(); i++){
-                        if(i%2==0){
-                           f.push_back(f1[j]);
-                        }
-                        else{
-                           f.push_back(f2[j]);
-                           j++;
-                        }
-                     }
-                     f1.clear();
-                     f2.clear();
-                  }
                   c.push_back(rgbfi);
                   break;
                case DIFER:
-                  if(f.empty()){
-                     for(int i = 0, j = 0; i < f1.size()+f2.size(); i++){
-                        if(i%2==0){
-                           f.push_back(f1[j]);
-                        }
-                        else{
-                           f.push_back(f2[j]);
-                           j++;
-                        }
-                     }
-                     f1.clear();
-                     f2.clear();
-                  }
                   c.push_back(rgbfd);
                   break;
                case CHEST:
-                  c.clear();
-                  c_aux.clear();
-                  for(int i = 0; i < v.size(); i++){
-                     c.push_back(rgb1);
-                     c_aux.push_back(rgb2);
-                  }
-                  for(int i = 0; i < f.size(); i++){
-                     if(i%2==0){
-                        f1.push_back(f[i]);
-                     }
-                     else{
-                        f2.push_back(f[i]);
-                     }
-                  }
-                  f.clear();
+                  c.push_back(rgb1);
+                  c_aux.push_back(rgb2);
                   break;
             }
          }
