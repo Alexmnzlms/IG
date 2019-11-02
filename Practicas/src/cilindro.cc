@@ -5,23 +5,22 @@
 #include <cmath>
 
 
-Cilindro::Cilindro(const int num_vert_perfil, const int num_instancias_perf, const float altura, const float radio)
+Cilindro::Cilindro(const int num_instancias_perf,const float altura, const float radio)
 {
-   GenerarPerfil(num_vert_perfil,altura,radio);
+   vertices_perfil  = 2;
+   instancias = num_instancias_perf;
+
+   GenerarPerfil(altura,radio);
    crearMalla(v, num_instancias_perf);
+
    bool tapa_sup = true, tapa_inf = true;
-   if(tapa_sup){
-      ponTapaSup(v, num_instancias_perf, num_vert_perfil);
-   }
-   if(tapa_inf){
-      ponTapaInf(v, num_instancias_perf, num_vert_perfil);
-   }
+   tapaSup = !tapa_sup;
+   tapaInf = !tapa_inf;
+   ponTapaSup(instancias, vertices_perfil);
+   ponTapaInf(instancias, vertices_perfil);
 }
 
-void Cilindro::GenerarPerfil(const int num_vert_perfil, const float altura, const float radio){
-   float coor_x, coor_y;
-   for(float i = 0; i < num_vert_perfil; i++){
-      coor_y = altura*(i/num_vert_perfil);
-      v.push_back({radio, coor_y, 0});
-   }
+void Cilindro::GenerarPerfil(const float altura, const float radio){
+   v.push_back({radio,0,0});
+   v.push_back({radio,altura,0});
 }

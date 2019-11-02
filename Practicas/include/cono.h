@@ -6,13 +6,13 @@
 class Cono: public ObjRevolucion
 {
    public:
-   Cono( const int num_vert_perfil,
-            const int num_instancias_perf,
+   Cono(    const int num_instancias_perf,
             const float altura,
             const float radio );
+   void tapaSuperior(bool tapa_sup);
 
    private:
-      void GenerarPerfil(const int num_vert_perfil, const float altura, const float radio);
+      void rotarPunto(std::vector<Tupla3f> perfil_original, int num_instancias);
 } ;
 
 

@@ -43,10 +43,12 @@ class Escena
    bool punto = false;
    bool solido = true;
    bool ajedrez = false;
-   malla objMalla=MULT;
-   dibujo tipo_draw=INMED;
+   bool quitar_superior = false;
+   bool quitar_inferior = false;
+   malla objMalla= CON;
+   dibujo tipo_draw=CHEST;
    std::string ply = "ply/ant.ply";
-   std::string plyrot = "ply/peon_inv.ply";
+   std::string plyrot = "ply/peon.ply";
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'

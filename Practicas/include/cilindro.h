@@ -6,13 +6,12 @@
 class Cilindro: public ObjRevolucion
 {
    public:
-   Cilindro( const int num_vert_perfil,
-            const int num_instancias_perf,
-            const float altura,
-            const float radio );
+   Cilindro(  const int num_instancias_perf,
+              const float altura,
+              const float radio );
 
    private:
-      void GenerarPerfil(const int num_vert_perfil, const float altura, const float radio);
+      void GenerarPerfil(const float altura, const float radio);
 } ;
 
 
