@@ -5,7 +5,7 @@
 #include <cmath>
 
 
-Cono::Cono(const int num_instancias_perf, const float altura, const float radio)
+Cono::Cono(const int num_instancias_perf, const float altura, const float radio,bool tapa_inf)
 {
 
    vertices_perfil  = 1;
@@ -19,8 +19,6 @@ Cono::Cono(const int num_instancias_perf, const float altura, const float radio)
    for(int i = 0; i < num_instancias_perf; i++){
       f.push_back(Tupla3i(i, (i+1), v.size()-2));
    }
-
-   bool tapa_inf = true;
 
    tapaInf = !tapa_inf;
    ponTapaInf(num_instancias_perf, vertices_perfil);
@@ -40,5 +38,5 @@ void Cono::rotarPunto(std::vector<Tupla3f> perfil_original, int num_instancias){
    }
 }
 
-void Cono::tapaSuperior(bool tapa_sup){
+void Cono::tapaSuperior(){
 }

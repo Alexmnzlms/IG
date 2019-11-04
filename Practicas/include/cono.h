@@ -8,8 +8,10 @@ class Cono: public ObjRevolucion
    public:
    Cono(    const int num_instancias_perf,
             const float altura,
-            const float radio );
-   void tapaSuperior(bool tapa_sup);
+            const float radio,
+            bool tapa_inf=true);
+
+   void tapaSuperior();
 
    private:
       void rotarPunto(std::vector<Tupla3f> perfil_original, int num_instancias);

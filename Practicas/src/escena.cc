@@ -26,10 +26,10 @@ Escena::Escena()
     cubo = new Cubo(75);
     tetraedro = new Tetraedro(75);
     objply = new ObjPLY(ply,7);
-    objrot = new ObjRevolucion(plyrot, num_rot, 65,true,true);
-    esfera = new Esfera(num_vert, num_rot, 100.0);
-    cono = new Cono(num_rot, 100.0, 100.0);
-    cilindro = new Cilindro(num_rot, 100.0, 100.0);
+    objrot = new ObjRevolucion(plyrot, num_rot, 65, RY, true, true);
+    esfera = new Esfera(num_vert, num_rot, 100.0, true, true);
+    cono = new Cono(num_rot, 100.0, 100.0, true);
+    cilindro = new Cilindro(num_rot, 100.0, 100.0, true, true);
 }
 
 //**************************************************************************
@@ -155,29 +155,21 @@ void Escena::dibujar()
          if(punto){
             objrot->cambiar_modo(GL_POINT);
             objrot->cambiar_draw(tipo_draw);
-            objrot->tapaSuperior(quitar_superior);
-            objrot->tapaInferior(quitar_inferior);
             objrot->draw();
          }
          if(linea){
             objrot->cambiar_modo(GL_LINE);
             objrot->cambiar_draw(tipo_draw);
-            objrot->tapaSuperior(quitar_superior);
-            objrot->tapaInferior(quitar_inferior);
             objrot->draw();
          }
          if(solido){
             objrot->cambiar_modo(GL_FILL);
             objrot->cambiar_draw(tipo_draw);
-            objrot->tapaSuperior(quitar_superior);
-            objrot->tapaInferior(quitar_inferior);
             objrot->draw();
          }
          if(ajedrez){
             objrot->cambiar_modo(GL_FILL);
             objrot->cambiar_draw(CHEST);
-            objrot->tapaSuperior(quitar_superior);
-            objrot->tapaInferior(quitar_inferior);
             objrot->draw();
          }
          break;
@@ -185,29 +177,23 @@ void Escena::dibujar()
          if(punto){
             cono->cambiar_modo(GL_POINT);
             cono->cambiar_draw(tipo_draw);
-            cono->tapaSuperior(quitar_superior);
-            cono->tapaInferior(quitar_inferior);
             cono->draw();
          }
          if(linea){
             cono->cambiar_modo(GL_LINE);
             cono->cambiar_draw(tipo_draw);
-            cono->tapaSuperior(quitar_superior);
-            cono->tapaInferior(quitar_inferior);
             cono->draw();
          }
          if(solido){
             cono->cambiar_modo(GL_FILL);
             cono->cambiar_draw(tipo_draw);
-            cono->tapaSuperior(quitar_superior);
-            cono->tapaInferior(quitar_inferior);
+
             cono->draw();
          }
          if(ajedrez){
             cono->cambiar_modo(GL_FILL);
             cono->cambiar_draw(CHEST);
-            cono->tapaSuperior(quitar_superior);
-            cono->tapaInferior(quitar_inferior);
+
             cono->draw();
          }
          break;
@@ -215,29 +201,22 @@ void Escena::dibujar()
          if(punto){
             esfera->cambiar_modo(GL_POINT);
             esfera->cambiar_draw(tipo_draw);
-            esfera->tapaSuperior(quitar_superior);
-            esfera->tapaInferior(quitar_inferior);
             esfera->draw();
          }
          if(linea){
             esfera->cambiar_modo(GL_LINE);
             esfera->cambiar_draw(tipo_draw);
-            esfera->tapaSuperior(quitar_superior);
-            esfera->tapaInferior(quitar_inferior);
+
             esfera->draw();
          }
          if(solido){
             esfera->cambiar_modo(GL_FILL);
             esfera->cambiar_draw(tipo_draw);
-            esfera->tapaSuperior(quitar_superior);
-            esfera->tapaInferior(quitar_inferior);
             esfera->draw();
          }
          if(ajedrez){
             esfera->cambiar_modo(GL_FILL);
             esfera->cambiar_draw(CHEST);
-            esfera->tapaSuperior(quitar_superior);
-            esfera->tapaInferior(quitar_inferior);
             esfera->draw();
          }
          break;
@@ -245,29 +224,21 @@ void Escena::dibujar()
          if(punto){
             cilindro->cambiar_modo(GL_POINT);
             cilindro->cambiar_draw(tipo_draw);
-            cilindro->tapaSuperior(quitar_superior);
-            cilindro->tapaInferior(quitar_inferior);
             cilindro->draw();
          }
          if(linea){
             cilindro->cambiar_modo(GL_LINE);
             cilindro->cambiar_draw(tipo_draw);
-            cilindro->tapaSuperior(quitar_superior);
-            cilindro->tapaInferior(quitar_inferior);
             cilindro->draw();
          }
          if(solido){
             cilindro->cambiar_modo(GL_FILL);
             cilindro->cambiar_draw(tipo_draw);
-            cilindro->tapaSuperior(quitar_superior);
-            cilindro->tapaInferior(quitar_inferior);
             cilindro->draw();
          }
          if(ajedrez){
             cilindro->cambiar_modo(GL_FILL);
             cilindro->cambiar_draw(CHEST);
-            cilindro->tapaSuperior(quitar_superior);
-            cilindro->tapaInferior(quitar_inferior);
             cilindro->draw();
          }
          break;
@@ -554,7 +525,20 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
              objMalla == CIL ||
              objMalla == CON ||
              objMalla == ESF){
-            quitar_superior = !quitar_superior;
+             switch (objMalla) {
+                case ROT:
+                   objrot->tapaSuperior();
+                   break;
+                case CIL:
+                   cilindro->tapaSuperior();
+                   break;
+                case CON:
+                   cono->tapaSuperior();
+                   break;
+                case ESF:
+                   esfera->tapaSuperior();
+                   break;
+             }
           }
           break ;
        case '-':
@@ -562,7 +546,20 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
              objMalla == CIL ||
              objMalla == CON ||
              objMalla == ESF){
-            quitar_inferior = !quitar_inferior;
+            switch (objMalla) {
+               case ROT:
+                  objrot->tapaInferior();
+                  break;
+               case CIL:
+                  cilindro->tapaInferior();
+                  break;
+               case CON:
+                  cono->tapaInferior();
+                  break;
+               case ESF:
+                  esfera->tapaInferior();
+                  break;
+            }
           }
           break ;
        case 'M':

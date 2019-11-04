@@ -18,7 +18,7 @@
 
 ObjRevolucion::ObjRevolucion() {}
 
-ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, int mult, bool tapa_sup, bool tapa_inf) {
+ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, int mult, eje eje_rotacion, bool tapa_sup, bool tapa_inf) {
    ply::read_vertices(archivo, v, mult);
    if(perfilInverso(v)){
       invertirPerfil();
@@ -29,7 +29,7 @@ ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, in
    vertices_perfil = v.size();
    instancias = num_instancias;
 
-   crearMalla(v, num_instancias);
+   crearMalla(v, num_instancias, eje_rotacion);
 
    tapaSup = !tapa_sup;
    tapaInf = !tapa_inf;
@@ -41,8 +41,23 @@ ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, in
 // objeto de revolución obtenido a partir de un perfil (en un vector de puntos)
 
 
-ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, bool tapa_sup, bool tapa_inf) {
-   crearMalla(archivo, num_instancias);
+ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, eje eje_rotacion, bool tapa_sup, bool tapa_inf) {
+   v = archivo;
+   if(perfilInverso(v)){
+      invertirPerfil();
+   }
+
+   quitarPolos();
+
+   vertices_perfil = v.size();
+   instancias = num_instancias;
+
+   crearMalla(v, num_instancias, eje_rotacion);
+
+   tapaSup = !tapa_sup;
+   tapaInf = !tapa_inf;
+   ponTapaSup(num_instancias, vertices_perfil);
+   ponTapaInf(num_instancias, vertices_perfil);
 }
 
 bool ObjRevolucion::perfilInverso(std::vector<Tupla3f> archivo){
@@ -57,16 +72,30 @@ void ObjRevolucion::invertirPerfil(){
    v = aux;
 }
 
-void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias) {
-   float alfa, coor_x, coor_z;
+void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias, eje eje_rotacion) {
+   float alfa, coor_x, coor_y, coor_z;
    int a, b;
    int num_vertices = perfil_original.size();
    for(int i = 1; i <= num_instancias; i++){
       alfa = ((2*M_PI*i)/num_instancias);
       for(int j = 0; j < num_vertices; j++){
-         coor_x = perfil_original[j](0) * cos(alfa) + perfil_original[j](2) * sin(alfa);
-         coor_z = perfil_original[j](0)* -1 * sin(alfa) + perfil_original[j](2) * cos(alfa);
-         v.push_back({coor_x, perfil_original[j](1), coor_z});
+         switch (eje_rotacion) {
+            case RY:
+               coor_x = perfil_original[j](0) * cos(alfa) + perfil_original[j](2) * sin(alfa);
+               coor_z = perfil_original[j](0)* -1 * sin(alfa) + perfil_original[j](2) * cos(alfa);
+               v.push_back({coor_x, perfil_original[j](1), coor_z});
+               break;
+            case RX:
+               coor_y = perfil_original[j](1) * cos(alfa) - perfil_original[j](2) * sin(alfa);
+               coor_z = perfil_original[j](1) * sin(alfa) + perfil_original[j](2) * cos(alfa);
+               v.push_back({perfil_original[j](0), coor_y, coor_z});
+               break;
+            case RZ:
+               coor_x = perfil_original[j](0) * cos(alfa) - perfil_original[j](1) * sin(alfa);
+               coor_y = perfil_original[j](0) * sin(alfa) + perfil_original[j](1) * cos(alfa);
+               v.push_back({coor_x, coor_y, perfil_original[j](2)});
+               break;
+         }
       }
    }
    for(int i = 0; i < num_instancias; i++){
@@ -78,7 +107,7 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
       }
    }
 
-   float coor_y = v.back()(1);
+   coor_y = v.back()(1);
    v.push_back({0,coor_y,0}); //Añado polo superior
    coor_y = v.front()(1);
    v.push_back({0,coor_y,0}); //Añado polo inferior
@@ -86,7 +115,7 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
 
 void ObjRevolucion::quitarPolos(){
    if(v.front()(0) == 0.0 && v.front()(2) == 0.0){
-      v.erase(v.begin());
+         v.erase(v.begin());
    }
    if(v.back()(0) == 0.0 && v.back()(2) == 0.0){
       v.pop_back();
@@ -139,8 +168,8 @@ void ObjRevolucion::quitTapaInf(int num_instancias){
    }
 }
 
-void ObjRevolucion::tapaSuperior(bool tapa_sup){
-   if(tapa_sup){
+void ObjRevolucion::tapaSuperior(){
+   if(tapaSup){
       quitTapaSup(instancias);
    }
    else{
@@ -148,8 +177,8 @@ void ObjRevolucion::tapaSuperior(bool tapa_sup){
    }
 }
 
-void ObjRevolucion::tapaInferior(bool tapa_inf){
-   if(tapa_inf){
+void ObjRevolucion::tapaInferior(){
+   if(tapaInf){
       quitTapaInf(instancias);
    }
    else{
