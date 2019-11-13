@@ -45,8 +45,8 @@ class Escena
    bool ajedrez = false;
    bool quitar_superior = false;
    bool quitar_inferior = false;
-   malla objMalla= CON;
-   dibujo tipo_draw=CHEST;
+   malla objMalla= MULT;
+   dibujo tipo_draw=INMED;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
    // Objetos de la escena
@@ -57,7 +57,7 @@ class Escena
    ObjRevolucion * objrot = nullptr;
    Esfera * esfera = nullptr;
    Cono * cono = nullptr;
-   Cilindro *cilindro = nullptr;
+   Cilindro * cilindro = nullptr;
 
 
    public:

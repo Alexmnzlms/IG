@@ -128,7 +128,7 @@ void Malla3D::draw()
                case DIFER:
                   c.push_back(rgbfd);
                   break;
-               case CHEST:
+               case CHESS:
                   c.push_back(rgb1);
                   c_aux.push_back(rgb2);
                   break;
@@ -143,7 +143,7 @@ void Malla3D::draw()
       case DIFER:
          draw_ModoDiferido();
          break;
-      case CHEST:
+      case CHESS:
          draw_ModoAjedrez();
          break;
    }

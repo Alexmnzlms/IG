@@ -17,7 +17,7 @@
 // clase para objetos 3D (mallas indexadas)
 //
 // *****************************************************************************
-typedef enum {INMED, DIFER, CHEST} dibujo;
+typedef enum {INMED, DIFER, CHESS} dibujo;
 class Malla3D
 {
    public:

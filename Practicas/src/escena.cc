@@ -25,11 +25,11 @@ Escena::Escena()
     int num_rot = 20;
     cubo = new Cubo(75);
     tetraedro = new Tetraedro(75);
-    objply = new ObjPLY(ply,7);
-    objrot = new ObjRevolucion(plyrot, num_rot, 65, RY, true, true);
-    esfera = new Esfera(num_vert, num_rot, 100.0, true, true);
-    cono = new Cono(num_rot, 100.0, 100.0, true);
-    cilindro = new Cilindro(num_rot, 100.0, 100.0, true, true);
+    objply = new ObjPLY(ply,1);
+    objrot = new ObjRevolucion(plyrot, num_rot, 1, RY, true, true);
+    esfera = new Esfera(num_vert, num_rot, 50, true, true);
+    cono = new Cono(num_rot, 50, 50, true);
+    cilindro = new Cilindro(num_rot, 50, 50, true, true);
 }
 
 //**************************************************************************
@@ -52,6 +52,15 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
 
+   cout << "----------------------------------------------------------" << endl;
+   cout << "Tetraedro -> Visualización modo solido, dibujado modo inmediato" << endl;
+   cout << "Cono -> Visualización modo solido, dibujado modo diferido" << endl;
+   cout << "Objeto ply de revolución -> Modo ajedrez" << endl;
+   cout << "Objeto ply -> Visualización modo puntos, dibujado modo diferido" << endl;
+   cout << "Esfera -> Visualización modo puntos, dibujado modo inmediato" << endl;
+   cout << "Cubo -> Visualización modo lineas, dibujado modo diferido" << endl;
+   cout << "Cilindro -> Visualización modo lineas, dibujado modo inmediato" << endl;
+   cout << "----------------------------------------------------------" << endl;
    cout << "Seleccione menu" << endl;
    cout << "O: Seleccion de objeto" << endl;
    cout << "V: seleccion de visualizacion" << endl;
@@ -74,6 +83,7 @@ void Escena::dibujar()
 
    change_observer();
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
+   glDisable(GL_LIGHTING);
    ejes.draw();
 
     // COMPLETAR
@@ -103,7 +113,7 @@ void Escena::dibujar()
          }
          if(ajedrez){
             cubo->cambiar_modo(GL_FILL);
-            cubo->cambiar_draw(CHEST);
+            cubo->cambiar_draw(CHESS);
             cubo->draw();
          }
          break;
@@ -125,54 +135,60 @@ void Escena::dibujar()
          }
          if(ajedrez){
             tetraedro->cambiar_modo(GL_FILL);
-            tetraedro->cambiar_draw(CHEST);
+            tetraedro->cambiar_draw(CHESS);
             tetraedro->draw();
          }
          break;
       case PLY:
-         if(punto){
-            objply->cambiar_modo(GL_POINT);
-            objply->cambiar_draw(tipo_draw);
-            objply->draw();
-         }
-         if(linea){
-            objply->cambiar_modo(GL_LINE);
-            objply->cambiar_draw(tipo_draw);
-            objply->draw();
-         }
-         if(solido){
-            objply->cambiar_modo(GL_FILL);
-            objply->cambiar_draw(tipo_draw);
-            objply->draw();
-         }
-         if(ajedrez){
-            objply->cambiar_modo(GL_FILL);
-            objply->cambiar_draw(CHEST);
-            objply->draw();
-         }
+         glPushMatrix();
+            glScalef(5,5,5);
+               if(punto){
+                  objply->cambiar_modo(GL_POINT);
+                  objply->cambiar_draw(tipo_draw);
+                  objply->draw();
+               }
+               if(linea){
+                  objply->cambiar_modo(GL_LINE);
+                  objply->cambiar_draw(tipo_draw);
+                  objply->draw();
+               }
+               if(solido){
+                  objply->cambiar_modo(GL_FILL);
+                  objply->cambiar_draw(tipo_draw);
+                  objply->draw();
+               }
+               if(ajedrez){
+                  objply->cambiar_modo(GL_FILL);
+                  objply->cambiar_draw(CHESS);
+                  objply->draw();
+               }
+         glPopMatrix();
          break;
       case ROT:
-         if(punto){
-            objrot->cambiar_modo(GL_POINT);
-            objrot->cambiar_draw(tipo_draw);
-            objrot->draw();
-         }
-         if(linea){
-            objrot->cambiar_modo(GL_LINE);
-            objrot->cambiar_draw(tipo_draw);
-            objrot->draw();
-         }
-         if(solido){
-            objrot->cambiar_modo(GL_FILL);
-            objrot->cambiar_draw(tipo_draw);
-            objrot->draw();
-         }
-         if(ajedrez){
-            objrot->cambiar_modo(GL_FILL);
-            objrot->cambiar_draw(CHEST);
-            objrot->draw();
-         }
-         break;
+         glPushMatrix();
+            glScalef(30,30,30);
+               if(punto){
+                  objrot->cambiar_modo(GL_POINT);
+                  objrot->cambiar_draw(tipo_draw);
+                  objrot->draw();
+               }
+               if(linea){
+                  objrot->cambiar_modo(GL_LINE);
+                  objrot->cambiar_draw(tipo_draw);
+                  objrot->draw();
+               }
+               if(solido){
+                  objrot->cambiar_modo(GL_FILL);
+                  objrot->cambiar_draw(tipo_draw);
+                  objrot->draw();
+               }
+               if(ajedrez){
+                  objrot->cambiar_modo(GL_FILL);
+                  objrot->cambiar_draw(CHESS);
+                  objrot->draw();
+               }
+               break;
+            glPopMatrix();
       case CON:
          if(punto){
             cono->cambiar_modo(GL_POINT);
@@ -192,7 +208,7 @@ void Escena::dibujar()
          }
          if(ajedrez){
             cono->cambiar_modo(GL_FILL);
-            cono->cambiar_draw(CHEST);
+            cono->cambiar_draw(CHESS);
 
             cono->draw();
          }
@@ -216,7 +232,7 @@ void Escena::dibujar()
          }
          if(ajedrez){
             esfera->cambiar_modo(GL_FILL);
-            esfera->cambiar_draw(CHEST);
+            esfera->cambiar_draw(CHESS);
             esfera->draw();
          }
          break;
@@ -238,38 +254,56 @@ void Escena::dibujar()
          }
          if(ajedrez){
             cilindro->cambiar_modo(GL_FILL);
-            cilindro->cambiar_draw(CHEST);
+            cilindro->cambiar_draw(CHESS);
             cilindro->draw();
          }
          break;
       case MULT:
-      dibujo draw = CHEST;
-      GLenum tipo = GL_FILL;
          glPushMatrix();
             glPushMatrix();
-               glTranslatef(100,0,0);
-               cilindro->cambiar_modo(tipo);
-               cilindro->cambiar_draw(draw);
+               glTranslatef(150,0,0);
+               cilindro->cambiar_modo(GL_LINE);
+               cilindro->cambiar_draw(INMED);
                cilindro->draw();
             glPopMatrix();
             glPushMatrix();
                glTranslatef(-150,0,0);
-               cono->cambiar_modo(tipo);
-               cono->cambiar_draw(draw);
+               cono->cambiar_modo(GL_FILL);
+               cono->cambiar_draw(DIFER);
                cono->draw();
             glPopMatrix();
             glPushMatrix();
-               glTranslatef(0,75,-150);
-               esfera->cambiar_modo(tipo);
-               esfera->cambiar_draw(draw);
+               glTranslatef(0,50,-140);
+               esfera->cambiar_modo(GL_POINT);
+               esfera->cambiar_draw(INMED);
                esfera->draw();
             glPopMatrix();
             glPushMatrix();
-               glTranslatef(0,0,150);
-               //glScalef(0.25,0.25,0.25);
-               objrot->cambiar_modo(tipo);
-               objrot->cambiar_draw(draw);
+               glTranslatef(0,40,100);
+               glScalef(30,30,30);
+               objrot->cambiar_modo(GL_FILL);
+               objrot->cambiar_draw(CHESS);
                objrot->draw();
+            glPopMatrix();
+            glPushMatrix();
+               glTranslatef(100,0,100);
+               cubo->cambiar_modo(GL_LINE);
+               cubo->cambiar_draw(DIFER);
+               cubo->draw();
+            glPopMatrix();
+            glPushMatrix();
+               glTranslatef(-125,45,150);
+               glScalef(0.60,0.60,0.60);
+               tetraedro->cambiar_modo(GL_FILL);
+               tetraedro->cambiar_draw(INMED);
+               tetraedro->draw();
+            glPopMatrix();
+            glPushMatrix();
+               glScalef(5,5,5);
+               glTranslatef(0,10,0);
+               objply->cambiar_modo(GL_POINT);
+               objply->cambiar_draw(DIFER);
+               objply->draw();
             glPopMatrix();
          glPopMatrix();
       break;
@@ -319,6 +353,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          cout << "E: Esfera" << endl;
          cout << "3: Cono" << endl;
          cout << "4: Cilindro" << endl;
+         cout << "M: Escena Multiple" << endl;
          cout << "Q: salir" << endl;
          cout << endl;
          break ;
@@ -405,6 +440,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "E: Esfera" << endl;
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
+            cout << "M: Escena Multiple" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = CUBO;
@@ -420,6 +456,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "E: Esfera" << endl;
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
+            cout << "M: Escena Multiple" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = TETRAEDRO;
@@ -427,7 +464,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           break ;
        case 'Y':
           if(modoMenu == SELOBJETO){
-            cout << "Seleccionado tetraedro" << endl;
+            cout << "Seleccionado archivo ply" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
@@ -435,6 +472,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "E: Esfera" << endl;
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
+            cout << "M: Escena Multiple" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = PLY;
@@ -442,7 +480,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           break ;
        case 'R':
           if(modoMenu == SELOBJETO){
-            cout << "Seleccionado tetraedro" << endl;
+            cout << "Seleccionado archivo ply de rotacion" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
@@ -450,6 +488,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "E: Esfera" << endl;
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
+            cout << "M: Escena Multiple" << endl;
+            cout << "+: Quitar tapa superior" << endl;
+            cout << "-: Quitar tapa inferior" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = ROT;
@@ -457,7 +498,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           break ;
        case 'E':
           if(modoMenu == SELOBJETO){
-            cout << "Seleccionado tetraedro" << endl;
+            cout << "Seleccionado esfera" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
@@ -465,6 +506,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "E: Esfera" << endl;
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
+            cout << "M: Escena Multiple" << endl;
+            cout << "+: Quitar tapa superior" << endl;
+            cout << "-: Quitar tapa inferior" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = ESF;
@@ -472,7 +516,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           break ;
        case '3':
          if(modoMenu == SELOBJETO){
-           cout << "Seleccionado tetraedro" << endl;
+           cout << "Seleccionado cono" << endl;
            cout << "C: Cubo" << endl;
            cout << "T: Tetraedro" << endl;
            cout << "Y: Archivo PLY" << endl;
@@ -480,6 +524,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
            cout << "E: Esfera" << endl;
            cout << "3: Cono" << endl;
            cout << "4: Cilindro" << endl;
+           cout << "M: Escena Multiple" << endl;
+           cout << "+: Quitar tapa superior" << endl;
+           cout << "-: Quitar tapa inferior" << endl;
            cout << "Q: salir" << endl;
            cout << endl;
            objMalla = CON;
@@ -487,7 +534,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          break ;
          case '4':
           if(modoMenu == SELOBJETO){
-            cout << "Seleccionado tetraedro" << endl;
+            cout << "Seleccionado cilindro" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
@@ -495,6 +542,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "E: Esfera" << endl;
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
+            cout << "M: Escena Multiple" << endl;
+            cout << "+: Quitar tapa superior" << endl;
+            cout << "-: Quitar tapa inferior" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objMalla = CIL;
@@ -521,49 +571,92 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           }
           break ;
        case '+':
-          if(objMalla == ROT ||
-             objMalla == CIL ||
-             objMalla == CON ||
-             objMalla == ESF){
-             switch (objMalla) {
-                case ROT:
-                   objrot->tapaSuperior();
-                   break;
-                case CIL:
-                   cilindro->tapaSuperior();
-                   break;
-                case CON:
-                   cono->tapaSuperior();
-                   break;
-                case ESF:
-                   esfera->tapaSuperior();
-                   break;
-             }
+          if(modoMenu == SELOBJETO){
+             if(objMalla == ROT ||
+               objMalla == CIL ||
+               objMalla == CON ||
+               objMalla == ESF){
+                 cout << "Quitada tapa superior" << endl;
+                 cout << "C: Cubo" << endl;
+                 cout << "T: Tetraedro" << endl;
+                 cout << "Y: Archivo PLY" << endl;
+                 cout << "R: Archivo PLY rotacion" << endl;
+                 cout << "E: Esfera" << endl;
+                 cout << "3: Cono" << endl;
+                 cout << "4: Cilindro" << endl;
+                 cout << "M: Escena Multiple" << endl;
+                 cout << "+: Quitar tapa superior" << endl;
+                 cout << "-: Quitar tapa inferior" << endl;
+                 cout << "Q: salir" << endl;
+                 cout << endl;
+               switch (objMalla) {
+                  case ROT:
+                     objrot->tapaSuperior();
+                     break;
+                  case CIL:
+                     cilindro->tapaSuperior();
+                     break;
+                  case CON:
+                     cono->tapaSuperior();
+                     break;
+                  case ESF:
+                     esfera->tapaSuperior();
+                     break;
+               }
+            }
           }
           break ;
        case '-':
-          if(objMalla == ROT ||
-             objMalla == CIL ||
-             objMalla == CON ||
-             objMalla == ESF){
-            switch (objMalla) {
-               case ROT:
-                  objrot->tapaInferior();
-                  break;
-               case CIL:
-                  cilindro->tapaInferior();
-                  break;
-               case CON:
-                  cono->tapaInferior();
-                  break;
-               case ESF:
-                  esfera->tapaInferior();
-                  break;
+          if(modoMenu == SELOBJETO){
+            if(objMalla == ROT ||
+              objMalla == CIL ||
+              objMalla == CON ||
+              objMalla == ESF){
+                cout << "Quitada tapa inferior" << endl;
+                cout << "C: Cubo" << endl;
+                cout << "T: Tetraedro" << endl;
+                cout << "Y: Archivo PLY" << endl;
+                cout << "R: Archivo PLY rotacion" << endl;
+                cout << "E: Esfera" << endl;
+                cout << "3: Cono" << endl;
+                cout << "4: Cilindro" << endl;
+                cout << "M: Escena Multiple" << endl;
+                cout << "+: Quitar tapa superior" << endl;
+                cout << "-: Quitar tapa inferior" << endl;
+                cout << "Q: salir" << endl;
+                cout << endl;
+              switch (objMalla) {
+                  case ROT:
+                     objrot->tapaInferior();
+                     break;
+                  case CIL:
+                     cilindro->tapaInferior();
+                     break;
+                  case CON:
+                     cono->tapaInferior();
+                     break;
+                  case ESF:
+                     esfera->tapaInferior();
+                     break;
+              }
             }
           }
           break ;
        case 'M':
-          objMalla = MULT;
+          if(modoMenu == SELOBJETO){
+            cout << "Seleccionado tetraedro" << endl;
+            cout << "C: Cubo" << endl;
+            cout << "T: Tetraedro" << endl;
+            cout << "Y: Archivo PLY" << endl;
+            cout << "R: Archivo PLY rotacion" << endl;
+            cout << "E: Esfera" << endl;
+            cout << "3: Cono" << endl;
+            cout << "4: Cilindro" << endl;
+            cout << "M: Escena Multiple" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
+            objMalla = MULT;
+            }
           break ;
    }
    return salir;

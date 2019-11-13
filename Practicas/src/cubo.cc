@@ -23,24 +23,6 @@ Cubo::Cubo(float lado)
    v.push_back(v6);
    Tupla3f v7(lado,lado,lado);
    v.push_back(v7);
-   /*Tupla3f v0(-lado,-lado,-lado);
-   v.push_back(v0);
-   Tupla3f v1(-lado,-lado,lado);
-   v.push_back(v1);
-   Tupla3f v2(-lado,lado,-lado);
-   v.push_back(v2);
-   Tupla3f v3(-lado,lado,lado);
-   v.push_back(v3);
-   Tupla3f v4(lado,-lado,-lado);
-   v.push_back(v4);
-   Tupla3f v5(lado,-lado,lado);
-   v.push_back(v5);
-   Tupla3f v6(lado,lado,-lado);
-   v.push_back(v6);
-   Tupla3f v7(lado,lado,lado);
-   v.push_back(v7);
-   */
-
 
    // inicializar la tabla de caras o triángulos:
    // (es importante en cada cara ordenar los vértices en sentido contrario

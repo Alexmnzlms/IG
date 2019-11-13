@@ -10,14 +10,13 @@ Cilindro::Cilindro(const int num_instancias_perf,const float altura, const float
 {
    vertices_perfil  = 2;
    instancias = num_instancias_perf;
-
-   GenerarPerfil(altura,radio);
-   crearMalla(v, num_instancias_perf, RY);
-
    tapaSup = !tapa_sup;
    tapaInf = !tapa_inf;
-   ponTapaSup(instancias, vertices_perfil);
-   ponTapaInf(instancias, vertices_perfil);
+
+   GenerarPerfil(altura,radio);
+   crearMalla(v, RY);
+
+
 }
 
 void Cilindro::GenerarPerfil(const float altura, const float radio){

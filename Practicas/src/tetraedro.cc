@@ -26,14 +26,4 @@ Tetraedro::Tetraedro(float lado)
    f.push_back(c3);
    Tupla3i c4(0,2,1);
    f.push_back(c4);
-
-   Tupla3f rgb0(0,0,0);
-   c.push_back(rgb0);
-   Tupla3f rgb1(0,0,0);
-   c.push_back(rgb1);
-   Tupla3f rgb2(0,0,0);
-   c.push_back(rgb2);
-   Tupla3f rgb3(0,0,0);
-   c.push_back(rgb3);
-
 }

@@ -11,14 +11,11 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
 
    vertices_perfil  = num_vert_perfil;
    instancias = num_instancias_perf;
-
-   GenerarPerfil(num_vert_perfil,radio);
-   crearMalla(v, num_instancias_perf, RY);
-
    tapaSup = !tapa_sup;
    tapaInf = !tapa_inf;
-   ponTapaSup(instancias, vertices_perfil);
-   ponTapaInf(instancias, vertices_perfil);
+
+   GenerarPerfil(num_vert_perfil,radio);
+   crearMalla(v, RY);
 }
 
 void Esfera::GenerarPerfil(const int num_vert_perfil, const float radio){

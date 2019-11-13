@@ -51,14 +51,3 @@ $(units_cc) : $(headers)
 
 clean:
 	rm -rf obj/*.o bin/*_exe
-
-echo:
-	@echo $(units_cc)
-	@echo $(SRC)
-	@echo $(headers)
-	@echo $(INC)
-	@echo $(units_o)
-	@echo $(OBJ)
-	@echo $(compiler) -o $(exe)  $(units_o) $(ld_libs)
-	@echo $(compiler) -c  $(cc_flags) $<
-	@echo $(exe): $(units_o) makefile

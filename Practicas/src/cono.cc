@@ -21,7 +21,7 @@ Cono::Cono(const int num_instancias_perf, const float altura, const float radio,
    }
 
    tapaInf = !tapa_inf;
-   ponTapaInf(num_instancias_perf, vertices_perfil);
+   ponTapaInf();
 }
 
 void Cono::rotarPunto(std::vector<Tupla3f> perfil_original, int num_instancias){
