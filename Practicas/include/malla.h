@@ -18,6 +18,8 @@
 //
 // *****************************************************************************
 typedef enum {INMED, DIFER, CHESS} dibujo;
+typedef enum {NEGRO, AZUL, VERDE, CIAN, ROJO, ROSA, AMARILLO} color;
+
 class Malla3D
 {
    public:
@@ -33,18 +35,16 @@ class Malla3D
    // función que redibuja el objeto
    // está función llama a 'draw_ModoInmediato' (modo inmediato)
    // o bien a 'draw_ModoDiferido' (modo diferido, VBOs)
-   void draw() ;
-
-   void cambiar_modo(GLenum) ;
-   void cambiar_draw(dibujo);
+   void draw(dibujo tipo, color col) ;
    GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );
+   void alternar_vista();
 
    protected:
 
    void calcular_normales() ; // calcula tabla de normales de vértices (práctica 3)
-   GLenum modo_dibujado;
-   bool ajedrez;
+   void calcular_colores();
    dibujo tipo_draw;
+   bool ver = true;
    GLuint id_vbo_ver = 0, id_vbo_tri = 0;
    std::vector<Tupla3f> v ;   // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
    std::vector<Tupla3i> f ; // una terna de 3 enteros por cada cara o triángulo
@@ -52,6 +52,13 @@ class Malla3D
    // completar: tabla de colores, tabla de normales de vértices
    std::vector<Tupla3f> c ;
    std::vector<Tupla3f> c_aux;
+   std::vector<Tupla3f> cnegro;
+   std::vector<Tupla3f> cazul;
+   std::vector<Tupla3f> cverde;
+   std::vector<Tupla3f> ccian;
+   std::vector<Tupla3f> crojo;
+   std::vector<Tupla3f> crosa;
+   std::vector<Tupla3f> camarillo;
    //float colorArray[8];
 } ;
 

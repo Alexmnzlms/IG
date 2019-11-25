@@ -26,4 +26,5 @@ Tetraedro::Tetraedro(float lado)
    f.push_back(c3);
    Tupla3i c4(0,2,1);
    f.push_back(c4);
+   calcular_colores();
 }

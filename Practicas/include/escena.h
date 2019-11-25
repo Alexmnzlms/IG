@@ -34,19 +34,15 @@ class Escena
 	void change_projection( const float ratio_xy );
 	void change_observer();
 
-
-
    void clear_window();
 
    menu modoMenu=NADA;
-   bool linea = false;
-   bool punto = false;
-   bool solido = true;
-   bool ajedrez = false;
    bool quitar_superior = false;
    bool quitar_inferior = false;
-   malla objMalla= MULT;
-   dibujo tipo_draw=INMED;
+   malla objMalla;
+   color col = VERDE;
+   GLenum modo_dibujado = GL_FILL;
+   dibujo tipo_draw = CHESS;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
    // Objetos de la escena

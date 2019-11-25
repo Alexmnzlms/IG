@@ -52,4 +52,6 @@ Cubo::Cubo(float lado)
    Tupla3i c12(0,4,1);
    f.push_back(c12);
 
+   calcular_colores();
+
 }

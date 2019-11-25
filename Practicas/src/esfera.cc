@@ -16,6 +16,7 @@ Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const f
 
    GenerarPerfil(num_vert_perfil,radio);
    crearMalla(v, RY);
+   calcular_colores();
 }
 
 void Esfera::GenerarPerfil(const int num_vert_perfil, const float radio){

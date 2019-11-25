@@ -16,7 +16,7 @@ Cilindro::Cilindro(const int num_instancias_perf,const float altura, const float
    GenerarPerfil(altura,radio);
    crearMalla(v, RY);
 
-
+   calcular_colores();
 }
 
 void Cilindro::GenerarPerfil(const float altura, const float radio){

@@ -32,6 +32,7 @@ ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, in
    tapaInf = !tapa_inf;
 
    crearMalla(v, eje_rotacion);
+   calcular_colores();
 }
 
 // *****************************************************************************
@@ -52,7 +53,7 @@ ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, e
    tapaInf = !tapa_inf;
 
    crearMalla(v, eje_rotacion);
-
+   calcular_colores();
 }
 
 bool ObjRevolucion::perfilInverso(std::vector<Tupla3f> archivo){
