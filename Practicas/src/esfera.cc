@@ -8,12 +8,8 @@
 Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const float radio,
                bool tapa_sup, bool tapa_inf)
 {
-
    vertices_perfil  = num_vert_perfil;
    instancias = num_instancias_perf;
-   tapaSup = !tapa_sup;
-   tapaInf = !tapa_inf;
-
    GenerarPerfil(num_vert_perfil,radio);
    crearMalla(v, RY);
    calcular_colores();

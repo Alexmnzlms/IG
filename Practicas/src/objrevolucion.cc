@@ -20,17 +20,8 @@ ObjRevolucion::ObjRevolucion() {}
 
 ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, int mult, eje eje_rotacion, bool tapa_sup, bool tapa_inf) {
    ply::read_vertices(archivo, v, mult);
-   if(perfilInverso(v)){
-      invertirPerfil();
-   }
-
-   quitarPolos();
-
    vertices_perfil = v.size();
    instancias = num_instancias;
-   tapaSup = !tapa_sup;
-   tapaInf = !tapa_inf;
-
    crearMalla(v, eje_rotacion);
    calcular_colores();
 }
@@ -40,19 +31,9 @@ ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, in
 
 
 ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, eje eje_rotacion, bool tapa_sup, bool tapa_inf) {
-   v = archivo;
-   if(perfilInverso(v)){
-      invertirPerfil();
-   }
-
-   quitarPolos();
-
    vertices_perfil = v.size();
    instancias = num_instancias;
-   tapaSup = !tapa_sup;
-   tapaInf = !tapa_inf;
-
-   crearMalla(v, eje_rotacion);
+   crearMalla(archivo, eje_rotacion);
    calcular_colores();
 }
 
@@ -68,10 +49,25 @@ void ObjRevolucion::invertirPerfil(){
    v = aux;
 }
 
-void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, eje eje_rotacion) {
+void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_rotacion) {
    float alfa, coor_x, coor_y, coor_z;
    int a, b;
    int num_vertices = perfil_original.size();
+   Tupla3f polo;
+   tapa = true;
+
+   if(perfilInverso(perfil_original)){
+      invertirPerfil();
+   }
+
+   if(num_vertices == 2 && perfil_original[num_vertices-1](0) == 0.0 && perfil_original[num_vertices-1](2) == 0.0 ){
+      polo = perfil_original[num_vertices-1];
+      perfil_original.pop_back();
+      num_vertices--;
+   }
+
+   quitarPolos(perfil_original);
+
    for(int i = 1; i < instancias; i++){
       alfa = ((2*M_PI*i)/instancias);
       for(int j = 0; j < num_vertices; j++){
@@ -90,98 +86,65 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, eje eje_rot
                coor_x = perfil_original[j](0) * cos(alfa) - perfil_original[j](1) * sin(alfa);
                coor_y = perfil_original[j](0) * sin(alfa) + perfil_original[j](1) * cos(alfa);
                v.push_back({coor_x, coor_y, perfil_original[j](2)});
-               break;
+                  break;
          }
       }
    }
-   for(int i = 0; i < instancias; i++){
-      for(int j = 0; j < num_vertices-1; j++){
-         a = num_vertices*i + j;
-         b = num_vertices*((i+1)%instancias)+j;
-         f.push_back(Tupla3i(a,b,b+1));
-         f.push_back(Tupla3i(a,b+1,a+1));
+   if(!(num_vertices == 1 && polo(0) == 0.0 && polo(2) == 0.0 )){
+      for(int i = 0; i < instancias; i++){
+         for(int j = 0; j < num_vertices-1; j++){
+            a = num_vertices*i + j;
+            b = num_vertices*((i+1)%instancias)+j;
+            f.push_back(Tupla3i(a,b,b+1));
+            f.push_back(Tupla3i(a,b+1,a+1));
+         }
       }
    }
-
-   coor_y = v.back()(1);
-   v.push_back({0,coor_y,0}); //Añado polo superior
+   if(num_vertices == 1 && polo(0) == 0.0 && polo(2) == 0.0 ){
+      v.push_back(polo);
+   } else {
+      coor_y = v.back()(1);
+      v.push_back({0,coor_y,0}); //Añado polo superior
+   }
    coor_y = v.front()(1);
    v.push_back({0,coor_y,0}); //Añado polo inferior
 
-   ponTapaSup();
-   ponTapaInf();
-
-}
-
-void ObjRevolucion::quitarPolos(){
-   if(v.front()(0) == 0.0 && v.front()(2) == 0.0){
-         v.erase(v.begin());
+   for(int i = 1; i <= instancias; i++){
+      Tupla3i aux(i*num_vertices-1, ((i+1)*num_vertices-1)%(v.size()-2), v.size()-2);
+      f.push_back(aux);
    }
-   if(v.back()(0) == 0.0 && v.back()(2) == 0.0){
-      v.pop_back();
+   for(int i = 0; i < instancias; i++){
+      Tupla3i aux(v.size()-1, ((i+1)%instancias)*num_vertices, i*num_vertices);
+      f.push_back(aux);
    }
 }
 
-void ObjRevolucion::ponTapaSup(){
-   if(!tapaSup){
-      std::vector<Tupla3i>::iterator cara = f.begin();
-      for(int i = 0; i < instancias*(vertices_perfil-1)*2; i++){
-         ++cara;
-      }
-      for(int i = 1; i <= instancias; i++){
-         Tupla3i aux(i*vertices_perfil-1, ((i+1)*vertices_perfil-1)%(v.size()-2), v.size()-2);
-         cara = f.insert(cara,aux);
-      }
-      tapaSup = true;
+void ObjRevolucion::quitarPolos(std::vector<Tupla3f> &perfil_original){
+   if(perfil_original.front()(0) == 0.0 && perfil_original.front()(2) == 0.0){
+         perfil_original.erase(perfil_original.begin());
+   }
+   if(perfil_original.back()(0) == 0.0 && perfil_original.back()(2) == 0.0){
+      perfil_original.pop_back();
    }
 }
 
-void ObjRevolucion::quitTapaSup(){
-   if(tapaSup){
-      std::vector<Tupla3i>::iterator cara = f.begin();
-      for(int i = 0; i < instancias*(vertices_perfil-1)*2; i++){
-         ++cara;
-      }
-      for(int j = 0; j < instancias; j++){
-         cara = f.erase(cara);
-      }
-      tapaSup = false;
+void ObjRevolucion::dibujaInmediato(int tamanio, const void * indice){
+   if(tapa){
+      glDrawElements( GL_TRIANGLES, (tamanio - 2*instancias)*3, GL_UNSIGNED_INT, indice);
+   } else {
+      glDrawElements( GL_TRIANGLES, (tamanio)*3, GL_UNSIGNED_INT, indice);
    }
 }
 
-void ObjRevolucion::ponTapaInf(){
-   if(!tapaInf){
-      for(int i = 0; i < instancias; i++){
-         Tupla3i aux(v.size()-1, ((i+1)%instancias)*vertices_perfil, i*vertices_perfil);
-         f.push_back(aux);
-      }
-      tapaInf = true;
+void ObjRevolucion::dibujaDiferido(int tamanio){
+   if(tapa){
+      glDrawElements( GL_TRIANGLES, (tamanio - 2*instancias)*3, GL_UNSIGNED_INT, 0);
+   } else {
+      glDrawElements( GL_TRIANGLES*3, (tamanio)*3, GL_UNSIGNED_INT, 0);
    }
 }
 
-void ObjRevolucion::quitTapaInf(){
-   if(tapaInf){
-      for(int i = 0; i < instancias; i++){
-         f.pop_back();
-      }
-      tapaInf = false;
-   }
-}
-
-void ObjRevolucion::tapaSuperior(){
-   if(tapaSup){
-      quitTapaSup();
-   }
-   else{
-      ponTapaSup();
-   }
-}
-
-void ObjRevolucion::tapaInferior(){
-   if(tapaInf){
-      quitTapaInf();
-   }
-   else{
-      ponTapaInf();
-   }
+void ObjRevolucion::tapas(){
+   tapa = !tapa;
+   std::cout << "Cambio de tapas" << std::endl;
 }

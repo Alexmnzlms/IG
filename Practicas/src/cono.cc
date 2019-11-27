@@ -8,20 +8,13 @@
 Cono::Cono(const int num_instancias_perf, const float altura, const float radio,bool tapa_inf)
 {
 
-   vertices_perfil  = 1;
-   instancias = num_instancias_perf;
+
 
    v.push_back({radio,0,0});
-   rotarPunto(v, num_instancias_perf);
    v.push_back({0,altura,0});
-   v.push_back({0,0,0}); //Añado polo inferior
-
-   for(int i = 0; i < num_instancias_perf; i++){
-      f.push_back(Tupla3i(i, (i+1), v.size()-2));
-   }
-
-   tapaInf = !tapa_inf;
-   ponTapaInf();
+   vertices_perfil  = 2;
+   instancias = num_instancias_perf;
+   crearMalla(v, RY);
    calcular_colores();
 }
 

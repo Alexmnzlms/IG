@@ -42,22 +42,18 @@ class ObjRevolucion : public Malla3D
                      bool tapa_sup=true,
                      bool tapa_inf=true) ;
 
-       void tapaSuperior();
-       void tapaInferior();
+       void tapas();
 
    protected:
       int instancias;
       int vertices_perfil;
-      bool tapaSup;
-      bool tapaInf;
+      bool tapa;
       bool perfilInverso(std::vector<Tupla3f> perfil_original);
       void invertirPerfil();
-      void crearMalla(std::vector<Tupla3f> perfil_original, eje eje_rotacion);
-      void quitarPolos();
-      void ponTapaSup();
-      void ponTapaInf();
-      void quitTapaSup();
-      void quitTapaInf();
+      void crearMalla(std::vector<Tupla3f> & perfil_original, eje eje_rotacion);
+      void quitarPolos(std::vector<Tupla3f> & perfil_original);
+      void dibujaInmediato(int tamanio, const void * indice);
+      void dibujaDiferido(int tamanio);
 } ;
 
 

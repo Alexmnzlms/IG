@@ -43,6 +43,8 @@ class Malla3D
 
    void calcular_normales() ; // calcula tabla de normales de vértices (práctica 3)
    void calcular_colores();
+   void dibujaInmediato(int tamanio, const void * indice);
+   void dibujaDiferido(int tamanio);
    dibujo tipo_draw;
    bool ver = true;
    GLuint id_vbo_ver = 0, id_vbo_tri = 0;

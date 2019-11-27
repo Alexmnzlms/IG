@@ -16,7 +16,7 @@ void Malla3D::draw_ModoInmediato()
    glPointSize(3.0);
    glEnableClientState(GL_COLOR_ARRAY);
    glColorPointer(3, GL_FLOAT, 0, c.data() );
-   glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT,f.data() );
+   dibujaInmediato(f.size(),f.data());
    glDisableClientState( GL_VERTEX_ARRAY );
 }
 
@@ -36,9 +36,9 @@ void Malla3D::draw_ModoAjedrez()
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
    glEnableClientState(GL_COLOR_ARRAY);
    glColorPointer(3, GL_FLOAT, 0, c.data() );
-   glDrawElements( GL_TRIANGLES, f1.size()*3, GL_UNSIGNED_INT,f1.data() );
+   dibujaInmediato(f1.size(),f1.data());
    glColorPointer(3, GL_FLOAT, 0, c_aux.data() );
-   glDrawElements( GL_TRIANGLES, f2.size()*3, GL_UNSIGNED_INT,f2.data() );
+   dibujaInmediato(f2.size(),f2.data());
    glDisableClientState( GL_VERTEX_ARRAY );
 
 }
@@ -61,7 +61,7 @@ void Malla3D::draw_ModoDiferido()
    glEnableClientState( GL_VERTEX_ARRAY );
    glColorPointer(3, GL_FLOAT, 0, c.data() );
    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id_vbo_tri);
-   glDrawElements( GL_TRIANGLES, f.size()*3, GL_UNSIGNED_INT, 0);
+   dibujaDiferido(f.size());
    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 // -----------------------------------------------------------------------------
@@ -153,4 +153,12 @@ void Malla3D::calcular_colores(){
 
 void Malla3D::alternar_vista(){
    ver = !ver;
+}
+
+void Malla3D::dibujaInmediato(int tamanio, const void * indice){
+   glDrawElements( GL_TRIANGLES, tamanio*3, GL_UNSIGNED_INT,indice );
+}
+
+void Malla3D::dibujaDiferido(int tamanio){
+   glDrawElements( GL_TRIANGLES, tamanio*3, GL_UNSIGNED_INT, 0);
 }

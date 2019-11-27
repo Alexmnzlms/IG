@@ -25,8 +25,8 @@ Escena::Escena()
    objply = new ObjPLY(ply,1);
    objrot = new ObjRevolucion(plyrot, num_rot, 1, RY, true, true);
    esfera = new Esfera(num_vert, num_rot, 50, true, true);
-   cono = new Cono(num_rot, 50, 50, true);
    cilindro = new Cilindro(num_rot, 50, 50, true, true);
+   cono = new Cono(num_rot, 50, 50, true);
 
 }
 
@@ -324,7 +324,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "4: Cilindro" << endl;
             cout << "M: Escena Multiple" << endl;
             cout << "+: Quitar tapa superior" << endl;
-            cout << "-: Quitar tapa inferior" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objrot->alternar_vista();
@@ -342,7 +341,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "4: Cilindro" << endl;
             cout << "M: Escena Multiple" << endl;
             cout << "+: Quitar tapa superior" << endl;
-            cout << "-: Quitar tapa inferior" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             esfera->alternar_vista();
@@ -360,7 +358,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
            cout << "4: Cilindro" << endl;
            cout << "M: Escena Multiple" << endl;
            cout << "+: Quitar tapa superior" << endl;
-           cout << "-: Quitar tapa inferior" << endl;
            cout << "Q: salir" << endl;
            cout << endl;
            cono->alternar_vista();
@@ -378,7 +375,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "4: Cilindro" << endl;
             cout << "M: Escena Multiple" << endl;
             cout << "+: Quitar tapa superior" << endl;
-            cout << "-: Quitar tapa inferior" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             cilindro->alternar_vista();
@@ -420,34 +416,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "4: Cilindro" << endl;
             cout << "M: Escena Multiple" << endl;
             cout << "+: Quitar tapa superior" << endl;
-            cout << "-: Quitar tapa inferior" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
-            objrot->tapaSuperior();
-            cilindro->tapaSuperior();
-            cono->tapaSuperior();
-            esfera->tapaSuperior();
-         }
-          break ;
-       case '-':
-         if(modoMenu == SELOBJETO){
-            cout << "Quitada tapa inferior" << endl;
-            cout << "C: Cubo" << endl;
-            cout << "T: Tetraedro" << endl;
-            cout << "Y: Archivo PLY" << endl;
-            cout << "R: Archivo PLY rotacion" << endl;
-            cout << "E: Esfera" << endl;
-            cout << "3: Cono" << endl;
-            cout << "4: Cilindro" << endl;
-            cout << "M: Escena Multiple" << endl;
-            cout << "+: Quitar tapa superior" << endl;
-            cout << "-: Quitar tapa inferior" << endl;
-            cout << "Q: salir" << endl;
-            cout << endl;
-            objrot->tapaInferior();
-            cilindro->tapaInferior();
-            cono->tapaInferior();
-            esfera->tapaInferior();
+            objrot->tapas();
+            cilindro->tapas();
+            cono->tapas();
+            esfera->tapas();
          }
           break ;
        case 'M':

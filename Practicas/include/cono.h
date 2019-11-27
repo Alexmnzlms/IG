@@ -15,6 +15,7 @@ class Cono: public ObjRevolucion
 
    private:
       void rotarPunto(std::vector<Tupla3f> perfil_original, int num_instancias);
+      void ponTapaSup();
 } ;
 
 

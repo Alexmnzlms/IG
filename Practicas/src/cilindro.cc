@@ -8,14 +8,10 @@
 Cilindro::Cilindro(const int num_instancias_perf,const float altura, const float radio,
                    bool tapa_sup, bool tapa_inf)
 {
+   GenerarPerfil(altura,radio);
    vertices_perfil  = 2;
    instancias = num_instancias_perf;
-   tapaSup = !tapa_sup;
-   tapaInf = !tapa_inf;
-
-   GenerarPerfil(altura,radio);
    crearMalla(v, RY);
-
    calcular_colores();
 }
 
