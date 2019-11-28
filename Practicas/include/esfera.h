@@ -6,10 +6,7 @@
 class Esfera : public ObjRevolucion
 {
    public:
-   Esfera( const int num_vert_perfil,
-            const int num_instancias_perf,
-            const float radio,
-            bool tapa_sup=true, bool tapa_inf=true);
+   Esfera(const float radio);
 
    private:
       void GenerarPerfil(const int num_vert_perfil, const float radio);

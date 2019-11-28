@@ -5,12 +5,11 @@
 #include <cmath>
 
 
-Cilindro::Cilindro(const int num_instancias_perf,const float altura, const float radio,
-                   bool tapa_sup, bool tapa_inf)
+Cilindro::Cilindro(const float altura, const float radio)
 {
    GenerarPerfil(altura,radio);
    vertices_perfil  = 2;
-   instancias = num_instancias_perf;
+   instancias = 20;
    crearMalla(v, RY);
 }
 

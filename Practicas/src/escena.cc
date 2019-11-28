@@ -23,10 +23,10 @@ Escena::Escena()
    cubo = new Cubo(75);
    tetraedro = new Tetraedro(75);
    objply = new ObjPLY(ply,1);
-   objrot = new ObjRevolucion(plyrot, num_rot, 1, RY, true, true);
-   esfera = new Esfera(num_vert, num_rot, 50, true, true);
-   cilindro = new Cilindro(num_rot, 50, 50, true, true);
-   cono = new Cono(num_rot, 50, 50, true);
+   objrot = new ObjRevolucion(plyrot);
+   esfera = new Esfera(50);
+   cilindro = new Cilindro(50, 50);
+   cono = new Cono(50, 50);
 
 }
 

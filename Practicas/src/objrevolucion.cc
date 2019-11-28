@@ -18,21 +18,21 @@
 
 ObjRevolucion::ObjRevolucion() {}
 
-ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, int mult, eje eje_rotacion, bool tapa_sup, bool tapa_inf) {
-   ply::read_vertices(archivo, v, mult);
+ObjRevolucion::ObjRevolucion(const std::string & archivo) {
+   ply::read_vertices(archivo, v, 1);
    vertices_perfil = v.size();
-   instancias = num_instancias;
-   crearMalla(v, eje_rotacion);
+   instancias = 20;
+   crearMalla(v, RY);
 }
 
 // *****************************************************************************
 // objeto de revolución obtenido a partir de un perfil (en un vector de puntos)
 
 
-ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, eje eje_rotacion, bool tapa_sup, bool tapa_inf) {
+ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo) {
    vertices_perfil = v.size();
-   instancias = num_instancias;
-   crearMalla(archivo, eje_rotacion);
+   instancias = 20;
+   crearMalla(archivo, RY);
 }
 
 bool ObjRevolucion::perfilInverso(std::vector<Tupla3f> archivo){

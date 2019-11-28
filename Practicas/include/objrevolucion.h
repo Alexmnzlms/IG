@@ -29,18 +29,9 @@ class ObjRevolucion : public Malla3D
 {
    public:
        ObjRevolucion();
-       ObjRevolucion(const std::string & archivo,
-                     int num_instancias,
-                     int mult,
-                     eje eje_rotacion,
-                     bool tapa_sup=true,
-                     bool tapa_inf=true) ;
+       ObjRevolucion(const std::string & archivo) ;
 
-       ObjRevolucion(std::vector<Tupla3f> archivo,
-                     int num_instancias,
-                     eje eje_rotacion,
-                     bool tapa_sup=true,
-                     bool tapa_inf=true) ;
+       ObjRevolucion(std::vector<Tupla3f> archivo) ;
 
        void tapas();
 

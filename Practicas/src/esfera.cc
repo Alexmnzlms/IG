@@ -5,12 +5,11 @@
 #include <cmath>
 
 
-Esfera::Esfera(const int num_vert_perfil, const int num_instancias_perf, const float radio,
-               bool tapa_sup, bool tapa_inf)
+Esfera::Esfera(const float radio)
 {
-   vertices_perfil  = num_vert_perfil;
-   instancias = num_instancias_perf;
-   GenerarPerfil(num_vert_perfil,radio);
+   vertices_perfil  = 20;
+   instancias = 20;
+   GenerarPerfil(vertices_perfil,radio);
    crearMalla(v, RY);
 }
 
