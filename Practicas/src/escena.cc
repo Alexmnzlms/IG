@@ -323,7 +323,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
             cout << "M: Escena Multiple" << endl;
-            cout << "+: Quitar tapa superior" << endl;
+            cout << "+: Alternar tapas" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objrot->alternar_vista();
@@ -340,7 +340,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
             cout << "M: Escena Multiple" << endl;
-            cout << "+: Quitar tapa superior" << endl;
+            cout << "+: Alternar tapas" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             esfera->alternar_vista();
@@ -357,7 +357,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
            cout << "3: Cono" << endl;
            cout << "4: Cilindro" << endl;
            cout << "M: Escena Multiple" << endl;
-           cout << "+: Quitar tapa superior" << endl;
+           cout << "+: Alternar tapas" << endl;
            cout << "Q: salir" << endl;
            cout << endl;
            cono->alternar_vista();
@@ -374,7 +374,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
             cout << "M: Escena Multiple" << endl;
-            cout << "+: Quitar tapa superior" << endl;
+            cout << "+: Alternar tapas" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             cilindro->alternar_vista();
@@ -415,7 +415,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "3: Cono" << endl;
             cout << "4: Cilindro" << endl;
             cout << "M: Escena Multiple" << endl;
-            cout << "+: Quitar tapa superior" << endl;
+            cout << "+: Alternar tapas" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             objrot->tapas();

@@ -35,10 +35,7 @@ void Malla3D::draw_ModoAjedrez()
    glEnableClientState( GL_VERTEX_ARRAY );
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
    glEnableClientState(GL_COLOR_ARRAY);
-   glColorPointer(3, GL_FLOAT, 0, c.data() );
-   dibujaInmediato(f1.size(),f1.data());
-   glColorPointer(3, GL_FLOAT, 0, c_aux.data() );
-   dibujaInmediato(f2.size(),f2.data());
+   dibujaAjedrez(f.size(),f1.data(),f2.data());
    glDisableClientState( GL_VERTEX_ARRAY );
 
 }
@@ -60,9 +57,7 @@ void Malla3D::draw_ModoDiferido()
    glBindBuffer( GL_ARRAY_BUFFER, 0);
    glEnableClientState( GL_VERTEX_ARRAY );
    glColorPointer(3, GL_FLOAT, 0, c.data() );
-   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id_vbo_tri);
-   dibujaDiferido(f.size());
-   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
+   dibujaDiferido(f.size(),f.data());
 }
 // -----------------------------------------------------------------------------
 // Función de visualización de la malla,
@@ -159,6 +154,16 @@ void Malla3D::dibujaInmediato(int tamanio, const void * indice){
    glDrawElements( GL_TRIANGLES, tamanio*3, GL_UNSIGNED_INT,indice );
 }
 
-void Malla3D::dibujaDiferido(int tamanio){
+void Malla3D::dibujaDiferido(int tamanio, GLvoid * indice){
+   id_vbo_tri = CrearVBO(GL_ELEMENT_ARRAY_BUFFER, 3*tamanio * sizeof(int), indice);
+   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id_vbo_tri);
    glDrawElements( GL_TRIANGLES, tamanio*3, GL_UNSIGNED_INT, 0);
+   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void Malla3D::dibujaAjedrez(int tamanio, const void * indice1, const void * indice2){
+   glColorPointer(3, GL_FLOAT, 0, c.data() );
+   glDrawElements( GL_TRIANGLES, (tamanio/2)*3, GL_UNSIGNED_INT,indice1);
+   glColorPointer(3, GL_FLOAT, 0, c_aux.data() );
+   glDrawElements( GL_TRIANGLES, (tamanio/2)*3, GL_UNSIGNED_INT,indice2);
 }

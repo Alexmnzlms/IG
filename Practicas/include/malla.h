@@ -36,15 +36,15 @@ class Malla3D
    // está función llama a 'draw_ModoInmediato' (modo inmediato)
    // o bien a 'draw_ModoDiferido' (modo diferido, VBOs)
    void draw(dibujo tipo, color col) ;
-   GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );
    void alternar_vista();
 
    protected:
-
+   GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );
    void calcular_normales() ; // calcula tabla de normales de vértices (práctica 3)
    void calcular_colores();
-   void dibujaInmediato(int tamanio, const void * indice);
-   void dibujaDiferido(int tamanio);
+   virtual void dibujaInmediato(int tamanio, const void * indice);
+   virtual void dibujaAjedrez(int tamanio, const void * indice1, const void * indice2);
+   virtual void dibujaDiferido(int tamanio,  GLvoid * indice);
    dibujo tipo_draw;
    bool ver = true;
    GLuint id_vbo_ver = 0, id_vbo_tri = 0;

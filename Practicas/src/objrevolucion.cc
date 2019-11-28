@@ -117,6 +117,8 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
       Tupla3i aux(v.size()-1, ((i+1)%instancias)*num_vertices, i*num_vertices);
       f.push_back(aux);
    }
+
+   pos_tapas = instancias;
 }
 
 void ObjRevolucion::quitarPolos(std::vector<Tupla3f> &perfil_original){
@@ -129,22 +131,41 @@ void ObjRevolucion::quitarPolos(std::vector<Tupla3f> &perfil_original){
 }
 
 void ObjRevolucion::dibujaInmediato(int tamanio, const void * indice){
-   if(tapa){
-      glDrawElements( GL_TRIANGLES, (tamanio - 2*instancias)*3, GL_UNSIGNED_INT, indice);
+   if(!tapa){
+      glDrawElements( GL_TRIANGLES, (tamanio - 2*pos_tapas)*3, GL_UNSIGNED_INT, indice);
    } else {
       glDrawElements( GL_TRIANGLES, (tamanio)*3, GL_UNSIGNED_INT, indice);
    }
 }
 
-void ObjRevolucion::dibujaDiferido(int tamanio){
-   if(tapa){
-      glDrawElements( GL_TRIANGLES, (tamanio - 2*instancias)*3, GL_UNSIGNED_INT, 0);
+void ObjRevolucion::dibujaDiferido(int tamanio, GLvoid * indice){
+   if(!tapa){
+      id_vbo_tri = CrearVBO(GL_ELEMENT_ARRAY_BUFFER, 3*(tamanio-2*pos_tapas) * sizeof(int), indice);
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id_vbo_tri);
+      glDrawElements( GL_TRIANGLES, (tamanio-pos_tapas)*3, GL_UNSIGNED_INT, 0);
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
    } else {
-      glDrawElements( GL_TRIANGLES*3, (tamanio)*3, GL_UNSIGNED_INT, 0);
+      id_vbo_tri = CrearVBO(GL_ELEMENT_ARRAY_BUFFER, 3*tamanio * sizeof(int), indice);
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id_vbo_tri);
+      glDrawElements( GL_TRIANGLES, tamanio*3, GL_UNSIGNED_INT, 0);
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
+   }
+}
+
+void ObjRevolucion::dibujaAjedrez(int tamanio, const void * indice1, const void * indice2){
+   if(!tapa){
+      glColorPointer(3, GL_FLOAT, 0, c.data() );
+      glDrawElements( GL_TRIANGLES, (tamanio/2 - pos_tapas)*3, GL_UNSIGNED_INT,indice1);
+      glColorPointer(3, GL_FLOAT, 0, c_aux.data() );
+      glDrawElements( GL_TRIANGLES, (tamanio/2 - pos_tapas)*3, GL_UNSIGNED_INT,indice2);
+   } else {
+      glColorPointer(3, GL_FLOAT, 0, c.data() );
+      glDrawElements( GL_TRIANGLES, (tamanio/2)*3, GL_UNSIGNED_INT,indice1);
+      glColorPointer(3, GL_FLOAT, 0, c_aux.data() );
+      glDrawElements( GL_TRIANGLES, (tamanio/2)*3, GL_UNSIGNED_INT,indice2);
    }
 }
 
 void ObjRevolucion::tapas(){
    tapa = !tapa;
-   std::cout << "Cambio de tapas" << std::endl;
 }
