@@ -88,9 +88,15 @@ void Malla3D::draw(dibujo tipo, color col)
          case AMARILLO:
             c = camarillo;
             break;
+         case MORADO:
+            c= cmorado;
+            break;
       }
-      c_aux = cnegro;
-
+      if(tipo == CHESS){
+         c_aux = cnegro;
+      } else {
+         c_aux.clear();
+      }
       switch(tipo){
          case INMED:
             draw_ModoInmediato();
@@ -122,6 +128,7 @@ void Malla3D::calcular_colores(){
    Tupla3f rojo(1.0f,0.0f,0.0f);
    Tupla3f rosa(1.0f,0.0f,1.0f);
    Tupla3f amarillo(1.0f,1.0f,0.0f);
+   Tupla3f morado(0.5f,0.0f,0.5f);
 
    for(int i = 0; i < v.size(); i++){
       cnegro.push_back(negro);
@@ -144,10 +151,31 @@ void Malla3D::calcular_colores(){
    for(int i = 0; i < v.size(); i++){
       camarillo.push_back(amarillo);
    }
+   for(int i = 0; i < v.size(); i++){
+      cmorado.push_back(morado);
+   }
 }
 
 void Malla3D::alternar_vista(){
    ver = !ver;
+}
+
+void Malla3D::calcular_normales(){
+   nv.resize(v.size());
+   Tupla3f a, b, nc;
+   for(int i = 0; i < f.size(); i++){
+      a = v[f[i](1)] - v[f[i](0)];
+      b = v[f[i](2)] - v[f[i](0)];
+      nc = a.cross(b);
+      nv[f[i](0)] = nv[f[i](0)] + nc.normalized();
+      nv[f[i](1)] = nv[f[i](1)] + nc.normalized();
+      nv[f[i](2)] = nv[f[i](2)] + nc.normalized();
+   }
+/*
+   for(int i = 0; i < nv.size(); i++){
+      std::cout << "nv: " << nv[i] << std::endl;
+   }
+   */
 }
 
 void Malla3D::dibujaInmediato(int tamanio, const void * indice){

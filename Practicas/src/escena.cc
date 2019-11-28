@@ -44,6 +44,7 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 
 	glEnable( GL_DEPTH_TEST );	// se habilita el z-bufer
    glEnable( GL_CULL_FACE );
+   glEnable( GL_NORMALIZE );
 
 	Width  = UI_window_width/10;
 	Height = UI_window_height/10;
@@ -51,15 +52,6 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
 
-   cout << "----------------------------------------------------------" << endl;
-   cout << "Tetraedro -> Visualización modo solido, dibujado modo inmediato" << endl;
-   cout << "Cono -> Visualización modo solido, dibujado modo diferido" << endl;
-   cout << "Objeto ply de revolución -> Modo ajedrez" << endl;
-   cout << "Objeto ply -> Visualización modo puntos, dibujado modo diferido" << endl;
-   cout << "Esfera -> Visualización modo puntos, dibujado modo inmediato" << endl;
-   cout << "Cubo -> Visualización modo lineas, dibujado modo diferido" << endl;
-   cout << "Cilindro -> Visualización modo lineas, dibujado modo inmediato" << endl;
-   cout << "----------------------------------------------------------" << endl;
    cout << "Seleccione menu" << endl;
    cout << "O: Seleccion de objeto" << endl;
    cout << "V: seleccion de visualizacion" << endl;
@@ -84,43 +76,52 @@ void Escena::dibujar()
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
    glDisable(GL_LIGHTING);
    ejes.draw();
+   glEnable(GL_LIGHTING);
+   glEnable(GL_LIGHT0);
    glPushMatrix();
       glPushMatrix();
          glTranslatef(150,0,0);
          glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = AZUL;
          cilindro->draw(tipo_draw, col);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(-150,0,0);
          glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = VERDE;
          cono->draw(tipo_draw, col);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(0,50,-140);
          glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = AMARILLO;
          esfera->draw(tipo_draw, col);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(0,40,100);
          glScalef(30,30,30);
          glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = CIAN;
          objrot->draw(tipo_draw, col);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(100,0,100);
          glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = ROSA;
          cubo->draw(tipo_draw, col);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(-125,45,150);
          glScalef(0.60,0.60,0.60);
          glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = ROJO;
          tetraedro->draw(tipo_draw, col);
       glPopMatrix();
       glPushMatrix();
          glScalef(5,5,5);
          glTranslatef(0,10,0);
          glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = MORADO;
          objply->draw(tipo_draw, col);
       glPopMatrix();
    glPopMatrix();
@@ -200,15 +201,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             modo_dibujado = GL_POINT;
-            if(tipo_draw == INMED){
-               col = ROJO;
-            } else if(tipo_draw == DIFER){
-               col = AMARILLO;
-            } else if(tipo_draw == CHESS){
-               col = ROJO;
-               tipo_draw = INMED;
             }
-         }
          break ;
        case 'L':
           if(modoMenu == SELVISUALIZACION){
@@ -220,15 +213,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             modo_dibujado = GL_LINE;
-            if(tipo_draw == INMED){
-               col = NEGRO;
-            } else if(tipo_draw == DIFER){
-               col = VERDE;
-            } else if(tipo_draw == CHESS){
-               col = NEGRO;
-               tipo_draw = INMED;
+
             }
-         }
          break ;
        case 'S':
           if(modoMenu == SELVISUALIZACION){
@@ -240,14 +226,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             modo_dibujado = GL_FILL;
-            if(tipo_draw == INMED){
-               col = AZUL;
-            } else if(tipo_draw == DIFER){
-               col = ROSA;
-            } else if(tipo_draw == CHESS){
-               col = AZUL;
-               tipo_draw = INMED;
-            }
+            tipo_draw = INMED;
           }
          break ;
       case 'A':
@@ -260,9 +239,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           cout << "Q: salir" << endl;
           cout << endl;
           modo_dibujado = GL_FILL;
+          anterior_tipo = tipo_draw;
           tipo_draw = CHESS;
-          col = VERDE;
-         }
+          }
          break ;
        case 'C':
           if(modoMenu == SELOBJETO){
@@ -387,8 +366,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
            cout << "2: Modo diferido" << endl;
            cout << "Q: salir" << endl;
            cout << endl;
-           tipo_draw = INMED;
-           col = AZUL;
+           tipo_draw = anterior_tipo;
            modo_dibujado = GL_FILL;
          }
          break ;
@@ -399,8 +377,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "2: Modo diferido" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
-            tipo_draw = DIFER;
-            col = ROSA;
+            tipo_draw = anterior_tipo;
             modo_dibujado = GL_FILL;
           }
           break ;
@@ -423,23 +400,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cono->tapas();
             esfera->tapas();
          }
-          break ;
-       case 'M':
-          if(modoMenu == SELOBJETO){
-            cout << "Seleccionado tetraedro" << endl;
-            cout << "C: Cubo" << endl;
-            cout << "T: Tetraedro" << endl;
-            cout << "Y: Archivo PLY" << endl;
-            cout << "R: Archivo PLY rotacion" << endl;
-            cout << "E: Esfera" << endl;
-            cout << "3: Cono" << endl;
-            cout << "4: Cilindro" << endl;
-            cout << "M: Escena Multiple" << endl;
-            cout << "Q: salir" << endl;
-            cout << endl;
-            objMalla = MULT;
-            }
-          break ;
    }
    return salir;
 }

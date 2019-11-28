@@ -13,5 +13,4 @@ Cono::Cono(const int num_instancias_perf, const float altura, const float radio,
    instancias = num_instancias_perf;
    crearMalla(v, RY);
    pos_tapas = instancias/2;
-   calcular_colores();
 }

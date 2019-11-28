@@ -27,4 +27,5 @@ Tetraedro::Tetraedro(float lado)
    Tupla3i c4(0,2,1);
    f.push_back(c4);
    calcular_colores();
+   calcular_normales();
 }

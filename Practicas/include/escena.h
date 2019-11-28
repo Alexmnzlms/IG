@@ -42,7 +42,8 @@ class Escena
    malla objMalla;
    color col = VERDE;
    GLenum modo_dibujado = GL_FILL;
-   dibujo tipo_draw = CHESS;
+   dibujo tipo_draw = INMED;
+   dibujo anterior_tipo = INMED;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
    // Objetos de la escena

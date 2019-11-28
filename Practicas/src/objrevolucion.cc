@@ -23,7 +23,6 @@ ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, in
    vertices_perfil = v.size();
    instancias = num_instancias;
    crearMalla(v, eje_rotacion);
-   calcular_colores();
 }
 
 // *****************************************************************************
@@ -34,7 +33,6 @@ ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, e
    vertices_perfil = v.size();
    instancias = num_instancias;
    crearMalla(archivo, eje_rotacion);
-   calcular_colores();
 }
 
 bool ObjRevolucion::perfilInverso(std::vector<Tupla3f> archivo){
@@ -119,6 +117,8 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
    }
 
    pos_tapas = instancias;
+   calcular_colores();
+   calcular_normales();
 }
 
 void ObjRevolucion::quitarPolos(std::vector<Tupla3f> &perfil_original){

@@ -12,7 +12,6 @@ Cilindro::Cilindro(const int num_instancias_perf,const float altura, const float
    vertices_perfil  = 2;
    instancias = num_instancias_perf;
    crearMalla(v, RY);
-   calcular_colores();
 }
 
 void Cilindro::GenerarPerfil(const float altura, const float radio){
