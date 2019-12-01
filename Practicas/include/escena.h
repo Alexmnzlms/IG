@@ -10,6 +10,10 @@
 #include "esfera.h"
 #include "cono.h"
 #include "cilindro.h"
+#include "luz.h"
+#include "luzposicional.h"
+#include "luzdireccional.h"
+#include "material.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
@@ -42,8 +46,8 @@ class Escena
    malla objMalla;
    color col = VERDE;
    GLenum modo_dibujado = GL_FILL;
-   dibujo tipo_draw = INMED;
-   dibujo anterior_tipo = INMED;
+   dibujo tipo_draw = SMUZ;
+   dibujo anterior_tipo = SMUZ;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
    // Objetos de la escena

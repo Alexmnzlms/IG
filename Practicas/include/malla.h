@@ -11,18 +11,20 @@
 #define MALLA3D_H_INCLUDED
 
 #include "aux.h"
+#include "material.h"
 
 // *****************************************************************************
 //
 // clase para objetos 3D (mallas indexadas)
 //
 // *****************************************************************************
-typedef enum {INMED, DIFER, CHESS} dibujo;
+typedef enum {INMED, DIFER, CHESS, SMUZ, PLAIN} dibujo;
 typedef enum {NEGRO, AZUL, VERDE, CIAN, ROJO, ROSA, AMARILLO, MORADO} color;
 
 class Malla3D
 {
    public:
+   Malla3D();
 
    // dibuja el objeto en modo inmediato
    void draw_ModoInmediato();
@@ -32,11 +34,16 @@ class Malla3D
 
    void draw_ModoAjedrez();
 
+   void draw_ModoSuave();
+
+   void draw_ModoPlano();
+
    // función que redibuja el objeto
    // está función llama a 'draw_ModoInmediato' (modo inmediato)
    // o bien a 'draw_ModoDiferido' (modo diferido, VBOs)
    void draw(dibujo tipo, color col) ;
    void alternar_vista();
+   void setMaterial(Material mat);
 
    protected:
    GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );
@@ -48,6 +55,7 @@ class Malla3D
    dibujo tipo_draw;
    bool ver = true;
    GLuint id_vbo_ver = 0, id_vbo_tri = 0;
+   Material m;
    std::vector<Tupla3f> v ;   // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
    std::vector<Tupla3i> f ; // una terna de 3 enteros por cada cara o triángulo
    std::vector<Tupla3f> nv ;

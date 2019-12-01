@@ -76,7 +76,7 @@ void Escena::dibujar()
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
    glDisable(GL_LIGHTING);
    ejes.draw();
-   glEnable(GL_LIGHTING);
+
    glEnable(GL_LIGHT0);
    glPushMatrix();
       glPushMatrix();
@@ -242,7 +242,19 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
           anterior_tipo = tipo_draw;
           tipo_draw = CHESS;
           }
-         break ;
+       case 'I':
+          if(modoMenu == SELVISUALIZACION){
+           cout << "Seleccionado visualización de ajedrez" << endl;
+           cout << "P: Modo punto" << endl;
+           cout << "L: Modo linea" << endl;
+           cout << "S: Modo Solido" << endl;
+           cout << "A: Modo ajedrez" << endl;
+           cout << "Q: salir" << endl;
+           cout << endl;
+           modo_dibujado = GL_FILL;
+           tipo_draw = SMUZ;
+           }
+      break ;
        case 'C':
           if(modoMenu == SELOBJETO){
             cout << "Seleccionado cubo" << endl;

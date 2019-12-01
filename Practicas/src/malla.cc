@@ -9,6 +9,9 @@
 
 // Visualización en modo inmediato con 'glDrawElements'
 
+Malla3D::Malla3D(){
+}
+
 void Malla3D::draw_ModoInmediato()
 {
    glEnableClientState( GL_VERTEX_ARRAY );
@@ -59,6 +62,32 @@ void Malla3D::draw_ModoDiferido()
    glColorPointer(3, GL_FLOAT, 0, c.data() );
    dibujaDiferido(f.size(),f.data());
 }
+
+void Malla3D::draw_ModoSuave(){
+   glEnable(GL_LIGHTING);
+   glShadeModel(GL_SMOOTH);
+   glVertexPointer( 3, GL_FLOAT, 0, v.data() );
+   glNormalPointer( GL_FLOAT, 0, nv.data() );
+   glEnableClientState( GL_VERTEX_ARRAY );
+   glEnableClientState( GL_NORMAL_ARRAY );
+   dibujaInmediato(f.size(),f.data());
+   glDisableClientState( GL_VERTEX_ARRAY );
+   glDisableClientState( GL_NORMAL_ARRAY );
+}
+
+void Malla3D::draw_ModoPlano(){
+   glEnable(GL_LIGHTING);
+   glShadeModel(GL_FLAT);
+   glVertexPointer( 3, GL_FLOAT, 0, v.data() );
+   glNormalPointer( GL_FLOAT, 0, nv.data() );
+   glEnableClientState( GL_VERTEX_ARRAY );
+   glEnableClientState( GL_NORMAL_ARRAY );
+   dibujaInmediato(f.size(),f.data());
+   glDisableClientState( GL_VERTEX_ARRAY );
+   glDisableClientState( GL_NORMAL_ARRAY );
+}
+
+
 // -----------------------------------------------------------------------------
 // Función de visualización de la malla,
 // puede llamar a  draw_ModoInmediato o bien a draw_ModoDiferido
@@ -97,6 +126,9 @@ void Malla3D::draw(dibujo tipo, color col)
       } else {
          c_aux.clear();
       }
+
+      //m.aplicar
+
       switch(tipo){
          case INMED:
             draw_ModoInmediato();
@@ -107,6 +139,10 @@ void Malla3D::draw(dibujo tipo, color col)
          case CHESS:
             draw_ModoAjedrez();
             break;
+         case SMUZ:
+            draw_ModoSuave();
+         case PLAIN:
+            draw_ModoPlano();
       }
    }
 }
@@ -171,11 +207,10 @@ void Malla3D::calcular_normales(){
       nv[f[i](1)] = nv[f[i](1)] + nc.normalized();
       nv[f[i](2)] = nv[f[i](2)] + nc.normalized();
    }
-/*
    for(int i = 0; i < nv.size(); i++){
-      std::cout << "nv: " << nv[i] << std::endl;
+      nv[i] = nv[i].normalized();
    }
-   */
+
 }
 
 void Malla3D::dibujaInmediato(int tamanio, const void * indice){
@@ -194,4 +229,8 @@ void Malla3D::dibujaAjedrez(int tamanio, const void * indice1, const void * indi
    glDrawElements( GL_TRIANGLES, (tamanio/2)*3, GL_UNSIGNED_INT,indice1);
    glColorPointer(3, GL_FLOAT, 0, c_aux.data() );
    glDrawElements( GL_TRIANGLES, (tamanio/2)*3, GL_UNSIGNED_INT,indice2);
+}
+
+void Malla3D::setMaterial(Material mat){
+   m = mat;
 }
