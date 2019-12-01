@@ -198,6 +198,9 @@ void Malla3D::alternar_vista(){
 
 void Malla3D::calcular_normales(){
    nv.resize(v.size());
+   for(int i = 0; i < nv.size(); i++){
+      nv[i] = {0,0,0};
+   }
    Tupla3f a, b, nc;
    for(int i = 0; i < f.size(); i++){
       a = v[f[i](1)] - v[f[i](0)];

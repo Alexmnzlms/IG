@@ -27,6 +27,11 @@ Escena::Escena()
    esfera = new Esfera(50);
    cilindro = new Cilindro(50, 50);
    cono = new Cono(50, 50);
+   Tupla4f amb = {1.0,0.0,0.0,1.0};
+   Tupla4f dif = {0.0,1.0,0.0,1.0};
+   Tupla4f esp = {0.0,0.0,1.0,1.0};
+   Tupla2f ori = {0.0,0.0};
+   luzdir = new LuzDireccional(ori, GL_LIGHT1, amb, dif, esp);
 
 }
 
@@ -77,7 +82,7 @@ void Escena::dibujar()
    glDisable(GL_LIGHTING);
    ejes.draw();
 
-   glEnable(GL_LIGHT0);
+   luzdir->activar();
    glPushMatrix();
       glPushMatrix();
          glTranslatef(150,0,0);
@@ -118,13 +123,15 @@ void Escena::dibujar()
          tetraedro->draw(tipo_draw, col);
       glPopMatrix();
       glPushMatrix();
+         glTranslatef(0,50,0);
          glScalef(5,5,5);
-         glTranslatef(0,10,0);
          glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
          col = MORADO;
          objply->draw(tipo_draw, col);
       glPopMatrix();
    glPopMatrix();
+
+
 }
 
 //**************************************************************************

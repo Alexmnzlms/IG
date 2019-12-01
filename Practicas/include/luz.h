@@ -3,7 +3,7 @@
 
 
 class Luz {
-   private:
+   protected:
       Tupla4f posicion;
       GLenum id;
       Tupla4f colorAmbiente;

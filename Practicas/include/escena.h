@@ -47,7 +47,7 @@ class Escena
    color col = VERDE;
    GLenum modo_dibujado = GL_FILL;
    dibujo tipo_draw = SMUZ;
-   dibujo anterior_tipo = SMUZ;
+   dibujo anterior_tipo = tipo_draw;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
    // Objetos de la escena
@@ -59,6 +59,7 @@ class Escena
    Esfera * esfera = nullptr;
    Cono * cono = nullptr;
    Cilindro * cilindro = nullptr;
+   LuzDireccional * luzdir = nullptr;
 
 
    public:
