@@ -41,10 +41,9 @@ class Escena
    void clear_window();
 
    menu modoMenu=NADA;
-   bool quitar_superior = false;
-   bool quitar_inferior = false;
+   bool iluminacion = true;
    malla objMalla;
-   color col = VERDE;
+   color col;
    GLenum modo_dibujado = GL_FILL;
    dibujo tipo_draw = SMUZ;
    dibujo anterior_tipo = tipo_draw;
@@ -59,7 +58,37 @@ class Escena
    Esfera * esfera = nullptr;
    Cono * cono = nullptr;
    Cilindro * cilindro = nullptr;
+   //Luces de la escena
    LuzDireccional * luzdir = nullptr;
+   LuzDireccional * luzdir2 = nullptr;
+   LuzPosicional * luzpos = nullptr;
+   LuzPosicional * luzpos2 = nullptr;
+   //Materiales de la escena
+   Tupla4f colambesmeralda = {0.0215,0.1745,0.0215,1.0};
+   Tupla4f coldifesmeralda = {0.07568,0.61424,0.07568,1.0};
+   Tupla4f colespesmeralda = {0.633,0.727811,0.07568,1.0};
+   float brilloesmeralda = 0.6*128.0;
+
+   Tupla4f colambrubi = {0.1745, 0.01175, 0.01175,1.0};
+   Tupla4f coldifrubi = { 0.61424, 0.04136, 0.04136,1.0};
+   Tupla4f colesprubi = {0.727811,0.626959,0.626959,1.0};
+   float brillorubi = 0.6*128.0;
+
+   Tupla4f colambnegro = {0.0, 0.0, 0.0,1.0};
+   Tupla4f coldifnegro = { 0.0, 0.0, 0.0,1.0};
+   Tupla4f colespnegro = {1.0,1.0,1.0,1.0};
+   float brillonegro = 0.05*128.0;
+
+   Tupla4f colambblanco = {1.0, 1.0, 1.0,1.0};
+   Tupla4f coldifblanco = { 1.0, 1.0, 1.0,1.0};
+   Tupla4f colespblanco = {0.0,0.0,0.0,1.0};
+   float brilloblanco = 128.0;
+
+   Material * esmeralda = nullptr;
+   Material * rubi = nullptr;
+   Material * negro = nullptr;
+   Material * blanco = nullptr;
+
 
 
    public:

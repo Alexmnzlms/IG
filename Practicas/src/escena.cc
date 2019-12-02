@@ -20,18 +20,30 @@ Escena::Escena()
 
    int num_vert = 10;
    int num_rot = 20;
-   cubo = new Cubo(75);
-   tetraedro = new Tetraedro(75);
+   cubo = new Cubo(100);
+   tetraedro = new Tetraedro(100);
    objply = new ObjPLY(ply,1);
    objrot = new ObjRevolucion(plyrot);
    esfera = new Esfera(50);
    cilindro = new Cilindro(50, 50);
    cono = new Cono(50, 50);
-   Tupla4f amb = {1.0,0.0,0.0,1.0};
-   Tupla4f dif = {0.0,1.0,0.0,1.0};
-   Tupla4f esp = {0.0,0.0,1.0,1.0};
-   Tupla2f ori = {0.0,0.0};
+
+   Tupla4f amb = {0.0,0.0,0.0,1.0};
+   Tupla4f dif = {1.0,1.0,1.0,1.0};
+   Tupla4f esp = {1.0,1.0,1.0,1.0};
+   Tupla2f ori = {90.0,0.0};
    luzdir = new LuzDireccional(ori, GL_LIGHT1, amb, dif, esp);
+   //Tupla2f ori2 = {0.0,0.0};
+   //luzdir2 = new LuzDireccional(ori2, GL_LIGHT1, amb, dif, esp);
+   Tupla3f pos = {0.0,50.0,0.0};
+   luzpos = new LuzPosicional(pos, GL_LIGHT2, amb, dif, esp);
+   Tupla3f pos2 = {0.0,150.0,-150.0};
+   luzpos2 = new LuzPosicional(pos2, GL_LIGHT2, amb, dif, esp);
+
+   esmeralda = new Material(coldifesmeralda, colespesmeralda, colambesmeralda, brilloesmeralda);
+   rubi = new Material(coldifrubi,colesprubi,colambrubi, brillorubi);
+   negro = new Material(coldifnegro,colespnegro,colambnegro, brillonegro);
+   blanco = new Material(coldifblanco,colespblanco,colambblanco, brilloblanco);
 
 }
 
@@ -82,8 +94,21 @@ void Escena::dibujar()
    glDisable(GL_LIGHTING);
    ejes.draw();
 
+   //glEnable(GL_LIGHT0);
    luzdir->activar();
+   //luzdir2->activar();
+   //luzpos->activar();
+   /*
+   cubo->setMaterial(rubi);
+   tetraedro->setMaterial(esmeralda);
+   objply->setMaterial(rubi);
+   objrot->setMaterial(esmeralda);
+   cilindro->setMaterial(rubi);
+   cono->setMaterial(esmeralda);
+   esfera->setMaterial(rubi);
+   */
    glPushMatrix();
+   /*
       glPushMatrix();
          glTranslatef(150,0,0);
          glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
@@ -129,6 +154,32 @@ void Escena::dibujar()
          col = MORADO;
          objply->draw(tipo_draw, col);
       glPopMatrix();
+   */
+      glPushMatrix();
+         //glTranslatef(-35,0,-35);
+         glScalef(5,0.25,5);
+         glTranslatef(-50,0,-50);
+         glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = ROJO;
+         cubo->setMaterial(*rubi);
+         cubo->draw(tipo_draw, col);
+      glPopMatrix();
+      glPushMatrix();
+         glTranslatef(50,67,0);
+         glScalef(30,30,30);
+         glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = CIAN;
+         objrot->setMaterial(*blanco);
+         objrot->draw(tipo_draw, col);
+      glPopMatrix();
+      glPushMatrix();
+         glTranslatef(-50,67,0);
+         glScalef(30,30,30);
+         glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
+         col = CIAN;
+         objrot->setMaterial(*negro);
+         objrot->draw(tipo_draw, col);
+      glPopMatrix();
    glPopMatrix();
 
 
@@ -158,11 +209,11 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             modoMenu=NADA;
-          }
+         }
          else {
             salir=true ;
          }
-         break ;
+      break ;
       case 'O' :
          // ESTAMOS EN MODO SELECCION DE OBJETO
          modoMenu=SELOBJETO;
@@ -190,7 +241,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          cout << endl;
          break ;
       case 'D' :
-         // ESTAMOS EN MODO SELECCION DE DIBUJADO
+      // ESTAMOS EN MODO SELECCION DE DIBUJADO
          modoMenu=SELDIBUJADO;
          cout << "Seleccione modo de visualización" << endl;
          cout << "1: Modo inmediato" << endl;
@@ -198,8 +249,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          cout << "Q: salir" << endl;
          cout << endl;
          break ;
-       case 'P':
-          if(modoMenu == SELVISUALIZACION){
+      case 'P':
+         if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de punto" << endl;
             cout << "P: Modo punto" << endl;
             cout << "L: Modo linea" << endl;
@@ -208,10 +259,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             modo_dibujado = GL_POINT;
-            }
+            tipo_draw = INMED;
+            iluminacion = false;
+         }
          break ;
-       case 'L':
-          if(modoMenu == SELVISUALIZACION){
+      case 'L':
+         if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de linea" << endl;
             cout << "P: Modo punto" << endl;
             cout << "L: Modo linea" << endl;
@@ -220,11 +273,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             modo_dibujado = GL_LINE;
-
-            }
+            tipo_draw = INMED;
+            iluminacion = false;
+         }
          break ;
-       case 'S':
-          if(modoMenu == SELVISUALIZACION){
+      case 'S':
+         if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado visualización de solido" << endl;
             cout << "P: Modo punto" << endl;
             cout << "L: Modo linea" << endl;
@@ -234,36 +288,39 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << endl;
             modo_dibujado = GL_FILL;
             tipo_draw = INMED;
-          }
+            iluminacion = false;
+         }
          break ;
       case 'A':
          if(modoMenu == SELVISUALIZACION){
-          cout << "Seleccionado visualización de ajedrez" << endl;
-          cout << "P: Modo punto" << endl;
-          cout << "L: Modo linea" << endl;
-          cout << "S: Modo Solido" << endl;
-          cout << "A: Modo ajedrez" << endl;
-          cout << "Q: salir" << endl;
-          cout << endl;
-          modo_dibujado = GL_FILL;
-          anterior_tipo = tipo_draw;
-          tipo_draw = CHESS;
-          }
-       case 'I':
-          if(modoMenu == SELVISUALIZACION){
-           cout << "Seleccionado visualización de ajedrez" << endl;
-           cout << "P: Modo punto" << endl;
-           cout << "L: Modo linea" << endl;
-           cout << "S: Modo Solido" << endl;
-           cout << "A: Modo ajedrez" << endl;
-           cout << "Q: salir" << endl;
-           cout << endl;
-           modo_dibujado = GL_FILL;
-           tipo_draw = SMUZ;
-           }
-      break ;
-       case 'C':
-          if(modoMenu == SELOBJETO){
+            cout << "Seleccionado visualización de ajedrez" << endl;
+            cout << "P: Modo punto" << endl;
+            cout << "L: Modo linea" << endl;
+            cout << "S: Modo Solido" << endl;
+            cout << "A: Modo ajedrez" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
+            modo_dibujado = GL_FILL;
+            anterior_tipo = tipo_draw;
+            tipo_draw = CHESS;
+         }
+         break;
+      case 'I':
+         if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado visualización de ajedrez" << endl;
+            cout << "P: Modo punto" << endl;
+            cout << "L: Modo linea" << endl;
+            cout << "S: Modo Solido" << endl;
+            cout << "A: Modo ajedrez" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
+            iluminacion = true;
+            modo_dibujado = GL_FILL;
+            tipo_draw = SMUZ;
+         }
+         break ;
+      case 'C':
+         if(modoMenu == SELOBJETO){
             cout << "Seleccionado cubo" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
@@ -276,10 +333,10 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             cubo->alternar_vista();
-          }
-          break ;
-       case 'T':
-          if(modoMenu == SELOBJETO){
+         }
+         break ;
+      case 'T':
+         if(modoMenu == SELOBJETO){
             cout << "Seleccionado tetraedro" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
@@ -292,10 +349,10 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             tetraedro->alternar_vista();
-          }
-          break ;
-       case 'Y':
-          if(modoMenu == SELOBJETO){
+         }
+         break ;
+      case 'Y':
+         if(modoMenu == SELOBJETO){
             cout << "Seleccionado archivo ply" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
@@ -308,10 +365,10 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             objply->alternar_vista();
-          }
-          break ;
-       case 'R':
-          if(modoMenu == SELOBJETO){
+         }
+         break ;
+      case 'R':
+         if(modoMenu == SELOBJETO){
             cout << "Seleccionado archivo ply de rotacion" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
@@ -325,10 +382,10 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             objrot->alternar_vista();
-          }
-          break ;
-       case 'E':
-          if(modoMenu == SELOBJETO){
+         }
+         break ;
+      case 'E':
+         if(modoMenu == SELOBJETO){
             cout << "Seleccionado esfera" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
@@ -342,27 +399,27 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             esfera->alternar_vista();
-          }
-          break ;
-       case '3':
-         if(modoMenu == SELOBJETO){
-           cout << "Seleccionado cono" << endl;
-           cout << "C: Cubo" << endl;
-           cout << "T: Tetraedro" << endl;
-           cout << "Y: Archivo PLY" << endl;
-           cout << "R: Archivo PLY rotacion" << endl;
-           cout << "E: Esfera" << endl;
-           cout << "3: Cono" << endl;
-           cout << "4: Cilindro" << endl;
-           cout << "M: Escena Multiple" << endl;
-           cout << "+: Alternar tapas" << endl;
-           cout << "Q: salir" << endl;
-           cout << endl;
-           cono->alternar_vista();
          }
          break ;
-         case '4':
-          if(modoMenu == SELOBJETO){
+      case '3':
+         if(modoMenu == SELOBJETO){
+            cout << "Seleccionado cono" << endl;
+            cout << "C: Cubo" << endl;
+            cout << "T: Tetraedro" << endl;
+            cout << "Y: Archivo PLY" << endl;
+            cout << "R: Archivo PLY rotacion" << endl;
+            cout << "E: Esfera" << endl;
+            cout << "3: Cono" << endl;
+            cout << "4: Cilindro" << endl;
+            cout << "M: Escena Multiple" << endl;
+            cout << "+: Alternar tapas" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
+            cono->alternar_vista();
+         }
+         break ;
+      case '4':
+            if(modoMenu == SELOBJETO){
             cout << "Seleccionado cilindro" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
@@ -376,21 +433,21 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             cilindro->alternar_vista();
-          }
-          break ;
-      case '1':
-         if(modoMenu == SELDIBUJADO){
-           cout << "Seleccionado modo inmediato" << endl;
-           cout << "1: Modo inmediato" << endl;
-           cout << "2: Modo diferido" << endl;
-           cout << "Q: salir" << endl;
-           cout << endl;
-           tipo_draw = anterior_tipo;
-           modo_dibujado = GL_FILL;
          }
          break ;
-       case '2':
-          if(modoMenu == SELDIBUJADO){
+      case '1':
+         if(modoMenu == SELDIBUJADO){
+            cout << "Seleccionado modo inmediato" << endl;
+            cout << "1: Modo inmediato" << endl;
+            cout << "2: Modo diferido" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
+            tipo_draw = anterior_tipo;
+            modo_dibujado = GL_FILL;
+         }
+         break ;
+      case '2':
+         if(modoMenu == SELDIBUJADO){
             cout << "Seleccionado modo diferido" << endl;
             cout << "1: Modo inmediato" << endl;
             cout << "2: Modo diferido" << endl;
@@ -398,9 +455,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << endl;
             tipo_draw = anterior_tipo;
             modo_dibujado = GL_FILL;
-          }
-          break ;
-       case '+':
+         }
+         break ;
+      case '+':
          if(modoMenu == SELOBJETO){
             cout << "Quitada tapa superior" << endl;
             cout << "C: Cubo" << endl;
@@ -419,6 +476,31 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cono->tapas();
             esfera->tapas();
          }
+         break;
+      case 'G':
+         if(modoMenu == SELOBJETO){
+            cout << "Aumento alpha" << endl;
+            luzdir->variarAnguloAlpha(5.0);
+         }
+         break;
+      case 'F':
+         if(modoMenu == SELOBJETO){
+            cout << "Decremento alpha" << endl;
+            luzdir->variarAnguloAlpha(-5.0);
+         }
+         break;
+      case '8':
+         if(modoMenu == SELOBJETO){
+            cout << "Aumento beta" << endl;
+            luzdir->variarAnguloBeta(5.0);
+         }
+         break;
+      case '7':
+         if(modoMenu == SELOBJETO){
+            cout << "Decremento beta" << endl;
+            luzdir->variarAnguloBeta(-5.0);
+         }
+         break;
    }
    return salir;
 }

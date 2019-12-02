@@ -127,7 +127,7 @@ void Malla3D::draw(dibujo tipo, color col)
          c_aux.clear();
       }
 
-      //m.aplicar
+      m.aplicar();
 
       switch(tipo){
          case INMED:
@@ -190,6 +190,7 @@ void Malla3D::calcular_colores(){
    for(int i = 0; i < v.size(); i++){
       cmorado.push_back(morado);
    }
+
 }
 
 void Malla3D::alternar_vista(){

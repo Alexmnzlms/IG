@@ -4,9 +4,9 @@
 class LuzPosicional : public Luz
 {
    public:
-      LuzPosicional( const Tupla3f & posicion,
-                     GLenum idLuzOpenGL,Tupla4f colorAmbiente,
-                     Tupla4f colorDifuso,Tupla4f colorEspecular ) ;
+      LuzPosicional( const Tupla3f & pos,
+                     GLenum idLuzOpenGL,Tupla4f colorA,
+                     Tupla4f colorD,Tupla4f colorE) ;
 };
 
 #endif
