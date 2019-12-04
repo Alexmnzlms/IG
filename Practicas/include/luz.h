@@ -13,7 +13,7 @@ class Luz {
    public:
       Luz();
       void activar();
-      bool alternar_luz();
+      void alternar_luz();
 };
 
 #endif

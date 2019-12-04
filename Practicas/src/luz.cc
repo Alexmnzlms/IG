@@ -14,5 +14,8 @@ void Luz::activar(){
    } else {
       glDisable(id);
    }
+}
+
+void Luz::alternar_luz(){
    activada = !activada;
 }

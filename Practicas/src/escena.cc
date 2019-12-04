@@ -112,6 +112,8 @@ void Escena::dibujar()
                col = NARANJA;
                break;
          }
+         luzdir->alternar_luz();
+         luzpos->alternar_luz();
          glPushMatrix();
             glPushMatrix();
                glScalef(5,0.25,4);
@@ -509,7 +511,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "B: Selecionar Beta" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
-            luzdir->activar();
+            luzdir->alternar_luz();
             }
             break;
       case '1':
@@ -531,7 +533,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "B: Selecionar Beta" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
-            luzpos->activar();
+            luzpos->alternar_luz();
          }
          break ;
       case '2':
