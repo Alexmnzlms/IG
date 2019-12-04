@@ -9,9 +9,11 @@ class Luz {
       Tupla4f colorAmbiente;
       Tupla4f colorDifuso;
       Tupla4f colorEspecular;
+      bool activada;
    public:
       Luz();
       void activar();
+      bool alternar_luz();
 };
 
 #endif
