@@ -35,7 +35,7 @@ Escena::Escena()
    luzdir = new LuzDireccional(dir, GL_LIGHT1, amb, dif, esp);
    //Tupla2f ori2 = {0.0,0.0};
    //luzdir2 = new LuzDireccional(ori2, GL_LIGHT1, amb, dif, esp);
-   Tupla3f pos = {0.0,-500.0,0.0};
+   Tupla3f pos = {0.0,200.0,0.0};
    luzpos = new LuzPosicional(pos, GL_LIGHT2, amb, dif, esp);
    //Tupla3f pos2 = {-500.0,100.0,0.0};
    //luzpos2 = new LuzPosicional(pos2, GL_LIGHT3, amb, dif, esp);
@@ -96,15 +96,6 @@ void Escena::dibujar()
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
    glDisable(GL_LIGHTING);
    ejes.draw();
-   /*
-   cubo->setMaterial(rubi);
-   tetraedro->setMaterial(esmeralda);
-   objply->setMaterial(rubi);
-   objrot->setMaterial(esmeralda);
-   cilindro->setMaterial(rubi);
-   cono->setMaterial(esmeralda);
-   esfera->setMaterial(rubi);
-   */
    for(int i = 0; i < 3; i++){
       if(bool_dibujado[i]){
          switch (i) {
@@ -118,7 +109,7 @@ void Escena::dibujar()
                break;
             case 2:
                modo_dibujado = GL_FILL;
-               col = ROJO;
+               col = NARANJA;
                break;
          }
          glPushMatrix();
@@ -330,8 +321,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             bool_dibujado[0] = false;
             bool_dibujado[1] = false;
             bool_dibujado[2] = true;
-         }
-         if(modoMenu == ILUMINACION){
+         } else if(modoMenu == ILUMINACION){
             cout << "Seleccionado angulo alfa" << endl;
             cout << ">: Aunmentar angulo" << endl;
             cout << "<: Decrementar angulo" << endl;
@@ -359,9 +349,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "<: Decrementar angulo" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
-            if(ang = ALFA){
+            if(ang == ALFA){
                luzdir->variarAnguloAlpha(5.0);
-            }else if(ang = BETA){
+            }else if(ang == BETA){
                luzdir->variarAnguloBeta(5.0);
             }
          }
@@ -373,9 +363,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "<: Decrementar angulo" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
-            if(ang = ALFA){
+            if(ang == ALFA){
                luzdir->variarAnguloAlpha(-5.0);
-            }else if(ang = BETA){
+            }else if(ang == BETA){
                luzdir->variarAnguloBeta(-5.0);
             }
          }
@@ -533,8 +523,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             bool_dibujado[0] = false;
             bool_dibujado[1] = false;
             bool_dibujado[2] = true;
-         }
-         if(modoMenu == ILUMINACION){
+         } else if(modoMenu == ILUMINACION){
             cout << "Luz 1 activada (posicional)" << endl;
             cout << "0: Activar luz 0 (direccional)" << endl;
             cout << "1: Activar luz 1 (posicional)" << endl;

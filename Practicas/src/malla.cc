@@ -108,8 +108,8 @@ void Malla3D::draw(dibujo tipo, color col)
          case CIAN:
             c = ccian;
             break;
-         case ROJO:
-            c = crojo;
+         case NARANJA:
+            c = cnaranja;
             break;
          case ROSA:
             c = crosa;
@@ -161,7 +161,7 @@ void Malla3D::calcular_colores(){
    Tupla3f azul(0.0f,0.0f,1.0f);
    Tupla3f verde(0.0f,1.0f,0.0f);
    Tupla3f cian(0.0f,1.0f,1.0f);
-   Tupla3f rojo(1.0f,0.0f,0.0f);
+   Tupla3f naranja(1.0f,0.5333f,0.243137255f);
    Tupla3f rosa(1.0f,0.0f,1.0f);
    Tupla3f amarillo(1.0f,1.0f,0.0f);
    Tupla3f morado(0.5f,0.0f,0.5f);
@@ -179,7 +179,7 @@ void Malla3D::calcular_colores(){
       ccian.push_back(cian);
    }
    for(int i = 0; i < v.size(); i++){
-      crojo.push_back(rojo);
+      cnaranja.push_back(naranja);
    }
    for(int i = 0; i < v.size(); i++){
       crosa.push_back(rosa);
