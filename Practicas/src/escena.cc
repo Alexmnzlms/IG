@@ -20,13 +20,13 @@ Escena::Escena()
 
    int num_vert = 10;
    int num_rot = 20;
-   cubo = new Cubo(100);
-   tetraedro = new Tetraedro(100);
-   objply = new ObjPLY(ply,1);
+   cubo = new Cubo(10);
+   tetraedro = new Tetraedro(10);
+   objply = new ObjPLY(ply,10);
    objrot = new ObjRevolucion(plyrot);
-   esfera = new Esfera(50);
-   cilindro = new Cilindro(50, 50);
-   cono = new Cono(50, 50);
+   esfera = new Esfera(10);
+   cilindro = new Cilindro(10, 10);
+   cono = new Cono(10,10);
 
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
@@ -112,71 +112,47 @@ void Escena::dibujar()
                col = NARANJA;
                break;
          }
-         luzdir->alternar_luz();
-         luzpos->alternar_luz();
+         if(actluzdir){
+            luzdir->activar();
+         } else {
+            luzdir->desactivar();
+         }
+         if(actluzpos){
+            luzpos->activar();
+         } else {
+            luzpos->desactivar();
+         }
          glPushMatrix();
+         //glScalef(10,10,10);
             glPushMatrix();
-               glScalef(5,0.25,4);
-               glTranslatef(-50,0,-50);
-               glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-               cubo->setMaterial(*rubi);
-               cubo->draw(tipo_draw, col);
-            glPopMatrix();
-            glPushMatrix();
-               glTranslatef(50,67,0);
-               glScalef(30,30,30);
-               glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-               objrot->setMaterial(*blanco);
-               objrot->draw(tipo_draw, col);
-            glPopMatrix();
-            glPushMatrix();
-               glTranslatef(-50,67,0);
-               glScalef(30,30,30);
-               glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-               objrot->setMaterial(*negro);
-               objrot->draw(tipo_draw, col);
-            glPopMatrix();
-            glPushMatrix();
-               glTranslatef(0,67,-60);
-               glScalef(5,5,5);
-               glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-               objply->setMaterial(*esmeralda);
-               objply->draw(tipo_draw, col);
-            glPopMatrix();
-            glPushMatrix();
-               glTranslatef(0,67,-70);
-               glScalef(0.90,0.90,0.90);
-               glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-               esfera->setMaterial(*perla);
-               esfera->draw(tipo_draw, col);
-            glPopMatrix();
-            glPushMatrix();
-               glTranslatef(-110,25,-60);
-               glScalef(0.5,2,0.5);
-               glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-               cilindro->setMaterial(*bronce);
-               cilindro->draw(tipo_draw, col);
-            glPopMatrix();
-            glPushMatrix();
-               glTranslatef(110,25,-60);
-               glScalef(0.5,2,0.5);
-               glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-               cono->setMaterial(*bronce);
-               cono->draw(tipo_draw, col);
-            glPopMatrix();
-            glPushMatrix();
-               glTranslatef(130,75,60);
-               glScalef(0.5,0.5,0.5);
-               glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-               tetraedro->setMaterial(*rubi);
-               tetraedro->draw(tipo_draw, col);
-            glPopMatrix();
-            glPushMatrix();
-               glTranslatef(-130,75,60);
-               glScalef(0.5,0.5,0.5);
-               glPolygonMode( GL_FRONT_AND_BACK, modo_dibujado );
-               tetraedro->setMaterial(*esmeralda);
-               tetraedro->draw(tipo_draw, col);
+               glPushMatrix();
+                  glScalef(8,8,8);
+                  glTranslatef(-5,0,-5);
+                  glPolygonMode( GL_FRONT, modo_dibujado );
+                  cubo->setMaterial(*rubi);
+                  cubo->draw(tipo_draw, col);
+               glPopMatrix();
+               glPushMatrix();
+                  glScalef(6,6,6);
+                  glTranslatef(-5,0,-5);
+                  glPolygonMode( GL_FRONT, modo_dibujado );
+                  cubo->setMaterial(*rubi);
+                  cubo->draw(tipo_draw, col);
+               glPopMatrix();
+               glPushMatrix();
+                  glScalef(4,4,4);
+                  glTranslatef(-5,0,-5);
+                  glPolygonMode( GL_FRONT, modo_dibujado );
+                  cubo->setMaterial(*rubi);
+                  cubo->draw(tipo_draw, col);
+               glPopMatrix();
+               glPushMatrix();
+                  glScalef(2,2,2);
+                  glTranslatef(-5,0,-5);
+                  glPolygonMode( GL_FRONT, modo_dibujado );
+                  cubo->setMaterial(*rubi);
+                  cubo->draw(tipo_draw, col);
+               glPopMatrix();
             glPopMatrix();
          glPopMatrix();
       }
@@ -511,7 +487,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "B: Selecionar Beta" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
-            luzdir->alternar_luz();
+            actluzdir = !actluzdir;
             }
             break;
       case '1':
@@ -533,7 +509,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "B: Selecionar Beta" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
-            luzpos->alternar_luz();
+            actluzpos = !actluzpos;
          }
          break ;
       case '2':

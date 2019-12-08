@@ -44,6 +44,8 @@ class Escena
    menu modoMenu=NADA;
    bool iluminacion = false;
    bool bool_dibujado[3] = {false, false, true};
+   bool actluzdir = false;
+   bool actluzpos = false;
    angulo ang;
    color col;
    GLenum modo_dibujado;

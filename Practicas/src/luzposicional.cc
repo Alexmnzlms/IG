@@ -9,5 +9,4 @@ LuzPosicional::LuzPosicional( const Tupla3f & pos, GLenum idLuzOpenGL, Tupla4f c
    colorEspecular = colorE;
 
    posicion = {pos(0),pos(1),pos(2),1.0};
-   activada = false;
 }
