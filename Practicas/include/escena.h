@@ -63,6 +63,11 @@ class Escena
    Cono * cono = nullptr;
    Cilindro * cilindro = nullptr;
    Edificio * edificio = nullptr;
+
+   ObjPLY * pie = nullptr ;
+   ObjPLY * pierna = nullptr ;
+   ObjPLY * femur = nullptr ;
+
    //Luces de la escena
    LuzDireccional * luzdir = nullptr;
    LuzDireccional * luzdir2 = nullptr;

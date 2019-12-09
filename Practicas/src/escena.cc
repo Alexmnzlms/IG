@@ -29,6 +29,10 @@ Escena::Escena()
    cono = new Cono(10,10);
    edificio = new Edificio();
 
+   pie = new ObjPLY("ply/pie",10);
+   pierna = new ObjPLY("ply/pierna",10);
+   femur = new ObjPLY("ply/femur",10);
+
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
    Tupla4f esp = {1.0,1.0,1.0,1.0};
@@ -36,7 +40,7 @@ Escena::Escena()
    luzdir = new LuzDireccional(dir, GL_LIGHT1, amb, dif, esp);
    //Tupla2f ori2 = {0.0,0.0};
    //luzdir2 = new LuzDireccional(ori2, GL_LIGHT1, amb, dif, esp);
-   Tupla3f pos = {0.0,0.0,0.0};
+   Tupla3f pos = {0.0,260.0,0.0};
    luzpos = new LuzPosicional(pos, GL_LIGHT2, amb, dif, esp);
    //Tupla3f pos2 = {-500.0,100.0,0.0};
    //luzpos2 = new LuzPosicional(pos2, GL_LIGHT3, amb, dif, esp);
@@ -122,8 +126,30 @@ void Escena::dibujar()
             luzpos->activar();
          }
          glPushMatrix();
-            edificio->setMaterial(*rubi);
-            edificio->draw(tipo_draw,col,modo_dibujado);
+            glPushMatrix();
+               glTranslatef(-1000,0,0);
+               glScalef(0.5,0.5,0.5);
+               edificio->setMaterial(*rubi);
+               edificio->draw(tipo_draw,col,modo_dibujado);
+            glPopMatrix();
+            glPushMatrix();
+               pie->setMaterial(*rubi);
+               pie->draw(tipo_draw,col,modo_dibujado);
+               glPushMatrix();
+                  float a = 45.0;
+                  float b = -2.0*a;
+                  glTranslatef(11,60.0*cos(a*M_PI/180.0),0);
+                  glRotatef(a,1,0,0);
+                  femur->setMaterial(*rubi);
+                  femur->draw(tipo_draw,col,modo_dibujado);
+                  glPushMatrix();
+                     glTranslatef(-11,-25,0);
+                     glRotatef(b,1,0,0);
+                     pierna->setMaterial(*rubi);
+                     pierna->draw(tipo_draw,col,modo_dibujado);
+                  glPopMatrix();
+               glPopMatrix();
+            glPopMatrix();
          glPopMatrix();
       }
    }
