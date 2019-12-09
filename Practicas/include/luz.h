@@ -12,7 +12,6 @@ class Luz {
    public:
       Luz();
       void activar();
-      void desactivar();
 };
 
 #endif

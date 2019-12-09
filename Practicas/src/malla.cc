@@ -92,7 +92,7 @@ void Malla3D::draw_ModoPlano(){
 // Función de visualización de la malla,
 // puede llamar a  draw_ModoInmediato o bien a draw_ModoDiferido
 
-void Malla3D::draw(dibujo tipo, color col)
+void Malla3D::draw(dibujo tipo, color col, GLenum modo)
 {
    if(ver){
       switch(col){
@@ -128,6 +128,8 @@ void Malla3D::draw(dibujo tipo, color col)
       }
 
       m.aplicar();
+
+      glPolygonMode(GL_FRONT, modo);
 
       switch(tipo){
          case INMED:

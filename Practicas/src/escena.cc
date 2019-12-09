@@ -25,8 +25,9 @@ Escena::Escena()
    objply = new ObjPLY(ply,10);
    objrot = new ObjRevolucion(plyrot);
    esfera = new Esfera(10);
-   cilindro = new Cilindro(10, 10);
+   cilindro = new Cilindro(50, 50);
    cono = new Cono(10,10);
+   edificio = new Edificio();
 
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
@@ -35,7 +36,7 @@ Escena::Escena()
    luzdir = new LuzDireccional(dir, GL_LIGHT1, amb, dif, esp);
    //Tupla2f ori2 = {0.0,0.0};
    //luzdir2 = new LuzDireccional(ori2, GL_LIGHT1, amb, dif, esp);
-   Tupla3f pos = {0.0,200.0,0.0};
+   Tupla3f pos = {0.0,0.0,0.0};
    luzpos = new LuzPosicional(pos, GL_LIGHT2, amb, dif, esp);
    //Tupla3f pos2 = {-500.0,100.0,0.0};
    //luzpos2 = new LuzPosicional(pos2, GL_LIGHT3, amb, dif, esp);
@@ -95,6 +96,8 @@ void Escena::dibujar()
    change_observer();
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
    glDisable(GL_LIGHTING);
+   glDisable(GL_LIGHT1);
+   glDisable(GL_LIGHT2);
    ejes.draw();
    for(int i = 0; i < 3; i++){
       if(bool_dibujado[i]){
@@ -114,46 +117,13 @@ void Escena::dibujar()
          }
          if(actluzdir){
             luzdir->activar();
-         } else {
-            luzdir->desactivar();
          }
          if(actluzpos){
             luzpos->activar();
-         } else {
-            luzpos->desactivar();
          }
          glPushMatrix();
-         //glScalef(10,10,10);
-            glPushMatrix();
-               glPushMatrix();
-                  glScalef(8,8,8);
-                  glTranslatef(-5,0,-5);
-                  glPolygonMode( GL_FRONT, modo_dibujado );
-                  cubo->setMaterial(*rubi);
-                  cubo->draw(tipo_draw, col);
-               glPopMatrix();
-               glPushMatrix();
-                  glScalef(6,6,6);
-                  glTranslatef(-5,0,-5);
-                  glPolygonMode( GL_FRONT, modo_dibujado );
-                  cubo->setMaterial(*rubi);
-                  cubo->draw(tipo_draw, col);
-               glPopMatrix();
-               glPushMatrix();
-                  glScalef(4,4,4);
-                  glTranslatef(-5,0,-5);
-                  glPolygonMode( GL_FRONT, modo_dibujado );
-                  cubo->setMaterial(*rubi);
-                  cubo->draw(tipo_draw, col);
-               glPopMatrix();
-               glPushMatrix();
-                  glScalef(2,2,2);
-                  glTranslatef(-5,0,-5);
-                  glPolygonMode( GL_FRONT, modo_dibujado );
-                  cubo->setMaterial(*rubi);
-                  cubo->draw(tipo_draw, col);
-               glPopMatrix();
-            glPopMatrix();
+            edificio->setMaterial(*rubi);
+            edificio->draw(tipo_draw,col,modo_dibujado);
          glPopMatrix();
       }
    }

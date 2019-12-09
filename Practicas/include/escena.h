@@ -14,6 +14,7 @@
 #include "luzposicional.h"
 #include "luzdireccional.h"
 #include "material.h"
+#include "edificio.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
@@ -61,6 +62,7 @@ class Escena
    Esfera * esfera = nullptr;
    Cono * cono = nullptr;
    Cilindro * cilindro = nullptr;
+   Edificio * edificio = nullptr;
    //Luces de la escena
    LuzDireccional * luzdir = nullptr;
    LuzDireccional * luzdir2 = nullptr;
