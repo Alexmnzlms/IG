@@ -24,22 +24,19 @@ Escena::Escena()
    tetraedro = new Tetraedro(10);
    objply = new ObjPLY(ply,10);
    objrot = new ObjRevolucion(plyrot);
-   esfera = new Esfera(10);
+   esfera = new Esfera(100);
    cilindro = new Cilindro(50, 50);
-   cono = new Cono(10,10);
+   cono = new Cono(100,100);
    edificio = new Edificio();
-
-   pie = new ObjPLY("ply/pie",10);
-   pierna = new ObjPLY("ply/pierna",10);
-   femur = new ObjPLY("ply/femur",10);
+   pierna = new PiernaRobot();
 
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
    Tupla4f esp = {1.0,1.0,1.0,1.0};
    Tupla3f dir = {0.0,1.0,0.0};
    luzdir = new LuzDireccional(dir, GL_LIGHT1, amb, dif, esp);
-   //Tupla2f ori2 = {0.0,0.0};
-   //luzdir2 = new LuzDireccional(ori2, GL_LIGHT1, amb, dif, esp);
+   Tupla3f ori2 = {1.0,0.0,0.0};
+   luzdir2 = new LuzDireccional(ori2, GL_LIGHT3, amb, dif, esp);
    Tupla3f pos = {0.0,260.0,0.0};
    luzpos = new LuzPosicional(pos, GL_LIGHT2, amb, dif, esp);
    //Tupla3f pos2 = {-500.0,100.0,0.0};
@@ -102,6 +99,7 @@ void Escena::dibujar()
    glDisable(GL_LIGHTING);
    glDisable(GL_LIGHT1);
    glDisable(GL_LIGHT2);
+   glDisable(GL_LIGHT3);
    ejes.draw();
    for(int i = 0; i < 3; i++){
       if(bool_dibujado[i]){
@@ -121,35 +119,14 @@ void Escena::dibujar()
          }
          if(actluzdir){
             luzdir->activar();
+            luzdir2->activar();
          }
          if(actluzpos){
             luzpos->activar();
          }
          glPushMatrix();
-            glPushMatrix();
-               glTranslatef(-1000,0,0);
-               glScalef(0.5,0.5,0.5);
-               edificio->setMaterial(*rubi);
-               edificio->draw(tipo_draw,col,modo_dibujado);
-            glPopMatrix();
-            glPushMatrix();
-               pie->setMaterial(*rubi);
-               pie->draw(tipo_draw,col,modo_dibujado);
-               glPushMatrix();
-                  float a = 45.0;
-                  float b = -2.0*a;
-                  glTranslatef(11,60.0*cos(a*M_PI/180.0),0);
-                  glRotatef(a,1,0,0);
-                  femur->setMaterial(*rubi);
-                  femur->draw(tipo_draw,col,modo_dibujado);
-                  glPushMatrix();
-                     glTranslatef(-11,-25,0);
-                     glRotatef(b,1,0,0);
-                     pierna->setMaterial(*rubi);
-                     pierna->draw(tipo_draw,col,modo_dibujado);
-                  glPopMatrix();
-               glPopMatrix();
-            glPopMatrix();
+            esfera->setMaterial(*bronce);
+            esfera->draw(tipo_draw,col,modo_dibujado);
          glPopMatrix();
       }
    }
@@ -540,7 +517,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             esfera->tapas();
          }
          break;
-   }
+      }
    return salir;
 }
 //*********************************-*****************************************

@@ -209,9 +209,9 @@ void Malla3D::calcular_normales(){
       a = v[f[i](1)] - v[f[i](0)];
       b = v[f[i](2)] - v[f[i](0)];
       nc = a.cross(b);
-      nv[f[i](0)] = nv[f[i](0)] + nc.normalized();
-      nv[f[i](1)] = nv[f[i](1)] + nc.normalized();
-      nv[f[i](2)] = nv[f[i](2)] + nc.normalized();
+      nv[f[i](0)] = nv[f[i](0)] + nc;
+      nv[f[i](1)] = nv[f[i](1)] + nc;
+      nv[f[i](2)] = nv[f[i](2)] + nc;
    }
    for(int i = 0; i < nv.size(); i++){
       nv[i] = nv[i].normalized();

@@ -51,20 +51,28 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
    float alfa, coor_x, coor_y, coor_z;
    int a, b;
    int num_vertices = perfil_original.size();
-   Tupla3f polo;
+   Tupla3f polo_sup, polo_inf;
    tapa = true;
+   bool tapa_sup =false, tapa_inf=false;
 
    if(perfilInverso(perfil_original)){
       invertirPerfil();
    }
 
-   if(num_vertices == 2 && perfil_original[num_vertices-1](0) == 0.0 && perfil_original[num_vertices-1](2) == 0.0 ){
-      polo = perfil_original[num_vertices-1];
+   if(perfil_original[num_vertices-1](0) == 0.0 && perfil_original[num_vertices-1](2) == 0.0 ){
+      polo_sup = perfil_original[num_vertices-1];
       perfil_original.pop_back();
       num_vertices--;
+      tapa_sup = true;
+   }
+   if(perfil_original[0](0) == 0.0 && perfil_original[0](2) == 0.0 ){
+      polo_inf = perfil_original[0];
+      perfil_original.erase(perfil_original.begin());
+      num_vertices--;
+      tapa_inf = true;
    }
 
-   quitarPolos(perfil_original);
+   //quitarPolos(perfil_original);
 
    for(int i = 1; i < instancias; i++){
       alfa = ((2*M_PI*i)/instancias);
@@ -88,7 +96,7 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
          }
       }
    }
-   if(!(num_vertices == 1 && polo(0) == 0.0 && polo(2) == 0.0 )){
+   if(!(num_vertices == 1)){
       for(int i = 0; i < instancias; i++){
          for(int j = 0; j < num_vertices-1; j++){
             a = num_vertices*i + j;
@@ -98,14 +106,18 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
          }
       }
    }
-   if(num_vertices == 1 && polo(0) == 0.0 && polo(2) == 0.0 ){
-      v.push_back(polo);
+   if(tapa_sup){
+      v.push_back(polo_sup);
    } else {
       coor_y = v.back()(1);
       v.push_back({0,coor_y,0}); //Añado polo superior
    }
-   coor_y = v.front()(1);
-   v.push_back({0,coor_y,0}); //Añado polo inferior
+   if(tapa_inf){
+      v.push_back(polo_inf);
+   } else {
+      coor_y = v.front()(1);
+      v.push_back({0,coor_y,0}); //Añado polo inferior
+   }
 
    for(int i = 1; i <= instancias; i++){
       Tupla3i aux(i*num_vertices-1, ((i+1)*num_vertices-1)%(v.size()-2), v.size()-2);

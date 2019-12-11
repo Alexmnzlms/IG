@@ -15,6 +15,7 @@
 #include "luzdireccional.h"
 #include "material.h"
 #include "edificio.h"
+#include "piernarobot.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
@@ -63,10 +64,7 @@ class Escena
    Cono * cono = nullptr;
    Cilindro * cilindro = nullptr;
    Edificio * edificio = nullptr;
-
-   ObjPLY * pie = nullptr ;
-   ObjPLY * pierna = nullptr ;
-   ObjPLY * femur = nullptr ;
+   PiernaRobot * pierna = nullptr;
 
    //Luces de la escena
    LuzDireccional * luzdir = nullptr;
@@ -110,8 +108,6 @@ class Escena
    Material * blanco = nullptr;
    Material * perla = nullptr;
    Material * bronce = nullptr;
-
-
 
    public:
 
