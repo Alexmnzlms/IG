@@ -159,10 +159,10 @@ GLuint Malla3D::CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero
 }
 
 void Malla3D::calcular_colores(){
-   Tupla3f negro(0.0f,0.0f,0.0f);
-   Tupla3f azul(0.0f,0.0f,1.0f);
+   Tupla3f negro(0.16f,0.18f,0.17f);
+   Tupla3f azul(0.15f,0.38f,0.48f);
    Tupla3f verde(0.0f,1.0f,0.0f);
-   Tupla3f cian(0.0f,1.0f,1.0f);
+   Tupla3f cian(0.45f,0.68f,0.83f);
    Tupla3f naranja(1.0f,0.5333f,0.243137255f);
    Tupla3f rosa(1.0f,0.0f,1.0f);
    Tupla3f amarillo(1.0f,1.0f,0.0f);

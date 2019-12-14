@@ -28,7 +28,7 @@ Escena::Escena()
    cilindro = new Cilindro(50, 50);
    cono = new Cono(100,100);
    edificio = new Edificio();
-   pierna = new PiernaRobot();
+   robot = new Robot();
 
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
@@ -106,11 +106,11 @@ void Escena::dibujar()
          switch (i) {
             case 0:
                modo_dibujado = GL_POINT;
-               col = VERDE;
+               col = CIAN;
                break;
             case 1:
                modo_dibujado = GL_LINE;
-               col = MORADO;
+               col = AZUL;
                break;
             case 2:
                modo_dibujado = GL_FILL;
@@ -125,8 +125,14 @@ void Escena::dibujar()
             luzpos->activar();
          }
          glPushMatrix();
-            esfera->setMaterial(*bronce);
-            esfera->draw(tipo_draw,col,modo_dibujado);
+            glPushMatrix();
+               glTranslatef(0,0,100);
+               glRotatef(45,1,0,0);
+               edificio->setMaterial(*rubi);
+               edificio->draw(tipo_draw,col,modo_dibujado);
+            glPopMatrix();
+            robot->setMaterial(*esmeralda);
+            robot->draw(tipo_draw,col,modo_dibujado);
          glPopMatrix();
       }
    }

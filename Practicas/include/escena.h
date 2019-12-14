@@ -16,6 +16,8 @@
 #include "material.h"
 #include "edificio.h"
 #include "piernarobot.h"
+#include "brazorobot.h"
+#include "robot.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
@@ -64,7 +66,8 @@ class Escena
    Cono * cono = nullptr;
    Cilindro * cilindro = nullptr;
    Edificio * edificio = nullptr;
-   PiernaRobot * pierna = nullptr;
+   Robot * robot = nullptr;
+
 
    //Luces de la escena
    LuzDireccional * luzdir = nullptr;
