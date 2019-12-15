@@ -67,6 +67,8 @@ class Escena
    Cilindro * cilindro = nullptr;
    Edificio * edificio = nullptr;
    Robot * robot = nullptr;
+   PiernaRobot * pierna = nullptr;
+   BrazoRobot * brazo = nullptr;
 
 
    //Luces de la escena

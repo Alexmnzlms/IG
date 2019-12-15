@@ -9,11 +9,15 @@
 
 class Robot{
    private:
-      PiernaRobot * pierna = nullptr;
-      BrazoRobot * brazo = nullptr;
+      PiernaRobot * piernai = nullptr;
+      BrazoRobot * brazoi = nullptr;
+      PiernaRobot * piernad = nullptr;
+      BrazoRobot * brazod = nullptr;
       Edificio * cuerpo = nullptr;
+      float alfa;
+      float beta;
    public:
-      Robot();
+      Robot(float a);
       void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
       void setMaterial(Material mat);
 };

@@ -11,8 +11,10 @@ class BrazoRobot{
    private:
       PiernaRobot * pierna = nullptr ;
       Cono * cono = nullptr;
+      float alfa;
+      float beta;
    public:
-      BrazoRobot();
+      BrazoRobot(float a);
       void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
       void setMaterial(Material mat);
 };

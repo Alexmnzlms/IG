@@ -10,8 +10,10 @@ class PiernaRobot{
       ObjPLY * pie = nullptr ;
       ObjPLY * pierna = nullptr ;
       ObjPLY * femur = nullptr ;
+      float alfa;
+      float beta;
    public:
-      PiernaRobot();
+      PiernaRobot(float a);
       void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
       void setMaterial(Material mat);
 };
