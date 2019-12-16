@@ -531,7 +531,17 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             esfera->tapas();
          }
          break;
+      case '5':
+         robot->incrementarAnguloPiernas(5.0);
+         break;
+      case '7':
+         robot->incrementarAnguloBrazoIzq(5.0);
+         break;
+      case '9':
+         robot->incrementarAnguloBrazoDer(5.0);
+         break;
       }
+
    return salir;
 }
 //*********************************-*****************************************

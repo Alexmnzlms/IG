@@ -22,3 +22,8 @@ void BrazoRobot::setMaterial(Material mat){
    pierna->setMaterial(mat);
    cono->setMaterial(mat);
 }
+
+void BrazoRobot::incrementarAngulo(float inc){
+   pierna->incrementarAngulo(inc);
+   alfa += inc;
+}

@@ -47,3 +47,7 @@ void PiernaRobot::setMaterial(Material mat){
    pierna->setMaterial(mat);
    femur->setMaterial(mat);
 }
+void PiernaRobot::incrementarAngulo(float inc){
+   alfa += inc;
+   beta = 2.0*-1*alfa;
+}

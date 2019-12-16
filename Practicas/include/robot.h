@@ -14,12 +14,16 @@ class Robot{
       PiernaRobot * piernad = nullptr;
       BrazoRobot * brazod = nullptr;
       Edificio * cuerpo = nullptr;
-      float alfa;
-      float beta;
+      float alfa_brazoi;
+      float alfa_brazod;
+      float alfa_piernas;
    public:
       Robot(float a);
       void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
       void setMaterial(Material mat);
+      void incrementarAnguloBrazoIzq(float inc);
+      void incrementarAnguloBrazoDer(float inc);
+      void incrementarAnguloPiernas(float inc);
 };
 
 #endif
