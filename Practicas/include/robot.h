@@ -6,6 +6,7 @@
 #include "brazorobot.h"
 #include "edificio.h"
 #include "piernarobot.h"
+#include <cstdlib>
 
 class Robot{
    private:
@@ -17,6 +18,7 @@ class Robot{
       float alfa_brazoi;
       float alfa_brazod;
       float alfa_piernas;
+      bool animacion_neg;
    public:
       Robot(float a);
       void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;

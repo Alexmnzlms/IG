@@ -6,6 +6,7 @@ PiernaRobot::PiernaRobot(float a){
    pie = new ObjPLY("ply/pie",10);
    pierna = new ObjPLY("ply/pierna",10);
    femur = new ObjPLY("ply/femur",10);
+   animacion_neg = false;
 
 }
 
@@ -48,6 +49,15 @@ void PiernaRobot::setMaterial(Material mat){
    femur->setMaterial(mat);
 }
 void PiernaRobot::incrementarAngulo(float inc){
+   if(comparefloat(alfa + inc,45.0)){
+      animacion_neg = true;
+   } else if(comparefloat(alfa + inc,0.0)){
+      animacion_neg = false;
+   }
+   if(animacion_neg){
+      inc = -1*inc;
+   }
    alfa += inc;
-   beta = 2.0*-1*alfa;
+   beta = -2.0*alfa;
+   std::cout << "Angulo pierna: " << alfa << std::endl;
 }

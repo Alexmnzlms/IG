@@ -38,5 +38,6 @@
 
 #include "tuplasg.h" // tipos: Tupla3f, Tupla2f, Tupla3d, etc.........
 
+bool comparefloat(float a, float b);
 
 #endif // AUX_H_INCLUDED

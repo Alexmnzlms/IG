@@ -8,7 +8,8 @@ Robot::Robot(float a){
    piernai = new PiernaRobot(-alfa_piernas);
    brazoi = new BrazoRobot(alfa_brazoi);
    piernad = new PiernaRobot(alfa_piernas);
-   brazod = new BrazoRobot(-alfa_brazod);
+   brazod = new BrazoRobot(alfa_brazod);
+   animacion_neg = false;
 }
 
 void Robot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
@@ -51,13 +52,38 @@ void Robot::setMaterial(Material mat){
 }
 
 void Robot::incrementarAnguloBrazoIzq(float inc){
+   if(comparefloat(alfa_piernas + inc,45.0)){
+      animacion_neg = true;
+   } else if(comparefloat(alfa_piernas + inc,0.0)){
+      animacion_neg = false;
+   }
+   if(animacion_neg){
+      inc = -1*inc;
+   }
    brazoi->incrementarAngulo(inc);
 }
 void Robot::incrementarAnguloBrazoDer(float inc){
-   brazod->incrementarAngulo(-inc);
+   if(comparefloat(alfa_piernas + inc,45.0)){
+      animacion_neg = true;
+   } else if(comparefloat(alfa_piernas + inc,0.0)){
+      animacion_neg = false;
+   }
+   if(animacion_neg){
+      inc = -1*inc;
+   }
+   brazod->incrementarAngulo(inc);
 }
 void Robot::incrementarAnguloPiernas(float inc){
+   if(comparefloat(alfa_piernas + inc,45.0)){
+      animacion_neg = true;
+   } else if(comparefloat(alfa_piernas + inc,0.0)){
+      animacion_neg = false;
+   }
+   if(animacion_neg){
+      inc = -1*inc;
+   }
    piernad->incrementarAngulo(inc);
    piernai->incrementarAngulo(-inc);
    alfa_piernas += inc;
+   std::cout << "Angulo piernas: " << alfa_piernas << std::endl;
 }

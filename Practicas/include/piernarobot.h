@@ -4,6 +4,7 @@
 #include "aux.h"
 #include "malla.h"
 #include "objply.h"
+#include <cstdlib>
 
 class PiernaRobot{
    private:
@@ -12,6 +13,7 @@ class PiernaRobot{
       ObjPLY * femur = nullptr ;
       float alfa;
       float beta;
+      bool animacion_neg;
    public:
       PiernaRobot(float a);
       void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
