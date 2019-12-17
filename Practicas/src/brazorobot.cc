@@ -3,6 +3,7 @@
 BrazoRobot::BrazoRobot(float a){
    alfa = a;
    beta = -2.0*a;
+   delta = 0.0;
    pie = new ObjPLY("ply/pie",10);
    pierna = new ObjPLY("ply/pierna",10);
    femur = new ObjPLY("ply/femur",10);
@@ -28,6 +29,7 @@ void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
       glPushMatrix();
          glTranslatef(-10.5,-60*cos(alfa*M_PI/180.0),0);
          glRotatef(180,1,0,0);
+         glRotatef(delta,0,1,0);
          cono->draw(tipo_draw,col,modo_dibujado);
       glPopMatrix();
    glPopMatrix();
@@ -52,4 +54,9 @@ void BrazoRobot::incrementarAngulo(float inc){
    alfa += inc;
    beta = -2.0*alfa;
    std::cout << "Angulo brazo: " << alfa << std::endl;
+   std::cout << "Angulo taladro: " << delta << std::endl;
+}
+
+void BrazoRobot::incrementarTaladro(float inc){
+   delta += inc;
 }

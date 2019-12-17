@@ -26,6 +26,8 @@ class Robot{
       void incrementarAnguloBrazoIzq(float inc);
       void incrementarAnguloBrazoDer(float inc);
       void incrementarAnguloPiernas(float inc);
+      void incrementarTaladroIzq(float inc);
+      void incrementarTaladroDer(float inc);
 };
 
 #endif

@@ -16,12 +16,14 @@ class BrazoRobot{
       Cono * cono = nullptr;
       float alfa;
       float beta;
+      float delta;
       bool animacion_neg;
    public:
       BrazoRobot(float a);
       void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
       void setMaterial(Material mat);
       void incrementarAngulo(float inc);
+      void incrementarTaladro(float inc);
 };
 
 #endif

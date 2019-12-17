@@ -53,6 +53,7 @@ class Escena
    angulo ang;
    color col;
    float vel = 0.0;
+   float taladro = 0.0;
    GLenum modo_dibujado;
    dibujo tipo_draw = INMED;
    std::string ply = "ply/ant.ply";

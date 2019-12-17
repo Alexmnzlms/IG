@@ -87,3 +87,10 @@ void Robot::incrementarAnguloPiernas(float inc){
    alfa_piernas += inc;
    //std::cout << "Angulo piernas: " << alfa_piernas << std::endl;
 }
+
+void Robot::incrementarTaladroIzq(float inc){
+   brazoi->incrementarTaladro(inc);
+}
+void Robot::incrementarTaladroDer(float inc){
+   brazod->incrementarTaladro(-inc);
+}

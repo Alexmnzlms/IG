@@ -540,6 +540,14 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          break;
       case '8':
          vel = 0.0;
+         taladro = 0.0;
+         break;
+      case '9':
+         taladro = taladro + 1.0;
+         break;
+      case '6':
+         if(!(taladro <= 0.0))
+            taladro = taladro - 1.0;
          break;
       }
 
@@ -550,6 +558,8 @@ void Escena::animarModeloJerarquico(){
    robot->incrementarAnguloPiernas(vel);
    robot->incrementarAnguloBrazoIzq(vel);
    robot->incrementarAnguloBrazoDer(vel);
+   robot->incrementarTaladroIzq(taladro);
+   robot->incrementarTaladroDer(taladro);
 }
 
 void Escena::teclaEspecial( int Tecla1, int x, int y )
