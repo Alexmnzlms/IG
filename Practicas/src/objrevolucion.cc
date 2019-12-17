@@ -72,8 +72,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
       tapa_inf = true;
    }
 
-   //quitarPolos(perfil_original);
-
    for(int i = 1; i < instancias; i++){
       alfa = ((2*M_PI*i)/instancias);
       for(int j = 0; j < num_vertices; j++){
@@ -131,15 +129,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
    pos_tapas = instancias;
    calcular_colores();
    calcular_normales();
-}
-
-void ObjRevolucion::quitarPolos(std::vector<Tupla3f> &perfil_original){
-   if(perfil_original.front()(0) == 0.0 && perfil_original.front()(2) == 0.0){
-         perfil_original.erase(perfil_original.begin());
-   }
-   if(perfil_original.back()(0) == 0.0 && perfil_original.back()(2) == 0.0){
-      perfil_original.pop_back();
-   }
 }
 
 void ObjRevolucion::dibujaInmediato(int tamanio, const void * indice){

@@ -43,7 +43,6 @@ class ObjRevolucion : public Malla3D
       bool perfilInverso(std::vector<Tupla3f> perfil_original);
       void invertirPerfil();
       void crearMalla(std::vector<Tupla3f> & perfil_original, eje eje_rotacion);
-      void quitarPolos(std::vector<Tupla3f> & perfil_original);
       void dibujaInmediato(int tamanio, const void * indice) override;
       void dibujaAjedrez(int tamanio, const void * indice1, const void * indice2) override;
       void dibujaDiferido(int tamanio, GLvoid * indice) override;

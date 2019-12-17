@@ -12,15 +12,28 @@
 Malla3D::Malla3D(){
 }
 
-void Malla3D::draw_ModoInmediato()
+void Malla3D::draw_ModoInmediato(bool iluminacion, bool suave)
 {
+   if(iluminacion){
+      glEnable(GL_LIGHTING);
+      if(suave){
+         glShadeModel(GL_SMOOTH);
+      } else {
+         glShadeModel(GL_FLAT);
+      }
+
+   }
    glEnableClientState( GL_VERTEX_ARRAY );
+   glEnableClientState( GL_NORMAL_ARRAY );
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
-   glPointSize(3.0);
-   glEnableClientState(GL_COLOR_ARRAY);
-   glColorPointer(3, GL_FLOAT, 0, c.data() );
+   glNormalPointer( GL_FLOAT, 0, nv.data() );
+   if(!glIsEnabled(GL_LIGHTING)){
+      glEnableClientState(GL_COLOR_ARRAY);
+      glColorPointer(3, GL_FLOAT, 0, c.data() );
+   }
    dibujaInmediato(f.size(),f.data());
    glDisableClientState( GL_VERTEX_ARRAY );
+   glDisableClientState( GL_NORMAL_ARRAY );
 }
 
 void Malla3D::draw_ModoAjedrez()
@@ -62,31 +75,6 @@ void Malla3D::draw_ModoDiferido()
    glColorPointer(3, GL_FLOAT, 0, c.data() );
    dibujaDiferido(f.size(),f.data());
 }
-
-void Malla3D::draw_ModoSuave(){
-   glEnable(GL_LIGHTING);
-   glShadeModel(GL_SMOOTH);
-   glVertexPointer( 3, GL_FLOAT, 0, v.data() );
-   glNormalPointer( GL_FLOAT, 0, nv.data() );
-   glEnableClientState( GL_VERTEX_ARRAY );
-   glEnableClientState( GL_NORMAL_ARRAY );
-   dibujaInmediato(f.size(),f.data());
-   glDisableClientState( GL_VERTEX_ARRAY );
-   glDisableClientState( GL_NORMAL_ARRAY );
-}
-
-void Malla3D::draw_ModoPlano(){
-   glEnable(GL_LIGHTING);
-   glShadeModel(GL_FLAT);
-   glVertexPointer( 3, GL_FLOAT, 0, v.data() );
-   glNormalPointer( GL_FLOAT, 0, nv.data() );
-   glEnableClientState( GL_VERTEX_ARRAY );
-   glEnableClientState( GL_NORMAL_ARRAY );
-   dibujaInmediato(f.size(),f.data());
-   glDisableClientState( GL_VERTEX_ARRAY );
-   glDisableClientState( GL_NORMAL_ARRAY );
-}
-
 
 // -----------------------------------------------------------------------------
 // Función de visualización de la malla,
@@ -130,10 +118,11 @@ void Malla3D::draw(dibujo tipo, color col, GLenum modo)
       m.aplicar();
 
       glPolygonMode(GL_FRONT, modo);
+      glPointSize(3.0);
 
       switch(tipo){
          case INMED:
-            draw_ModoInmediato();
+            draw_ModoInmediato(false,false);
             break;
          case DIFER:
             draw_ModoDiferido();
@@ -142,9 +131,11 @@ void Malla3D::draw(dibujo tipo, color col, GLenum modo)
             draw_ModoAjedrez();
             break;
          case SMUZ:
-            draw_ModoSuave();
+            draw_ModoInmediato(true,true);
+            break;
          case PLAIN:
-            draw_ModoPlano();
+            draw_ModoInmediato(true,false);
+            break;
       }
    }
 }
