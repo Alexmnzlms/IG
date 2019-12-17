@@ -28,7 +28,7 @@ Escena::Escena()
    cilindro = new Cilindro(50, 50);
    cono = new Cono(100,100);
    edificio = new Edificio();
-   robot = new Robot(0.0);
+   robot = new Robot(45.0,0.0,0.0);
    pierna = new PiernaRobot(0.0);
    brazo = new BrazoRobot(0.0);
 
@@ -531,20 +531,26 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             esfera->tapas();
          }
          break;
-      case '5':
-         robot->incrementarAnguloPiernas(5.0);
-         break;
       case '7':
-         robot->incrementarAnguloBrazoIzq(5.0);
+         vel = vel + 1.0;
          break;
-      case '9':
-         robot->incrementarAnguloBrazoDer(5.0);
+      case '4':
+         if(!(vel <= 0.0))
+            vel = vel - 1.0;
+         break;
+      case '8':
+         vel = 0.0;
          break;
       }
 
    return salir;
 }
 //*********************************-*****************************************
+void Escena::animarModeloJerarquico(){
+   robot->incrementarAnguloPiernas(vel);
+   robot->incrementarAnguloBrazoIzq(vel);
+   robot->incrementarAnguloBrazoDer(vel);
+}
 
 void Escena::teclaEspecial( int Tecla1, int x, int y )
 {

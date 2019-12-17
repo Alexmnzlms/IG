@@ -49,9 +49,9 @@ void PiernaRobot::setMaterial(Material mat){
    femur->setMaterial(mat);
 }
 void PiernaRobot::incrementarAngulo(float inc){
-   if(comparefloat(alfa + inc,45.0)){
+   if(alfa + inc >= 45.0){
       animacion_neg = true;
-   } else if(comparefloat(alfa + inc,0.0)){
+   } else if(alfa + inc <= 0.0){
       animacion_neg = false;
    }
    if(animacion_neg){
@@ -59,5 +59,5 @@ void PiernaRobot::incrementarAngulo(float inc){
    }
    alfa += inc;
    beta = -2.0*alfa;
-   std::cout << "Angulo pierna: " << alfa << std::endl;
+   //std::cout << "Angulo pierna: " << alfa << std::endl;
 }

@@ -1,14 +1,14 @@
 #include "robot.h"
 
-Robot::Robot(float a){
-   alfa_brazoi = 0.0;//a;
-   alfa_brazod = 0.0;
-   alfa_piernas = 0.0;
+Robot::Robot(float a, float b, float c){
+   alfa_brazoi = a;
+   alfa_brazod = b;
+   alfa_piernas = c;
    cuerpo = new Edificio();
    piernai = new PiernaRobot(-alfa_piernas);
    brazoi = new BrazoRobot(alfa_brazoi);
    piernad = new PiernaRobot(alfa_piernas);
-   brazod = new BrazoRobot(alfa_brazod);
+   brazod = new BrazoRobot(-alfa_brazod);
    animacion_neg = false;
 }
 
@@ -52,9 +52,9 @@ void Robot::setMaterial(Material mat){
 }
 
 void Robot::incrementarAnguloBrazoIzq(float inc){
-   if(comparefloat(alfa_piernas + inc,45.0)){
+   if(alfa_piernas + inc >= 45.0){
       animacion_neg = true;
-   } else if(comparefloat(alfa_piernas + inc,0.0)){
+   } else if(alfa_piernas + inc <= 0.0){
       animacion_neg = false;
    }
    if(animacion_neg){
@@ -63,20 +63,20 @@ void Robot::incrementarAnguloBrazoIzq(float inc){
    brazoi->incrementarAngulo(inc);
 }
 void Robot::incrementarAnguloBrazoDer(float inc){
-   if(comparefloat(alfa_piernas + inc,45.0)){
+   if(alfa_piernas + inc >= 45.0){
       animacion_neg = true;
-   } else if(comparefloat(alfa_piernas + inc,0.0)){
+   } else if(alfa_piernas + inc <= 0.0){
       animacion_neg = false;
    }
    if(animacion_neg){
       inc = -1*inc;
    }
-   brazod->incrementarAngulo(inc);
+   brazod->incrementarAngulo(-inc);
 }
 void Robot::incrementarAnguloPiernas(float inc){
-   if(comparefloat(alfa_piernas + inc,45.0)){
+   if(alfa_piernas + inc >= 45.0){
       animacion_neg = true;
-   } else if(comparefloat(alfa_piernas + inc,0.0)){
+   } else if(alfa_piernas + inc <= 0.0){
       animacion_neg = false;
    }
    if(animacion_neg){
@@ -85,5 +85,5 @@ void Robot::incrementarAnguloPiernas(float inc){
    piernad->incrementarAngulo(inc);
    piernai->incrementarAngulo(-inc);
    alfa_piernas += inc;
-   std::cout << "Angulo piernas: " << alfa_piernas << std::endl;
+   //std::cout << "Angulo piernas: " << alfa_piernas << std::endl;
 }

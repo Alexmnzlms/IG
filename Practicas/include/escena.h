@@ -52,6 +52,7 @@ class Escena
    bool actluzpos = false;
    angulo ang;
    color col;
+   float vel = 0.0;
    GLenum modo_dibujado;
    dibujo tipo_draw = INMED;
    std::string ply = "ply/ant.ply";
@@ -122,6 +123,7 @@ class Escena
 
 	// Dibujar
 	void dibujar() ;
+   void animarModeloJerarquico();
 
 	// Interacción con la escena
 	bool teclaPulsada( unsigned char Tecla1, int x, int y ) ;

@@ -20,7 +20,7 @@ class Robot{
       float alfa_piernas;
       bool animacion_neg;
    public:
-      Robot(float a);
+      Robot(float a, float b, float c);
       void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
       void setMaterial(Material mat);
       void incrementarAnguloBrazoIzq(float inc);

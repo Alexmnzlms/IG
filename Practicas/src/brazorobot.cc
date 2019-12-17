@@ -41,12 +41,10 @@ void BrazoRobot::setMaterial(Material mat){
 }
 
 void BrazoRobot::incrementarAngulo(float inc){
-   if(comparefloat(alfa + inc,45.0)){
+   if(alfa + inc >= 45.0){
       animacion_neg = true;
-      std::cout << "Bajo: " << alfa << std::endl;
-   } else if(comparefloat(alfa + inc,0.0)){
+   } else if(alfa + inc <= 0.0){
       animacion_neg = false;
-      std::cout << "Subo: " << alfa << std::endl;
    }
    if(animacion_neg){
       inc = -1*inc;
