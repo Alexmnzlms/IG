@@ -514,7 +514,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          break ;
       case '+':
          if(modoMenu == SELOBJETO){
-            cout << "Quitada tapa superior" << endl;
+            cout << "Q  uitada tapa superior" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
@@ -533,6 +533,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          break;
       case '7':
          vel = vel + 1.0;
+         if(vel >= 15.0){
+            vel = 15.0;
+         }
          break;
       case '4':
          if(!(vel <= 0.0))

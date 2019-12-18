@@ -48,9 +48,9 @@ void Edificio::setMaterial(Material mat){
    esfera->setMaterial(mat);
 }
 void Edificio::incrementarAltura(float inc){
-   if(altura + inc >= 15.0){
+   if(altura + inc >= 5.0){
       animacion_neg = true;
-   } else if(altura + inc <= 0.0){
+   } else if(altura + inc <= -10.0){
       animacion_neg = false;
    }
    if(animacion_neg){
