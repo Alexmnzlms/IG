@@ -28,7 +28,7 @@ Escena::Escena()
    cilindro = new Cilindro(50, 50);
    cono = new Cono(100,100);
    torre = new Torre();
-   robot = new Robot(45.0,0.0,0.0);
+   robot = new Robot(45.0,-45.0,0.0);
 
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
@@ -498,6 +498,10 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             actluzpos = !actluzpos;
+         } else if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado brazo izquierdo" << endl;
+            gl = CODOI;
+            modoMenu = GRADOLIB;
          }
          break ;
       case '2':
@@ -511,8 +515,40 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             bool_dibujado[0] = false;
             bool_dibujado[1] = false;
             bool_dibujado[2] = true;
+         }else if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado brazo derecho" << endl;
+            gl = CODOD;
+            modoMenu = GRADOLIB;
          }
          break ;
+      case '3':
+         if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado piernas" << endl;
+            gl = PIERNAS;
+            modoMenu = GRADOLIB;
+         }
+         break;
+      case '4':
+         if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado taladro izquierdo" << endl;
+            gl = TALADROI;
+            modoMenu = GRADOLIB;
+         }
+         break;
+      case '5':
+         if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado taladro derecho" << endl;
+            gl = TALADROD;
+            modoMenu = GRADOLIB;
+         }
+         break;
+      case '6':
+         if(modoMenu == SELVISUALIZACION){
+            cout << "Seleccionado antena" << endl;
+            gl = ANTENA;
+            modoMenu = GRADOLIB;
+         }
+         break;
       case '+':
          if(modoMenu == SELOBJETO){
             cout << "Q  uitada tapa superior" << endl;
@@ -530,28 +566,77 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cilindro->tapas();
             cono->tapas();
             esfera->tapas();
+         } else if (modoMenu == ANIMA){
+            vel = vel + 1.0;
+            if(vel >= 15.0){
+               vel = 15.0;
+            }
+            taladro = taladro + 1.0;
+         } else if(modoMenu == GRADOLIB){
+            switch(gl){
+               case CODOD:
+                  robot->incrementarAnguloBrazoDer(1.0);
+               break;
+               case CODOI:
+                  robot->incrementarAnguloBrazoIzq(1.0);
+               break;
+               case PIERNAS:
+                  robot->incrementarAnguloPiernas(1.0);
+               break;
+               case TALADROD:
+                  robot->incrementarTaladroDer(1.0);
+               break;
+               case TALADROI:
+                  robot->incrementarTaladroIzq(1.0);
+               break;
+               case ANTENA:
+                  robot->incrementarAlturaAntena(1.0);
+               break;
+            }
          }
          break;
-      case '7':
-         vel = vel + 1.0;
-         if(vel >= 15.0){
-            vel = 15.0;
-         }
+      case 'J':
+         modoMenu = ANIMA;
+         cout << "Modo animacion:" << endl;
+         cout << "+: animacion mas rapida" << endl;
+         cout << "-: animacion mas lenta" << endl;
+         cout << "8: parar" << endl;
          break;
-      case '4':
-         if(!(vel <= 0.0))
-            vel = vel - 1.0;
+      case '-':
+         if(modoMenu == ANIMA){
+            if(!(vel <= 0.0)){
+               vel = vel - 1.0;
+            }
+            if(!(taladro <= 0.0)){
+               taladro = taladro - 1.0;
+            }
+         } else if(modoMenu == GRADOLIB){
+            switch(gl){
+               case CODOD:
+                  robot->incrementarAnguloBrazoDer(-1.0);
+               break;
+               case CODOI:
+                  robot->incrementarAnguloBrazoIzq(-1.0);
+               break;
+               case PIERNAS:
+                  robot->incrementarAnguloPiernas(-1.0);
+               break;
+               case TALADROD:
+                  robot->incrementarTaladroDer(-1.0);
+               break;
+               case TALADROI:
+                  robot->incrementarTaladroIzq(-1.0);
+               break;
+               case ANTENA:
+                  robot->incrementarAlturaAntena(-1.0);
+               break;
+            }
+         }
          break;
       case '8':
          vel = 0.0;
          taladro = 0.0;
-         break;
-      case '9':
-         taladro = taladro + 1.0;
-         break;
-      case '6':
-         if(!(taladro <= 0.0))
-            taladro = taladro - 1.0;
+         robot->setAlfas(0.0,0.0,0.0);
          break;
       }
 

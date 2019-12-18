@@ -22,6 +22,7 @@ class BrazoRobot{
       void setMaterial(Material mat);
       void incrementarAngulo(float inc);
       void incrementarTaladro(float inc);
+      void setAlfa(float a);
 };
 
 #endif

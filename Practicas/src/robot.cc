@@ -1,8 +1,8 @@
 #include "robot.h"
 
 Robot::Robot(float a, float b, float c){
-   alfa_brazoi = 45.0;
-   alfa_brazod = -45.0;
+   alfa_brazoi = a;
+   alfa_brazod = b;
    alfa_piernas = c;
    cuerpo = new Cuerpo();
    piernai = new PiernaRobot(-alfa_piernas);
@@ -96,4 +96,13 @@ void Robot::incrementarTaladroDer(float inc){
 }
 void Robot::incrementarAlturaAntena(float inc){
    cuerpo->incrementarAltura(inc);
+}
+void Robot::setAlfas(float a, float b, float c){
+   alfa_brazoi = a;
+   alfa_brazod = b;
+   alfa_piernas = c;
+   brazoi->setAlfa(alfa_brazoi);
+   brazod->setAlfa(alfa_brazod);
+   piernai->setAlfa(alfa_piernas);
+   piernad->setAlfa(-alfa_piernas);
 }

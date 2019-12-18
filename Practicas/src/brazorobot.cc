@@ -67,3 +67,7 @@ void BrazoRobot::incrementarTaladro(float inc){
    }
    //std::cout << "Angulo taladro: " << delta << std::endl;
 }
+
+void BrazoRobot::setAlfa(float a){
+   alfa = a;
+}

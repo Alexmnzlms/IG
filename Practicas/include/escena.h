@@ -17,9 +17,10 @@
 #include "robot.h"
 #include "torre.h"
 
-typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO} menu;
+typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO, ANIMA, GRADOLIB} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
 typedef enum {ALFA, BETA} angulo;
+typedef enum {CODOI, CODOD, PIERNAS, TALADROI, TALADROD, ANTENA} grado_libertad;
 class Escena
 {
 
@@ -49,6 +50,7 @@ class Escena
    bool actluzdir = false;
    bool actluzpos = false;
    angulo ang;
+   grado_libertad gl;
    color col;
    float vel = 1.0;
    float taladro = 10.0;

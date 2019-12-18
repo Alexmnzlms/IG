@@ -1,5 +1,5 @@
-#ifndef EDIF_H_INCLUDED
-#define EDIF_H_INCLUDED
+#ifndef CUERPO_H_INCLUDED
+#define CUERPO_H_INCLUDED
 
 #include "aux.h"
 #include "malla.h"

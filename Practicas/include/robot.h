@@ -4,7 +4,7 @@
 #include "aux.h"
 #include "malla.h"
 #include "brazorobot.h"
-#include "edificio.h"
+#include "cuerpo.h"
 #include "piernarobot.h"
 #include <cstdlib>
 
@@ -29,6 +29,7 @@ class Robot{
       void incrementarTaladroIzq(float inc);
       void incrementarTaladroDer(float inc);
       void incrementarAlturaAntena(float inc);
+      void setAlfas(float a, float b, float c);
 };
 
 #endif
