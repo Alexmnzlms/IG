@@ -46,3 +46,12 @@ void PiernaRobot::incrementarAngulo(float inc){
    beta = -2.0*alfa;
    //std::cout << "Angulo pierna: " << alfa << std::endl;
 }
+
+float PiernaRobot::getAlfa(){
+   return alfa;
+}
+
+void PiernaRobot::setAlfa(float a){
+   alfa = a;
+   beta = -2.0*alfa;
+}

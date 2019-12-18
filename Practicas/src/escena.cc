@@ -27,10 +27,8 @@ Escena::Escena()
    esfera = new Esfera(100);
    cilindro = new Cilindro(50, 50);
    cono = new Cono(100,100);
-   edificio = new Edificio();
+   torre = new Torre();
    robot = new Robot(45.0,0.0,0.0);
-   pierna = new PiernaRobot(0.0);
-   brazo = new BrazoRobot(0.0,true);
 
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
@@ -127,18 +125,14 @@ void Escena::dibujar()
             luzpos->activar();
          }
          glPushMatrix();
-            /*
+
             glPushMatrix();
-               glTranslatef(0,0,100);
-               glRotatef(45,1,0,0);
-               edificio->setMaterial(*negro);
-               edificio->draw(tipo_draw,col,modo_dibujado);
+               glScalef(0.7,0.7,0.7);
+               glTranslatef(0,0,180);
+               //glRotatef(45,1,0,0);
+               torre->setMaterial(*negro);
+               torre->draw(tipo_draw,col,modo_dibujado);
             glPopMatrix();
-            robot->setMaterial(*bronce);
-            robot->draw(tipo_draw,col,modo_dibujado);
-            */
-            //pierna->setMaterial(*bronce);
-            //pierna->draw(tipo_draw,col,modo_dibujado);
             robot->setMaterial(*bronce);
             robot->draw(tipo_draw,col,modo_dibujado);
          glPopMatrix();

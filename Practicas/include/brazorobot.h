@@ -5,17 +5,14 @@
 #include "malla.h"
 #include "objrevolucion.h"
 #include "cono.h"
-#include "objply.h"
+#include "piernarobot.h"
 #include <cstdlib>
 
 class BrazoRobot{
    private:
-      ObjPLY * pie = nullptr ;
-      ObjPLY * pierna = nullptr ;
-      ObjPLY * femur = nullptr ;
+      PiernaRobot * pierna = nullptr ;
       Cono * cono = nullptr;
       float alfa;
-      float beta;
       float delta;
       bool animacion_neg;
       bool izquierda;

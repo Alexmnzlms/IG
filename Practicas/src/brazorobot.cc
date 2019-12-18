@@ -2,11 +2,8 @@
 
 BrazoRobot::BrazoRobot(float a, bool izq){
    alfa = a;
-   beta = -2.0*a;
    delta = 0.0;
-   pie = new ObjPLY("ply/pie",10);
-   pierna = new ObjPLY("ply/pierna",10);
-   femur = new ObjPLY("ply/femur",10);
+   pierna = new PiernaRobot(a);
    cono = new Cono(50,10);
    animacion_neg = false;
    izquierda = izq;
@@ -14,21 +11,9 @@ BrazoRobot::BrazoRobot(float a, bool izq){
 
 void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
    glPushMatrix();
+      pierna->draw(tipo_draw,col,modo_dibujado);
       glPushMatrix();
-         glRotatef(alfa,1,0,0);
-         femur->draw(tipo_draw,col,modo_dibujado);
-         glPushMatrix();
-            glTranslatef(-10.5,-25,0);
-            glRotatef(beta,1,0,0);
-            pierna->draw(tipo_draw,col,modo_dibujado);
-         glPopMatrix();
-      glPopMatrix();
-      glPushMatrix();
-         glTranslatef(-10.5,-60*cos(alfa*M_PI/180.0),0);
-         pie->draw(tipo_draw,col,modo_dibujado);
-      glPopMatrix();
-      glPushMatrix();
-         glTranslatef(-10.5,-60*cos(alfa*M_PI/180.0),0);
+         glTranslatef(-10.5,-60*cos(pierna->getAlfa()*M_PI/180.0),0);
          glRotatef(180,1,0,0);
          glRotatef(delta,0,1,0);
          cono->draw(tipo_draw,col,modo_dibujado);
@@ -37,9 +22,7 @@ void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
 }
 
 void BrazoRobot::setMaterial(Material mat){
-   pie->setMaterial(mat);
    pierna->setMaterial(mat);
-   femur->setMaterial(mat);
    cono->setMaterial(mat);
 }
 
@@ -56,7 +39,7 @@ void BrazoRobot::incrementarAngulo(float inc){
          inc = -1*inc;
       }
       alfa += inc;
-      beta = -2.0*alfa;
+      pierna->setAlfa(alfa);
       std::cout << "Angulo brazo: " << alfa << std::endl;
    } else{
       if(alfa + inc >= 0.0){
@@ -70,7 +53,7 @@ void BrazoRobot::incrementarAngulo(float inc){
          inc = -1*inc;
       }
       alfa += inc;
-      beta = -2.0*alfa;
+      pierna->setAlfa(alfa);
       std::cout << "Angulo brazo: " << alfa << std::endl;
    }
 }
