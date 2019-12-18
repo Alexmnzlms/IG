@@ -560,6 +560,7 @@ void Escena::animarModeloJerarquico(){
    robot->incrementarAnguloBrazoDer(vel);
    robot->incrementarTaladroIzq(taladro);
    robot->incrementarTaladroDer(taladro);
+   robot->incrementarAlturaAntena(taladro*0.25);
    std::cout << "Velocidad:" << vel << std::endl;
 }
 

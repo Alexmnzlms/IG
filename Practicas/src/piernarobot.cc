@@ -12,21 +12,6 @@ PiernaRobot::PiernaRobot(float a){
 
 void PiernaRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
    glPushMatrix();
-      /*
-      pie->draw(tipo_draw,col,modo_dibujado);
-      glPushMatrix();
-         float a = 0.0;
-         float b = -2.0*a;
-         glTranslatef(11,60.0*cos(a*M_PI/180.0),0);
-         glRotatef(a,1,0,0);
-         femur->draw(tipo_draw,col,modo_dibujado);
-         glPushMatrix();
-            glTranslatef(-11,-25,0);
-            glRotatef(b,1,0,0);
-            pierna->draw(tipo_draw,col,modo_dibujado);
-         glPopMatrix();
-      glPopMatrix();
-      */
       glPushMatrix();
          glRotatef(alfa,1,0,0);
          femur->draw(tipo_draw,col,modo_dibujado);

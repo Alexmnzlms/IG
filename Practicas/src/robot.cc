@@ -94,3 +94,6 @@ void Robot::incrementarTaladroIzq(float inc){
 void Robot::incrementarTaladroDer(float inc){
    brazod->incrementarTaladro(-inc);
 }
+void Robot::incrementarAlturaAntena(float inc){
+   cuerpo->incrementarAltura(inc);
+}
