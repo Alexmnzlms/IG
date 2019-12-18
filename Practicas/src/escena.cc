@@ -125,16 +125,23 @@ void Escena::dibujar()
             luzpos->activar();
          }
          glPushMatrix();
-
+            glPushMatrix();
+               glScalef(500.0,1.0,500.0);
+               cubo->setMaterial(*rubi);
+               cubo->draw(tipo_draw,col,modo_dibujado);
+            glPopMatrix();
             glPushMatrix();
                glScalef(0.7,0.7,0.7);
                glTranslatef(0,0,180);
                //glRotatef(45,1,0,0);
-               torre->setMaterial(*negro);
+               torre->setMaterial(*esmeralda);
                torre->draw(tipo_draw,col,modo_dibujado);
             glPopMatrix();
-            robot->setMaterial(*bronce);
-            robot->draw(tipo_draw,col,modo_dibujado);
+            glPushMatrix();
+               glTranslatef(0.0,10,0.00);
+               robot->setMaterial(*bronce);
+               robot->draw(tipo_draw,col,modo_dibujado);
+            glPopMatrix();
          glPopMatrix();
       }
    }
@@ -558,7 +565,7 @@ void Escena::animarModeloJerarquico(){
    robot->incrementarTaladroIzq(taladro);
    robot->incrementarTaladroDer(taladro);
    robot->incrementarAlturaAntena(taladro*0.25);
-   std::cout << "Velocidad:" << vel << std::endl;
+   //std::cout << "Velocidad:" << vel << std::endl;
 }
 
 void Escena::teclaEspecial( int Tecla1, int x, int y )

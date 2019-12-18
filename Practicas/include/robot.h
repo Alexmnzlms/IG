@@ -8,13 +8,15 @@
 #include "piernarobot.h"
 #include <cstdlib>
 
+#define Cuerpo Edificio
+
 class Robot{
    private:
       PiernaRobot * piernai = nullptr;
       BrazoRobot * brazoi = nullptr;
       PiernaRobot * piernad = nullptr;
       BrazoRobot * brazod = nullptr;
-      Edificio * cuerpo = nullptr;
+      Cuerpo * cuerpo = nullptr;
       float alfa_brazoi;
       float alfa_brazod;
       float alfa_piernas;

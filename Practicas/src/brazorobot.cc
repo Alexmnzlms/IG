@@ -40,7 +40,7 @@ void BrazoRobot::incrementarAngulo(float inc){
       }
       alfa += inc;
       pierna->setAlfa(alfa);
-      std::cout << "Angulo brazo: " << alfa << std::endl;
+      //std::cout << "Angulo brazo: " << alfa << std::endl;
    } else{
       if(alfa + inc >= 0.0){
          animacion_neg = true;
@@ -54,7 +54,7 @@ void BrazoRobot::incrementarAngulo(float inc){
       }
       alfa += inc;
       pierna->setAlfa(alfa);
-      std::cout << "Angulo brazo: " << alfa << std::endl;
+      //std::cout << "Angulo brazo: " << alfa << std::endl;
    }
 }
 
@@ -65,5 +65,5 @@ void BrazoRobot::incrementarTaladro(float inc){
    } else if(delta <= -360.0){
       delta = 0.0;
    }
-   std::cout << "Angulo taladro: " << delta << std::endl;
+   //std::cout << "Angulo taladro: " << delta << std::endl;
 }

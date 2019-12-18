@@ -8,7 +8,7 @@
 #include "cilindro.h"
 #include "esfera.h"
 
-class Edificio{
+class Cuerpo{
    private:
       Cubo * cubo = nullptr;
       Cilindro * cilindro = nullptr;
@@ -16,7 +16,7 @@ class Edificio{
       float altura;
       bool animacion_neg;
    public:
-      Edificio();
+      Cuerpo();
       void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
       void setMaterial(Material mat);
       void incrementarAltura(float inc);

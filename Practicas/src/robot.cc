@@ -4,7 +4,7 @@ Robot::Robot(float a, float b, float c){
    alfa_brazoi = 45.0;
    alfa_brazod = -45.0;
    alfa_piernas = c;
-   cuerpo = new Edificio();
+   cuerpo = new Cuerpo();
    piernai = new PiernaRobot(-alfa_piernas);
    brazoi = new BrazoRobot(alfa_brazoi,true);
    piernad = new PiernaRobot(alfa_piernas);

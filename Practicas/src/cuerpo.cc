@@ -1,6 +1,6 @@
-#include "edificio.h"
+#include "cuerpo.h"
 
-Edificio::Edificio(){
+Cuerpo::Cuerpo(){
    cubo = new Cubo(10);
    cilindro = new Cilindro(10,5);
    esfera = new Esfera(5);
@@ -8,7 +8,7 @@ Edificio::Edificio(){
    animacion_neg = false;
 }
 
-void Edificio::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
+void Cuerpo::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
    glPushMatrix();
       glPushMatrix();
          glTranslatef(0,40,0);
@@ -42,12 +42,12 @@ void Edificio::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
    glPopMatrix();
 }
 
-void Edificio::setMaterial(Material mat){
+void Cuerpo::setMaterial(Material mat){
    cubo->setMaterial(mat);
    cilindro->setMaterial(mat);
    esfera->setMaterial(mat);
 }
-void Edificio::incrementarAltura(float inc){
+void Cuerpo::incrementarAltura(float inc){
    if(altura + inc >= 5.0){
       animacion_neg = true;
    } else if(altura + inc <= -10.0){
