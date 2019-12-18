@@ -8,8 +8,6 @@
 #include "piernarobot.h"
 #include <cstdlib>
 
-#define Cuerpo Edificio
-
 class Robot{
    private:
       PiernaRobot * piernai = nullptr;
