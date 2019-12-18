@@ -27,7 +27,6 @@ void LuzDireccional::variarAnguloAlpha( float incremento ){
    y = sin(alpha)*sin(beta)*sqrt(posicion_original.lengthSq());
    z = cos(alpha)*sqrt(posicion_original.lengthSq());
    posicion = {x,y,z,0.0};
-   glLightfv(id, GL_POSITION, posicion);
    std::cout << "Alpha: " << alpha*180.0/M_PI << std::endl;
    std::cout << "Beta: " << beta*180.0/M_PI << std::endl;
    std::cout << "Posicion direccional: " << x << ", " << y << ", " << z << std::endl;
@@ -44,7 +43,6 @@ void LuzDireccional::variarAnguloBeta( float incremento ){
    y = sin(alpha)*sin(beta)*sqrt(posicion_original.lengthSq());
    z = cos(alpha)*sqrt(posicion_original.lengthSq());
    posicion = {x,y,z,0.0};
-   glLightfv(id, GL_POSITION, posicion);
    std::cout << "Alpha: " << alpha*180.0/M_PI << std::endl;
    std::cout << "Beta: " << beta*180.0/M_PI << std::endl;
    std::cout << "Posicion direccional: " << x << ", " << y << ", " << z << std::endl;
