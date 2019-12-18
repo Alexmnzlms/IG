@@ -1,6 +1,6 @@
 #include "brazorobot.h"
 
-BrazoRobot::BrazoRobot(float a){
+BrazoRobot::BrazoRobot(float a, bool izq){
    alfa = a;
    beta = -2.0*a;
    delta = 0.0;
@@ -9,6 +9,7 @@ BrazoRobot::BrazoRobot(float a){
    femur = new ObjPLY("ply/femur",10);
    cono = new Cono(50,10);
    animacion_neg = false;
+   izquierda = izq;
 }
 
 void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
@@ -43,20 +44,43 @@ void BrazoRobot::setMaterial(Material mat){
 }
 
 void BrazoRobot::incrementarAngulo(float inc){
-   if(alfa + inc >= 45.0){
-      animacion_neg = true;
-   } else if(alfa + inc <= 0.0){
-      animacion_neg = false;
+   if(izquierda){
+      if(alfa + inc >= 45.0){
+         animacion_neg = true;
+         alfa = 45.0 - inc;
+      } else if(alfa + inc <= 0.0){
+         animacion_neg = false;
+         alfa = 0.0 + inc;
+      }
+      if(animacion_neg){
+         inc = -1*inc;
+      }
+      alfa += inc;
+      beta = -2.0*alfa;
+      std::cout << "Angulo brazo: " << alfa << std::endl;
+   } else{
+      if(alfa + inc >= 0.0){
+         animacion_neg = true;
+         alfa = 0.0 - inc;
+      } else if(alfa + inc <= -45.0){
+         animacion_neg = false;
+         alfa = -45.0 + inc;
+      }
+      if(animacion_neg){
+         inc = -1*inc;
+      }
+      alfa += inc;
+      beta = -2.0*alfa;
+      std::cout << "Angulo brazo: " << alfa << std::endl;
    }
-   if(animacion_neg){
-      inc = -1*inc;
-   }
-   alfa += inc;
-   beta = -2.0*alfa;
-   std::cout << "Angulo brazo: " << alfa << std::endl;
-   std::cout << "Angulo taladro: " << delta << std::endl;
 }
 
 void BrazoRobot::incrementarTaladro(float inc){
    delta += inc;
+   if(delta >= 360.0){
+      delta = 0.0;
+   } else if(delta <= -360.0){
+      delta = 0.0;
+   }
+   std::cout << "Angulo taladro: " << delta << std::endl;
 }

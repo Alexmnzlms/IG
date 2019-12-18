@@ -1,14 +1,14 @@
 #include "robot.h"
 
 Robot::Robot(float a, float b, float c){
-   alfa_brazoi = a;
-   alfa_brazod = b;
+   alfa_brazoi = 45.0;
+   alfa_brazod = -45.0;
    alfa_piernas = c;
    cuerpo = new Edificio();
    piernai = new PiernaRobot(-alfa_piernas);
-   brazoi = new BrazoRobot(alfa_brazoi);
+   brazoi = new BrazoRobot(alfa_brazoi,true);
    piernad = new PiernaRobot(alfa_piernas);
-   brazod = new BrazoRobot(-alfa_brazod);
+   brazod = new BrazoRobot(alfa_brazod,false);
    animacion_neg = false;
 }
 

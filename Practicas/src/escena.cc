@@ -30,7 +30,7 @@ Escena::Escena()
    edificio = new Edificio();
    robot = new Robot(45.0,0.0,0.0);
    pierna = new PiernaRobot(0.0);
-   brazo = new BrazoRobot(0.0);
+   brazo = new BrazoRobot(0.0,true);
 
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
@@ -560,6 +560,7 @@ void Escena::animarModeloJerarquico(){
    robot->incrementarAnguloBrazoDer(vel);
    robot->incrementarTaladroIzq(taladro);
    robot->incrementarTaladroDer(taladro);
+   std::cout << "Velocidad:" << vel << std::endl;
 }
 
 void Escena::teclaEspecial( int Tecla1, int x, int y )
