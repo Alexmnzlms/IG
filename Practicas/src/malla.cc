@@ -25,15 +25,19 @@ void Malla3D::draw_ModoInmediato(bool iluminacion, bool suave)
    }
    glEnableClientState( GL_VERTEX_ARRAY );
    glEnableClientState( GL_NORMAL_ARRAY );
+   glEnableClientState( GL_TEXTURE_COORD_ARRAY );
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
    glNormalPointer( GL_FLOAT, 0, nv.data() );
+   glTexCoordPointer(2, GL_FLOAT, ct.data() );
    if(!glIsEnabled(GL_LIGHTING)){
       glEnableClientState(GL_COLOR_ARRAY);
       glColorPointer(3, GL_FLOAT, 0, c.data() );
    }
+
    dibujaInmediato(f.size(),f.data());
    glDisableClientState( GL_VERTEX_ARRAY );
    glDisableClientState( GL_NORMAL_ARRAY );
+   glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 }
 
 void Malla3D::draw_ModoAjedrez()
@@ -49,10 +53,13 @@ void Malla3D::draw_ModoAjedrez()
       }
    }
    glEnableClientState( GL_VERTEX_ARRAY );
+   glEnableClientState( GL_TEXTURE_COORD_ARRAY );
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
+   glTexCoordPointer(2, GL_FLOAT, ct.data() );
    glEnableClientState(GL_COLOR_ARRAY);
    dibujaAjedrez(f.size(),f1.data(),f2.data());
    glDisableClientState( GL_VERTEX_ARRAY );
+   glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 
 }
 // -----------------------------------------------------------------------------

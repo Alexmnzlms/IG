@@ -66,6 +66,7 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 	glEnable( GL_DEPTH_TEST );	// se habilita el z-bufer
    glEnable( GL_CULL_FACE );
    glEnable( GL_NORMALIZE );
+   glEnable(GL_TEXTURE_2D);
 
 	Width  = UI_window_width/10;
 	Height = UI_window_height/10;
@@ -126,21 +127,9 @@ void Escena::dibujar()
          }
          glPushMatrix();
             glPushMatrix();
-               glScalef(500.0,1.0,500.0);
+               glScalef(25.0,25.0,1.0);
                cubo->setMaterial(*rubi);
                cubo->draw(tipo_draw,col,modo_dibujado);
-            glPopMatrix();
-            glPushMatrix();
-               glScalef(0.7,0.7,0.7);
-               glTranslatef(0,0,180);
-               //glRotatef(45,1,0,0);
-               torre->setMaterial(*esmeralda);
-               torre->draw(tipo_draw,col,modo_dibujado);
-            glPopMatrix();
-            glPushMatrix();
-               glTranslatef(0.0,10,0.00);
-               robot->setMaterial(*bronce);
-               robot->draw(tipo_draw,col,modo_dibujado);
             glPopMatrix();
          glPopMatrix();
       }
