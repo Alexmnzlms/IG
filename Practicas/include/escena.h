@@ -16,6 +16,7 @@
 #include "material.h"
 #include "robot.h"
 #include "torre.h"
+#include "cuadro.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO, ANIMA, GRADOLIB} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
@@ -69,6 +70,7 @@ class Escena
    Cilindro * cilindro = nullptr;
    Torre * torre = nullptr;
    Robot * robot = nullptr;
+   Cuadro * cuadro = nullptr;
 
 
    //Luces de la escena

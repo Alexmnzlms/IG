@@ -9,7 +9,7 @@ using namespace std;
 class Textura {
    private:
       GLuint textura_id;
-      vector<unsigned char> data;
+      unsigned char * data;
       int width;
       int height;
    public:

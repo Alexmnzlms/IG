@@ -21,14 +21,17 @@ void Malla3D::draw_ModoInmediato(bool iluminacion, bool suave)
       } else {
          glShadeModel(GL_FLAT);
       }
-
    }
    glEnableClientState( GL_VERTEX_ARRAY );
    glEnableClientState( GL_NORMAL_ARRAY );
-   glEnableClientState( GL_TEXTURE_COORD_ARRAY );
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
    glNormalPointer( GL_FLOAT, 0, nv.data() );
-   glTexCoordPointer(2, GL_FLOAT, ct.data() );
+   if(!ct.empty()){
+      glEnable(GL_TEXTURE_2D);
+      glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+      glTexCoordPointer( 2, GL_FLOAT, 0, ct.data() );
+      textura->activar();
+   }
    if(!glIsEnabled(GL_LIGHTING)){
       glEnableClientState(GL_COLOR_ARRAY);
       glColorPointer(3, GL_FLOAT, 0, c.data() );
@@ -37,7 +40,10 @@ void Malla3D::draw_ModoInmediato(bool iluminacion, bool suave)
    dibujaInmediato(f.size(),f.data());
    glDisableClientState( GL_VERTEX_ARRAY );
    glDisableClientState( GL_NORMAL_ARRAY );
-   glDisableClientState( GL_TEXTURE_COORD_ARRAY );
+   if(!ct.empty()){
+      glDisableClientState( GL_TEXTURE_COORD_ARRAY );
+      glDisable(GL_TEXTURE_2D);
+   }
 }
 
 void Malla3D::draw_ModoAjedrez()
@@ -53,14 +59,19 @@ void Malla3D::draw_ModoAjedrez()
       }
    }
    glEnableClientState( GL_VERTEX_ARRAY );
-   glEnableClientState( GL_TEXTURE_COORD_ARRAY );
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
-   glTexCoordPointer(2, GL_FLOAT, ct.data() );
+   if(!ct.empty()){
+      glEnable(GL_TEXTURE_2D);
+      glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+      glTexCoordPointer( 2, GL_FLOAT, 0, ct.data() );
+   }
    glEnableClientState(GL_COLOR_ARRAY);
    dibujaAjedrez(f.size(),f1.data(),f2.data());
    glDisableClientState( GL_VERTEX_ARRAY );
-   glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-
+   if(!ct.empty()){
+      glDisableClientState( GL_TEXTURE_COORD_ARRAY );
+      glDisable(GL_TEXTURE_2D);
+   }
 }
 // -----------------------------------------------------------------------------
 // Visualización en modo diferido con 'glDrawElements' (usando VBOs)

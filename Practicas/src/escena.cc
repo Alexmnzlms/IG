@@ -29,11 +29,12 @@ Escena::Escena()
    cono = new Cono(100,100);
    torre = new Torre();
    robot = new Robot(45.0,-45.0,0.0);
+   cuadro = new Cuadro(10);
 
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
    Tupla4f esp = {1.0,1.0,1.0,1.0};
-   Tupla3f dir = {0.0,1.0,0.0};
+   Tupla3f dir = {0.0,0.0,1.0};
    luzdir = new LuzDireccional(dir, GL_LIGHT1, amb, dif, esp);
    Tupla3f ori2 = {1.0,0.0,0.0};
    luzdir2 = new LuzDireccional(ori2, GL_LIGHT3, amb, dif, esp);
@@ -48,7 +49,6 @@ Escena::Escena()
    blanco = new Material(coldifblanco,colespblanco,colambblanco, brilloblanco);
    bronce = new Material(coldifbronce,colespbronce,colambbronce, brillobronce);
    perla = new Material(coldifperla,colespperla,colambperla, brilloperla);
-
 }
 
 //**************************************************************************
@@ -66,7 +66,6 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 	glEnable( GL_DEPTH_TEST );	// se habilita el z-bufer
    glEnable( GL_CULL_FACE );
    glEnable( GL_NORMALIZE );
-   glEnable(GL_TEXTURE_2D);
 
 	Width  = UI_window_width/10;
 	Height = UI_window_height/10;
@@ -128,8 +127,8 @@ void Escena::dibujar()
          glPushMatrix();
             glPushMatrix();
                glScalef(25.0,25.0,1.0);
-               cubo->setMaterial(*rubi);
-               cubo->draw(tipo_draw,col,modo_dibujado);
+               cuadro->setMaterial(*perla);
+               cuadro->draw(tipo_draw,col,modo_dibujado);
             glPopMatrix();
          glPopMatrix();
       }
