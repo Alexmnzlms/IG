@@ -46,6 +46,7 @@ class ObjRevolucion : public Malla3D
       void dibujaInmediato(int tamanio, const void * indice) override;
       void dibujaAjedrez(int tamanio, const void * indice1, const void * indice2) override;
       void dibujaDiferido(int tamanio, GLvoid * indice) override;
+      void calcularCoorTex(float vertices, float instancias);
 } ;
 
 

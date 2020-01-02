@@ -72,7 +72,8 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
       tapa_inf = true;
    }
 
-   for(int i = 1; i < instancias; i++){
+   for(int i = 1; i <= instancias; i++){
+      //std::cout << "i: " << i << std::endl;
       alfa = ((2*M_PI*i)/instancias);
       for(int j = 0; j < num_vertices; j++){
          switch (eje_rotacion) {
@@ -95,10 +96,10 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
       }
    }
    if(!(num_vertices == 1)){
-      for(int i = 0; i < instancias; i++){
+   for(int i = 0; i < instancias; i++){
          for(int j = 0; j < num_vertices-1; j++){
             a = num_vertices*i + j;
-            b = num_vertices*((i+1)%instancias)+j;
+            b = num_vertices*((i+1)%(instancias+1))+j;
             f.push_back(Tupla3i(a,b,b+1));
             f.push_back(Tupla3i(a,b+1,a+1));
          }
@@ -129,6 +130,29 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
    pos_tapas = instancias;
    calcular_colores();
    calcular_normales();
+   calcularCoorTex(num_vertices, instancias);
+}
+
+void ObjRevolucion::calcularCoorTex(float vertices, float instancias){
+   float modulo, s, t;
+   Tupla2f coortex;
+   Tupla3f vector;
+   std::vector<float> d;
+   d.push_back(0);
+   for(int m = 0; m < vertices; m++){
+      vector = v[m] - v[m-1];
+      modulo = sqrt(vector.lengthSq());
+      d.push_back(d[m-1] + modulo);
+   }
+   for(float i = 0; i <= instancias; i++){
+      s = i / (instancias);
+      //std::cout << "s: " << s << std::endl;
+      for(int j = vertices-1; j >= 0 ; j--){
+         t = d[j]/d[vertices-1];
+         coortex = {s,t};
+         ct.push_back(coortex);
+      }
+   }
 }
 
 void ObjRevolucion::dibujaInmediato(int tamanio, const void * indice){

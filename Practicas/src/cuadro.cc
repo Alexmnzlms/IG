@@ -28,12 +28,12 @@ Cuadro::Cuadro(float lado)
    calcular_normales();
 
    Tupla2f t1(0.0,0.0);
-   ct.push_back(t1);
    Tupla2f t2(0.0,1.0);
-   ct.push_back(t2);
    Tupla2f t3(1.0,1.0);
-   ct.push_back(t3);
    Tupla2f t4(1.0,0.0);
+   ct.push_back(t2);
+   ct.push_back(t1);
    ct.push_back(t4);
-   textura = new Textura("jpg/text-madera.jpg");
+   ct.push_back(t3);
+   //textura = new Textura("jpg/gato.jpg");
 }

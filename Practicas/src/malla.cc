@@ -30,7 +30,8 @@ void Malla3D::draw_ModoInmediato(bool iluminacion, bool suave)
       glEnable(GL_TEXTURE_2D);
       glEnableClientState( GL_TEXTURE_COORD_ARRAY );
       glTexCoordPointer( 2, GL_FLOAT, 0, ct.data() );
-      textura->activar();
+      if(textura!= nullptr)
+         textura->activar();
    }
    if(!glIsEnabled(GL_LIGHTING)){
       glEnableClientState(GL_COLOR_ARRAY);
@@ -64,6 +65,8 @@ void Malla3D::draw_ModoAjedrez()
       glEnable(GL_TEXTURE_2D);
       glEnableClientState( GL_TEXTURE_COORD_ARRAY );
       glTexCoordPointer( 2, GL_FLOAT, 0, ct.data() );
+      if(textura!= nullptr)
+         textura->activar();
    }
    glEnableClientState(GL_COLOR_ARRAY);
    dibujaAjedrez(f.size(),f1.data(),f2.data());
@@ -126,6 +129,9 @@ void Malla3D::draw(dibujo tipo, color col, GLenum modo)
          case MORADO:
             c= cmorado;
             break;
+         case BLANCO:
+            c= cblanco;
+            break;
       }
       if(tipo == CHESS){
          c_aux = cnegro;
@@ -176,6 +182,7 @@ void Malla3D::calcular_colores(){
    Tupla3f rosa(1.0f,0.0f,1.0f);
    Tupla3f amarillo(1.0f,1.0f,0.0f);
    Tupla3f morado(0.5f,0.0f,0.5f);
+   Tupla3f blanco(1.0f,1.0f,1.0f);
 
    for(int i = 0; i < v.size(); i++){
       cnegro.push_back(negro);
@@ -201,6 +208,9 @@ void Malla3D::calcular_colores(){
    for(int i = 0; i < v.size(); i++){
       cmorado.push_back(morado);
    }
+   for(int i = 0; i < v.size(); i++){
+      cblanco.push_back(blanco);
+   }
 
 }
 
@@ -218,9 +228,11 @@ void Malla3D::calcular_normales(){
       a = v[f[i](1)] - v[f[i](0)];
       b = v[f[i](2)] - v[f[i](0)];
       nc = a.cross(b);
-      nv[f[i](0)] = nv[f[i](0)] + nc;
-      nv[f[i](1)] = nv[f[i](1)] + nc;
-      nv[f[i](2)] = nv[f[i](2)] + nc;
+      if(nc.lengthSq() != 0.0){
+         nv[f[i](0)] = nv[f[i](0)] + nc;
+         nv[f[i](1)] = nv[f[i](1)] + nc;
+         nv[f[i](2)] = nv[f[i](2)] + nc;
+      }
    }
    for(int i = 0; i < nv.size(); i++){
       nv[i] = nv[i].normalized();

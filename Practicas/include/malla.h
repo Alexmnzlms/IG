@@ -20,7 +20,7 @@
 //
 // *****************************************************************************
 typedef enum {INMED, DIFER, CHESS, SMUZ, PLAIN} dibujo;
-typedef enum {NEGRO, AZUL, VERDE, CIAN, NARANJA, ROSA, AMARILLO, MORADO} color;
+typedef enum {BLANCO, NEGRO, AZUL, VERDE, CIAN, NARANJA, ROSA, AMARILLO, MORADO} color;
 
 class Malla3D
 {
@@ -69,6 +69,7 @@ class Malla3D
    std::vector<Tupla3f> crosa;
    std::vector<Tupla3f> camarillo;
    std::vector<Tupla3f> cmorado;
+   std::vector<Tupla3f> cblanco;
    std::vector<Tupla2f> ct;
    //float colorArray[8];
 } ;

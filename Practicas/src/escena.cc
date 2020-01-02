@@ -16,17 +16,15 @@ Escena::Escena()
    Observer_angle_x  = 0.0 ;
    Observer_angle_y  = 0.0 ;
 
-   ejes.changeAxisSize( 5000 );
 
-   int num_vert = 10;
    int num_rot = 20;
    cubo = new Cubo(10);
    tetraedro = new Tetraedro(10);
    objply = new ObjPLY(ply,10);
    objrot = new ObjRevolucion(plyrot);
    esfera = new Esfera(100);
-   cilindro = new Cilindro(50, 50);
-   cono = new Cono(100,100);
+   cilindro = new Cilindro(150, 50);
+   cono = new Cono(150,50);
    torre = new Torre();
    robot = new Robot(45.0,-45.0,0.0);
    cuadro = new Cuadro(10);
@@ -36,12 +34,8 @@ Escena::Escena()
    Tupla4f esp = {1.0,1.0,1.0,1.0};
    Tupla3f dir = {0.0,0.0,1.0};
    luzdir = new LuzDireccional(dir, GL_LIGHT1, amb, dif, esp);
-   Tupla3f ori2 = {1.0,0.0,0.0};
-   luzdir2 = new LuzDireccional(ori2, GL_LIGHT3, amb, dif, esp);
-   Tupla3f pos = {0.0,260.0,0.0};
+   Tupla3f pos = {0.0,0.0,100.0};
    luzpos = new LuzPosicional(pos, GL_LIGHT2, amb, dif, esp);
-   //Tupla3f pos2 = {-500.0,100.0,0.0};
-   //luzpos2 = new LuzPosicional(pos2, GL_LIGHT3, amb, dif, esp);
 
    esmeralda = new Material(coldifesmeralda, colespesmeralda, colambesmeralda, brilloesmeralda);
    rubi = new Material(coldifrubi,colesprubi,colambrubi, brillorubi);
@@ -49,6 +43,7 @@ Escena::Escena()
    blanco = new Material(coldifblanco,colespblanco,colambblanco, brilloblanco);
    bronce = new Material(coldifbronce,colespbronce,colambbronce, brillobronce);
    perla = new Material(coldifperla,colespperla,colambperla, brilloperla);
+   blancop = new Material(Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),128.0);
 }
 
 //**************************************************************************
@@ -99,7 +94,6 @@ void Escena::dibujar()
    glDisable(GL_LIGHTING);
    glDisable(GL_LIGHT1);
    glDisable(GL_LIGHT2);
-   glDisable(GL_LIGHT3);
    ejes.draw();
    for(int i = 0; i < 3; i++){
       if(bool_dibujado[i]){
@@ -114,21 +108,34 @@ void Escena::dibujar()
                break;
             case 2:
                modo_dibujado = GL_FILL;
-               col = NARANJA;
+               col = BLANCO;
                break;
          }
          if(actluzdir){
             luzdir->activar();
-            luzdir2->activar();
          }
          if(actluzpos){
             luzpos->activar();
          }
          glPushMatrix();
             glPushMatrix();
-               glScalef(25.0,25.0,1.0);
-               cuadro->setMaterial(*perla);
+               glScalef(50.0,1.0,50.0);
+               glRotatef(-90,1,0,0);
+               cuadro->setMaterial(*rubi);
                cuadro->draw(tipo_draw,col,modo_dibujado);
+            glPopMatrix();
+            glPushMatrix();
+               glScalef(0.7,0.7,0.7);
+               glTranslatef(0,0,180);
+               //glRotatef(45,1,0,0);
+               torre->setMaterial(*blanco);
+               torre->draw(tipo_draw,col,modo_dibujado);
+            glPopMatrix();
+            glPushMatrix();
+               glTranslatef(0.0,10,0.00);
+               col = NARANJA;
+               robot->setMaterial(*bronce);
+               robot->draw(tipo_draw,col,modo_dibujado);
             glPopMatrix();
          glPopMatrix();
       }

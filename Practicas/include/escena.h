@@ -53,8 +53,8 @@ class Escena
    angulo ang;
    grado_libertad gl;
    color col;
-   float vel = 0.0;
-   float taladro = 0.0;
+   float vel = 1.0;
+   float taladro = 10.0;
    GLenum modo_dibujado;
    dibujo tipo_draw = INMED;
    std::string ply = "ply/ant.ply";
@@ -115,6 +115,7 @@ class Escena
    Material * blanco = nullptr;
    Material * perla = nullptr;
    Material * bronce = nullptr;
+   Material * blancop = nullptr;
 
    public:
 

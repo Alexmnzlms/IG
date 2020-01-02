@@ -31,3 +31,6 @@
 *_exe
 *.out
 *.app
+
+# Documentacion
+*.pdf
