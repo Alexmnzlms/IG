@@ -12,9 +12,6 @@ Textura::Textura(string archivo){
    width = pimg->tamX();
    height = pimg->tamY();
    data = pimg->leerPixels();
-
-
-
 }
 
 void Textura::activar(){

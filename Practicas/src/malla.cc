@@ -204,7 +204,6 @@ void Malla3D::calcular_colores(){
    for(int i = 0; i < v.size(); i++){
       cblanco.push_back(blanco);
    }
-
 }
 
 void Malla3D::alternar_vista(){
@@ -254,6 +253,6 @@ void Malla3D::setMaterial(Material mat){
    m = mat;
 }
 
-void Malla3D::setTextura(Textura * tex){
-   textura = tex;
+void Malla3D::setTextura(const std::string tex){
+   textura = new Textura(tex);
 }

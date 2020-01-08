@@ -7,15 +7,12 @@
 #include "cono.h"
 #include "piernarobot.h"
 #include "textura.h"
-#include "luz.h"
-#include "luzposicional.h"
 #include <cstdlib>
 
 class BrazoRobot{
    private:
       PiernaRobot * pierna = nullptr ;
       Cono * cono = nullptr;
-      LuzPosicional * luzpos = nullptr;
       float alfa;
       float delta;
       bool animacion_neg;

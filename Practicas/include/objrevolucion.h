@@ -28,12 +28,13 @@ typedef enum {RX, RY, RZ} eje;
 class ObjRevolucion : public Malla3D
 {
    public:
-       ObjRevolucion();
-       ObjRevolucion(const std::string & archivo) ;
+      int tipo_text;
+      ObjRevolucion();
+      ObjRevolucion(const std::string & archivo) ;
 
-       ObjRevolucion(std::vector<Tupla3f> archivo) ;
-       void setTextura(Textura * tex);
-       void tapas();
+      ObjRevolucion(std::vector<Tupla3f> archivo) ;
+      void setTextura(const std::string tex);
+      void tapas();
 
    protected:
       int instancias;
@@ -46,7 +47,7 @@ class ObjRevolucion : public Malla3D
       void dibujaInmediato(int tamanio, const void * indice) override;
       void dibujaAjedrez(int tamanio, const void * indice1, const void * indice2) override;
       void dibujaDiferido(int tamanio, GLvoid * indice) override;
-      void calcularCoorTex(float vertices, float instancias);
+      void calcularCoorTex(int tipo);
 } ;
 
 

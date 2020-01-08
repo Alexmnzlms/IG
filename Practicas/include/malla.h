@@ -41,7 +41,7 @@ class Malla3D
    void draw(dibujo tipo, color col, GLenum modo) ;
    void alternar_vista();
    void setMaterial(Material mat);
-   virtual void setTextura(Textura * tex);
+   virtual void setTextura(const std::string tex);
 
    protected:
    GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );

@@ -13,4 +13,5 @@ Cono::Cono(const float altura, const float radio)
    instancias = 20;
    crearMalla(v, RY);
    pos_tapas = instancias/2;
+   tipo_text = 0;
 }

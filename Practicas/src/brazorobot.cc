@@ -5,16 +5,11 @@ BrazoRobot::BrazoRobot(float a, bool izq){
    delta = 0.0;
    pierna = new PiernaRobot(a);
    cono = new Cono(50,10);
+   cono->setTextura("jpg/text-metal.jpg");
+   Material * blancop = new Material(Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),128.0);
+   cono->setMaterial(*blancop);
    animacion_neg = false;
    izquierda = izq;
-   Tupla4f amb = {0.0,0.0,0.0,1.0};
-   Tupla4f dif = {1.0,1.0,1.0,1.0};
-   Tupla4f esp = {1.0,1.0,1.0,1.0};
-   Tupla3f dir = {0.0,1.0,0.0};
-   Tupla3f pos = {0.0,0.0,0.0};
-   luzpos = new LuzPosicional(pos, GL_LIGHT3, amb, dif, esp);
-   //Textura * taladro = new Textura("jpg/text-lata-1.jpg");
-   //cono->setTextura(taladro);
 }
 
 void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
@@ -24,15 +19,13 @@ void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
          glTranslatef(-10.5,-60*cos(pierna->getAlfa()*M_PI/180.0),0);
          glRotatef(180,1,0,0);
          glRotatef(delta,0,1,0);
-         cono->draw(tipo_draw,col,modo_dibujado);
-         luzpos->activar();
+         cono->draw(tipo_draw,BLANCO,modo_dibujado);
       glPopMatrix();
    glPopMatrix();
 }
 
 void BrazoRobot::setMaterial(Material mat){
    pierna->setMaterial(mat);
-   cono->setMaterial(mat);
 }
 
 void BrazoRobot::incrementarAngulo(float inc){

@@ -47,7 +47,7 @@ class Escena
    void clear_window();
 
    menu modoMenu=NADA;
-   bool iluminacion = true;
+   bool iluminacion = false;
    bool bool_dibujado[3] = {false, false, true};
    bool actluzdir = false;
    bool actluzpos = false;
@@ -55,10 +55,10 @@ class Escena
    grado_libertad gl;
    color col;
    float vel = 1.0;
-   float taladro = 10.0;
-   float luzm = -500.0;
+   float taladro = 2.0;
+   float luzm = 0;
    GLenum modo_dibujado;
-   dibujo tipo_draw = SMUZ;
+   dibujo tipo_draw = INMED;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
    // Objetos de la escena
@@ -118,8 +118,8 @@ class Escena
    Material * bronce = nullptr;
    Material * blancop = nullptr;
 
-   Textura * lata = nullptr;
-   Textura * madera = nullptr;
+   std::string lata = "jpg/el_mundo.jpg";
+   std::string madera = "jpg/text-madera.jpg";
 
    public:
 

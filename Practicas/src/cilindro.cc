@@ -11,6 +11,7 @@ Cilindro::Cilindro(const float altura, const float radio)
    vertices_perfil  = 2;
    instancias = 40;
    crearMalla(v, RY);
+   tipo_text = 1;
 }
 
 void Cilindro::GenerarPerfil(const float altura, const float radio){

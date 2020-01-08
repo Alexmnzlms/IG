@@ -11,6 +11,7 @@ Esfera::Esfera(const float radio)
    instancias = 40;
    GenerarPerfil(vertices_perfil,radio);
    crearMalla(v, RY);
+   tipo_text = 0;
 }
 
 void Esfera::GenerarPerfil(const int num_vert_perfil, const float radio){

@@ -99,7 +99,7 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
    for(int i = 0; i < instancias; i++){
          for(int j = 0; j < num_vertices-1; j++){
             a = num_vertices*i + j;
-            b = num_vertices*((i+1)%(instancias+1))+j;
+            b = num_vertices*(i+1)+j;
             f.push_back(Tupla3i(a,b,b+1));
             f.push_back(Tupla3i(a,b+1,a+1));
          }
@@ -133,41 +133,54 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
    for(int i = num_vertices*instancias; i < num_vertices*(instancias+1); i++){
       nv[i] = nv[i - num_vertices*instancias];
    }
-   if(textura != nullptr){
-      calcularCoorTex(num_vertices, instancias);
-   }
 }
 
-void ObjRevolucion::calcularCoorTex(float vertices, float instancias){
-   float modulo, s, t;
-   Tupla2f coortex;
-   Tupla3f vector;
-   std::vector<float> d;
-   d.push_back(0);
-   for(int m = 0; m < vertices; m++){
-      vector = v[m] - v[m-1];
-      modulo = sqrt(vector.lengthSq());
-      d.push_back(d[m-1] + modulo);
-   }
-   for(float i = 0; i <= instancias; i++){
-      s = i / (instancias);
-      //std::cout << "s: " << s << std::endl;
-      for(int j = vertices-1; j >= 0 ; j--){
-         t = d[j]/d[vertices-1];
-         coortex = {s,t};
-         ct.push_back(coortex);
+void ObjRevolucion::calcularCoorTex(int tipo){
+   ct.resize(v.size());
+   float alfa, beta, u, w, y_min, y_max;
+   if(tipo == 1){ //Cilindro
+
+      y_min = v[v.size()-2](1);
+      y_max = v[v.size()-1](1);
+
+      for(int i = 0; i < v.size(); i++){
+         alfa = atan2(v[i](2),v[i](0));
+         u = 1 - (0.5+(alfa/(2*M_PI)));
+         u += 0.5;
+         u = fmod(u,1);
+         w = (v[i](1) - y_min) / (y_max - y_min);
+         ct[i] = Tupla2f(u,w);
       }
+
+   } else if (tipo == 0){ //Esfera
+
+      for(int i = 0; i < v.size(); i++){
+         alfa = atan2(v[i](2),v[i](0));
+         beta = atan2(v[i](1),sqrt(pow(v[i](0),2)+pow(v[i](2),2)));
+         u = 1 - (0.5+(alfa/(2*M_PI)));
+         u += 0.5;
+         u = fmod(u,1);
+         w = 0.5+(beta/M_PI);
+         w = 1-w;
+         ct[i] = Tupla2f(u,w);
+      }
+
    }
+
+   for(int i = vertices_perfil*instancias; i < vertices_perfil*(instancias+1); i++){
+      ct[i](0) = 1.0;
+   }
+   
 }
 
-void ObjRevolucion::setTextura(Textura* tex){
-   textura = tex;
-   calcularCoorTex(vertices_perfil, instancias);
+void ObjRevolucion::setTextura(const std::string tex){
+   textura = new Textura(tex);
+   calcularCoorTex(tipo_text);
    using namespace std;
    cout << "-----------------------------" << endl;
    cout << "Vertices = " << v.size() << endl;
    for(int i = 0; i < ct.size(); i++){
-      cout << "Vertice " << i << " : " << v[i] << endl;
+      //cout << "Vertice " << i << " : " << v[i] << endl;
       cout << "Coortex " << i << " : " << ct[i] << endl;
    }
    cout << "-----------------------------" << endl;
