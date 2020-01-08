@@ -130,7 +130,12 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
    pos_tapas = instancias;
    calcular_colores();
    calcular_normales();
-   calcularCoorTex(num_vertices, instancias);
+   for(int i = num_vertices*instancias; i < num_vertices*(instancias+1); i++){
+      nv[i] = nv[i - num_vertices*instancias];
+   }
+   if(textura != nullptr){
+      calcularCoorTex(num_vertices, instancias);
+   }
 }
 
 void ObjRevolucion::calcularCoorTex(float vertices, float instancias){
@@ -153,6 +158,19 @@ void ObjRevolucion::calcularCoorTex(float vertices, float instancias){
          ct.push_back(coortex);
       }
    }
+}
+
+void ObjRevolucion::setTextura(Textura* tex){
+   textura = tex;
+   calcularCoorTex(vertices_perfil, instancias);
+   using namespace std;
+   cout << "-----------------------------" << endl;
+   cout << "Vertices = " << v.size() << endl;
+   for(int i = 0; i < ct.size(); i++){
+      cout << "Vertice " << i << " : " << v[i] << endl;
+      cout << "Coortex " << i << " : " << ct[i] << endl;
+   }
+   cout << "-----------------------------" << endl;
 }
 
 void ObjRevolucion::dibujaInmediato(int tamanio, const void * indice){

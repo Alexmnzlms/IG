@@ -7,8 +7,8 @@
 
 Esfera::Esfera(const float radio)
 {
-   vertices_perfil = 50;
-   instancias = 50;
+   vertices_perfil = 40;
+   instancias = 40;
    GenerarPerfil(vertices_perfil,radio);
    crearMalla(v, RY);
 }

@@ -11,8 +11,6 @@ Cilindro::Cilindro(const float altura, const float radio)
    vertices_perfil  = 2;
    instancias = 40;
    crearMalla(v, RY);
-   textura = new Textura("jpg/text-lata-1.jpg");
-
 }
 
 void Cilindro::GenerarPerfil(const float altura, const float radio){

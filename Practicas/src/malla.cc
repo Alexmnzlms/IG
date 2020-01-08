@@ -61,20 +61,9 @@ void Malla3D::draw_ModoAjedrez()
    }
    glEnableClientState( GL_VERTEX_ARRAY );
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
-   if(!ct.empty()){
-      glEnable(GL_TEXTURE_2D);
-      glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-      glTexCoordPointer( 2, GL_FLOAT, 0, ct.data() );
-      if(textura!= nullptr)
-         textura->activar();
-   }
    glEnableClientState(GL_COLOR_ARRAY);
    dibujaAjedrez(f.size(),f1.data(),f2.data());
    glDisableClientState( GL_VERTEX_ARRAY );
-   if(!ct.empty()){
-      glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-      glDisable(GL_TEXTURE_2D);
-   }
 }
 // -----------------------------------------------------------------------------
 // Visualización en modo diferido con 'glDrawElements' (usando VBOs)
@@ -140,6 +129,10 @@ void Malla3D::draw(dibujo tipo, color col, GLenum modo)
       }
 
       m.aplicar();
+
+      if(textura != nullptr){
+         textura->activar();
+      }
 
       glPolygonMode(GL_FRONT, modo);
       glPointSize(3.0);
@@ -237,7 +230,6 @@ void Malla3D::calcular_normales(){
    for(int i = 0; i < nv.size(); i++){
       nv[i] = nv[i].normalized();
    }
-
 }
 
 void Malla3D::dibujaInmediato(int tamanio, const void * indice){
@@ -260,4 +252,8 @@ void Malla3D::dibujaAjedrez(int tamanio, const void * indice1, const void * indi
 
 void Malla3D::setMaterial(Material mat){
    m = mat;
+}
+
+void Malla3D::setTextura(Textura * tex){
+   textura = tex;
 }

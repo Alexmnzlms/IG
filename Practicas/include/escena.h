@@ -17,6 +17,7 @@
 #include "robot.h"
 #include "torre.h"
 #include "cuadro.h"
+#include "textura.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO, ANIMA, GRADOLIB} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
@@ -46,7 +47,7 @@ class Escena
    void clear_window();
 
    menu modoMenu=NADA;
-   bool iluminacion = false;
+   bool iluminacion = true;
    bool bool_dibujado[3] = {false, false, true};
    bool actluzdir = false;
    bool actluzpos = false;
@@ -55,8 +56,9 @@ class Escena
    color col;
    float vel = 1.0;
    float taladro = 10.0;
+   float luzm = -500.0;
    GLenum modo_dibujado;
-   dibujo tipo_draw = INMED;
+   dibujo tipo_draw = SMUZ;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
    // Objetos de la escena
@@ -75,9 +77,8 @@ class Escena
 
    //Luces de la escena
    LuzDireccional * luzdir = nullptr;
-   LuzDireccional * luzdir2 = nullptr;
    LuzPosicional * luzpos = nullptr;
-   LuzPosicional * luzpos2 = nullptr;
+   LuzPosicional * luzmov = nullptr;
    //Materiales de la escena
    Tupla4f colambesmeralda = {0.0215,0.1745,0.0215,1.0};
    Tupla4f coldifesmeralda = {0.07568,0.61424,0.07568,1.0};
@@ -116,6 +117,9 @@ class Escena
    Material * perla = nullptr;
    Material * bronce = nullptr;
    Material * blancop = nullptr;
+
+   Textura * lata = nullptr;
+   Textura * madera = nullptr;
 
    public:
 

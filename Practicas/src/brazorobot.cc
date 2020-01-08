@@ -7,6 +7,14 @@ BrazoRobot::BrazoRobot(float a, bool izq){
    cono = new Cono(50,10);
    animacion_neg = false;
    izquierda = izq;
+   Tupla4f amb = {0.0,0.0,0.0,1.0};
+   Tupla4f dif = {1.0,1.0,1.0,1.0};
+   Tupla4f esp = {1.0,1.0,1.0,1.0};
+   Tupla3f dir = {0.0,1.0,0.0};
+   Tupla3f pos = {0.0,0.0,0.0};
+   luzpos = new LuzPosicional(pos, GL_LIGHT3, amb, dif, esp);
+   //Textura * taladro = new Textura("jpg/text-lata-1.jpg");
+   //cono->setTextura(taladro);
 }
 
 void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
@@ -17,6 +25,7 @@ void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
          glRotatef(180,1,0,0);
          glRotatef(delta,0,1,0);
          cono->draw(tipo_draw,col,modo_dibujado);
+         luzpos->activar();
       glPopMatrix();
    glPopMatrix();
 }

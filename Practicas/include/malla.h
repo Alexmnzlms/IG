@@ -41,10 +41,11 @@ class Malla3D
    void draw(dibujo tipo, color col, GLenum modo) ;
    void alternar_vista();
    void setMaterial(Material mat);
+   virtual void setTextura(Textura * tex);
 
    protected:
    GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );
-   void calcular_normales() ; // calcula tabla de normales de vértices (práctica 3)
+   void calcular_normales(); // calcula tabla de normales de vértices (práctica 3)
    void calcular_colores();
    virtual void dibujaInmediato(int tamanio, const void * indice);
    virtual void dibujaAjedrez(int tamanio, const void * indice1, const void * indice2);

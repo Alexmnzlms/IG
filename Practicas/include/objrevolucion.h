@@ -32,7 +32,7 @@ class ObjRevolucion : public Malla3D
        ObjRevolucion(const std::string & archivo) ;
 
        ObjRevolucion(std::vector<Tupla3f> archivo) ;
-
+       void setTextura(Textura * tex);
        void tapas();
 
    protected:

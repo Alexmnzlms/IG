@@ -32,10 +32,12 @@ Escena::Escena()
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
    Tupla4f esp = {1.0,1.0,1.0,1.0};
-   Tupla3f dir = {0.0,0.0,1.0};
+   Tupla3f dir = {0.0,1.0,0.0};
    luzdir = new LuzDireccional(dir, GL_LIGHT1, amb, dif, esp);
    Tupla3f pos = {0.0,0.0,100.0};
    luzpos = new LuzPosicional(pos, GL_LIGHT2, amb, dif, esp);
+   Tupla3f posmov = {0.0,50.0,0.0};
+   luzmov = new LuzPosicional(posmov, GL_LIGHT4, amb, dif, esp);
 
    esmeralda = new Material(coldifesmeralda, colespesmeralda, colambesmeralda, brilloesmeralda);
    rubi = new Material(coldifrubi,colesprubi,colambrubi, brillorubi);
@@ -44,6 +46,16 @@ Escena::Escena()
    bronce = new Material(coldifbronce,colespbronce,colambbronce, brillobronce);
    perla = new Material(coldifperla,colespperla,colambperla, brilloperla);
    blancop = new Material(Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),128.0);
+
+   lata = new Textura("jpg/el_mundo.jpg");
+   madera = new Textura("jpg/text-madera.jpg");
+
+   robot->setMaterial(*bronce);
+   cuadro->setMaterial(*blancop);
+   torre->setMaterial(*blancop);
+   cilindro->setMaterial(*blancop);
+   cuadro->setTextura(madera);
+   esfera->setTextura(lata);
 }
 
 //**************************************************************************
@@ -94,6 +106,8 @@ void Escena::dibujar()
    glDisable(GL_LIGHTING);
    glDisable(GL_LIGHT1);
    glDisable(GL_LIGHT2);
+   //glDisable(GL_LIGHT3);
+   //glDisable(GL_LIGHT4);
    ejes.draw();
    for(int i = 0; i < 3; i++){
       if(bool_dibujado[i]){
@@ -119,23 +133,29 @@ void Escena::dibujar()
          }
          glPushMatrix();
             glPushMatrix();
-               glScalef(50.0,1.0,50.0);
+               glScalef(500.0,1.0,500.0);
                glRotatef(-90,1,0,0);
-               cuadro->setMaterial(*rubi);
                cuadro->draw(tipo_draw,col,modo_dibujado);
             glPopMatrix();
             glPushMatrix();
                glScalef(0.7,0.7,0.7);
                glTranslatef(0,0,180);
                //glRotatef(45,1,0,0);
-               torre->setMaterial(*blanco);
                torre->draw(tipo_draw,col,modo_dibujado);
             glPopMatrix();
             glPushMatrix();
-               glTranslatef(0.0,10,0.00);
+               glTranslatef(0,0,-100);
+               //glRotatef(45,1,0,0);
+               esfera->draw(tipo_draw,col,modo_dibujado);
+            glPopMatrix();
+            glPushMatrix();
+               glTranslatef(0.0,10.0,0.0);
                col = NARANJA;
-               robot->setMaterial(*bronce);
                robot->draw(tipo_draw,col,modo_dibujado);
+            glPopMatrix();
+            glPushMatrix();
+               glTranslatef(luzm,0.0,0.0);
+               //luzmov->activar();
             glPopMatrix();
          glPopMatrix();
       }
@@ -645,7 +665,11 @@ void Escena::animarModeloJerarquico(){
    robot->incrementarTaladroIzq(taladro);
    robot->incrementarTaladroDer(taladro);
    robot->incrementarAlturaAntena(taladro*0.25);
-   //std::cout << "Velocidad:" << vel << std::endl;
+   /*luzm+=10.0;
+   if(luzm > 500.0){
+      luzm = -500.0;
+   }
+   std::cout << "Velocidad:" << luzm << std::endl;*/
 }
 
 void Escena::teclaEspecial( int Tecla1, int x, int y )

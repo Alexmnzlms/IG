@@ -7,7 +7,6 @@ class Cuadro : public Malla3D
 {
    public:
       Cuadro(float l=1) ;
-      void activarTex();
 } ;
 
 #endif

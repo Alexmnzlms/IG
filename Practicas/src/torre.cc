@@ -42,9 +42,9 @@ void Torre::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
 
 void Torre::setMaterial(Material mat){
    cilindro->setMaterial(mat);
-   cilindro->setMaterial(mat);
    esfera->setMaterial(mat);
 }
+
 void Torre::incrementarAltura(float inc){
    if(altura + inc >= 5.0){
       animacion_neg = true;

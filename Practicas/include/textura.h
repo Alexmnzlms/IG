@@ -12,6 +12,7 @@ class Textura {
       unsigned char * data;
       int width;
       int height;
+      bool generada;
    public:
       Textura(string archivo);
       void activar();
