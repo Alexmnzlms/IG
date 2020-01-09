@@ -7,11 +7,16 @@
 
 Esfera::Esfera(const float radio)
 {
-   vertices_perfil = 40;
+   vertices_perfil = 20;
    instancias = 40;
    GenerarPerfil(vertices_perfil,radio);
    crearMalla(v, RY);
    tipo_text = 0;
+   std::cout << "--------" << std::endl;
+   for(int i = 0; i < v.size(); i++){
+      std::cout << v[i] << std::endl;
+   }
+   std::cout << "---------" << std::endl;
 }
 
 void Esfera::GenerarPerfil(const int num_vert_perfil, const float radio){

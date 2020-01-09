@@ -18,6 +18,7 @@
 #include "torre.h"
 #include "cuadro.h"
 #include "textura.h"
+#include "camara.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO, ANIMA, GRADOLIB} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
@@ -51,6 +52,8 @@ private:
    dibujo tipo_draw = INMED;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
+   int camaraActiva = 0;
+   std::vector<Camara> camaras;
 
    // Objetos de la escena
    Ejes ejes;

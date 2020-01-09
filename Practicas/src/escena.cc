@@ -16,6 +16,10 @@ Escena::Escena()
    Observer_angle_x  = 0.0 ;
    Observer_angle_y  = 0.0 ;
 
+   Camara camara0(Tupla3f(0.0,0.0,200.0),Tupla3f(0.0,0.0,0.0), Tupla3f(0.0,1.0,0.0),
+                  0, 50.0, 50.0, Front_plane, Back_plane, 50.0, 50.0);
+   camaras.push_back(camara0);
+
 
    int num_rot = 20;
    cubo = new Cubo(100);
@@ -35,7 +39,7 @@ Escena::Escena()
    Tupla4f esp = {1.0,1.0,1.0,1.0};
    Tupla3f dir = {0.0,1.0,0.0};
    luzdir = new LuzDireccional(dir, GL_LIGHT1, amb, dif, esp);
-   Tupla3f pos = {0.0,0.0,500.0};
+   Tupla3f pos = {0.0,0.0,1000.0};
    luzpos = new LuzPosicional(pos, GL_LIGHT2, amb, dif, esp);
 
    esmeralda = new Material(coldifesmeralda, colespesmeralda, colambesmeralda, brilloesmeralda);
@@ -745,7 +749,8 @@ void Escena::change_projection( const float ratio_xy )
    glMatrixMode( GL_PROJECTION );
    glLoadIdentity();
    const float wx = float(Height)*ratio_xy ;
-   glFrustum( -wx, wx, -Height, Height, Front_plane, Back_plane );
+   camaras[camaraActiva].setProyeccion();
+   //glFrustum( -wx, wx, -Height, Height, Front_plane, Back_plane );
 }
 //**************************************************************************
 // Funcion que se invoca cuando cambia el tamaño de la ventana
@@ -768,7 +773,8 @@ void Escena::change_observer()
    // posicion del observador
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
-   glTranslatef( 0.0, 0.0, -Observer_distance );
+   camaras[camaraActiva].setOberver();
+   /*glTranslatef( 0.0, 0.0, -Observer_distance );
    glRotatef( Observer_angle_y, 0.0 ,1.0, 0.0 );
-   glRotatef( Observer_angle_x, 1.0, 0.0, 0.0 );
+   glRotatef( Observer_angle_x, 1.0, 0.0, 0.0 );*/
 }
