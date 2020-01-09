@@ -170,20 +170,12 @@ void ObjRevolucion::calcularCoorTex(int tipo){
    for(int i = vertices_perfil*instancias; i < vertices_perfil*(instancias+1); i++){
       ct[i](0) = 1.0;
    }
-   
+
 }
 
 void ObjRevolucion::setTextura(const std::string tex){
    textura = new Textura(tex);
    calcularCoorTex(tipo_text);
-   using namespace std;
-   cout << "-----------------------------" << endl;
-   cout << "Vertices = " << v.size() << endl;
-   for(int i = 0; i < ct.size(); i++){
-      //cout << "Vertice " << i << " : " << v[i] << endl;
-      cout << "Coortex " << i << " : " << ct[i] << endl;
-   }
-   cout << "-----------------------------" << endl;
 }
 
 void ObjRevolucion::dibujaInmediato(int tamanio, const void * indice){

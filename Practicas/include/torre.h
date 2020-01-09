@@ -6,6 +6,7 @@
 #include "cubo.h"
 #include "objrevolucion.h"
 #include "cilindro.h"
+#include "textura.h"
 #include "esfera.h"
 
 class Torre{

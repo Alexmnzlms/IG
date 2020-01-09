@@ -72,7 +72,8 @@ class Escena
    Cilindro * cilindro = nullptr;
    Torre * torre = nullptr;
    Robot * robot = nullptr;
-   Cuadro * cuadro = nullptr;
+   Cuadro * suelo = nullptr;
+   Cuadro * fondo = nullptr;
 
 
    //Luces de la escena
@@ -118,8 +119,9 @@ class Escena
    Material * bronce = nullptr;
    Material * blancop = nullptr;
 
-   std::string lata = "jpg/el_mundo.jpg";
-   std::string madera = "jpg/text-madera.jpg";
+   std::string back = "jpg/background.jpg";
+   std::string ground = "jpg/ground.jpg";
+   std::string edificio = "jpg/edificio.jpg";
 
    public:
 

@@ -18,7 +18,7 @@ Escena::Escena()
 
 
    int num_rot = 20;
-   cubo = new Cubo(10);
+   cubo = new Cubo(100);
    tetraedro = new Tetraedro(10);
    objply = new ObjPLY(ply,10);
    objrot = new ObjRevolucion(plyrot);
@@ -27,7 +27,8 @@ Escena::Escena()
    cono = new Cono(150,50);
    torre = new Torre();
    robot = new Robot(45.0,-45.0,0.0);
-   cuadro = new Cuadro(10);
+   suelo = new Cuadro(10);
+   fondo = new Cuadro(10);
 
    Tupla4f amb = {0.0,0.0,0.0,1.0};
    Tupla4f dif = {1.0,1.0,1.0,1.0};
@@ -46,11 +47,16 @@ Escena::Escena()
    blancop = new Material(Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),128.0);
 
    robot->setMaterial(*bronce);
-   cuadro->setMaterial(*blancop);
+   suelo->setMaterial(*blancop);
+   fondo->setMaterial(*blancop);
    torre->setMaterial(*rubi);
    cilindro->setMaterial(*blancop);
+   cubo->setMaterial(*blancop);
 
-   cuadro->setTextura(madera);
+   suelo->setTextura(ground);
+   fondo->setTextura(back);
+   cilindro->setTextura(edificio);
+   cubo->setTextura(edificio);
 }
 
 //**************************************************************************
@@ -133,9 +139,29 @@ void Escena::dibujar()
          glPushMatrix();
 
             glPushMatrix();
-               glScalef(500.0,1.0,500.0);
+               glScalef(500.0,1.0,250.0);
                glRotatef(-90,1,0,0);
-               cuadro->draw(tipo_draw,BLANCO,modo_dibujado);
+               suelo->draw(tipo_draw,BLANCO,modo_dibujado);
+            glPopMatrix();
+
+            glPushMatrix();
+               glTranslatef(0.0,1250.0,-1250.0);
+               glScalef(500.0,250.0,1.0);
+               fondo->draw(tipo_draw,BLANCO,modo_dibujado);
+            glPopMatrix();
+
+            glPushMatrix();
+               glTranslatef(1250.0,1250.0,0.0);
+               glScalef(1.0,250.0,500.0);
+               glRotatef(-90.0,0,1,0);
+               fondo->draw(tipo_draw,BLANCO,modo_dibujado);
+            glPopMatrix();
+
+            glPushMatrix();
+               glTranslatef(-1250.0,1250.0,0.0);
+               glScalef(1.0,250.0,500.0);
+               glRotatef(90.0,0,1,0);
+               fondo->draw(tipo_draw,BLANCO,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
@@ -147,6 +173,24 @@ void Escena::dibujar()
             glPushMatrix();
                glTranslatef(0.0,10.0,0.0);
                robot->draw(tipo_draw,col,modo_dibujado);
+            glPopMatrix();
+
+            glPushMatrix();
+               glTranslatef(-300.0,0.0,-500.0);
+               glScalef(1.5,2.0,1.5);
+               cilindro->draw(tipo_draw,BLANCO,modo_dibujado);
+            glPopMatrix();
+
+            glPushMatrix();
+               glTranslatef(300.0,0.0,-500.0);
+               glScalef(1.5,2.0,1.5);
+               cilindro->draw(tipo_draw,BLANCO,modo_dibujado);
+            glPopMatrix();
+
+            glPushMatrix();
+               glTranslatef(0.0,150.0,-500.0);
+               glScalef(1.5,3.0,1.5);
+               cubo->draw(tipo_draw,BLANCO,modo_dibujado);
             glPopMatrix();
 
          glPopMatrix();
@@ -660,7 +704,6 @@ void Escena::animarModeloJerarquico(){
    if(luzm > 360.0){
       luzm = 0.0;
    }
-   std::cout << "Angulo:" << luzm << std::endl;
 }
 
 void Escena::teclaEspecial( int Tecla1, int x, int y )

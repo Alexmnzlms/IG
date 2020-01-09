@@ -5,33 +5,36 @@ Torre::Torre(){
    esfera = new Esfera(5);
    altura = 0.0;
    animacion_neg = false;
+   cilindro->setTextura("jpg/edificio.jpg");
+   Material * blancop = new Material(Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),128.0);
+   cilindro->setMaterial(*blancop);
 }
 
 void Torre::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
    glPushMatrix();
       glPushMatrix();
          glScalef(8,8,8);
-         cilindro->draw(tipo_draw, col, modo_dibujado);
+         cilindro->draw(tipo_draw, BLANCO, modo_dibujado);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(0,80,0);
          glScalef(6,12,6);
-         cilindro->draw(tipo_draw, col, modo_dibujado);
+         cilindro->draw(tipo_draw, BLANCO, modo_dibujado);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(0,200,0);
          glScalef(4,4,4);
-         cilindro->draw(tipo_draw, col, modo_dibujado);
+         cilindro->draw(tipo_draw, BLANCO, modo_dibujado);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(0,240,0);
          glScalef(2,2,2);
-         cilindro->draw(tipo_draw, col, modo_dibujado);
+         cilindro->draw(tipo_draw, BLANCO, modo_dibujado);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(0,altura+255,0);
          glScalef(0.3,3,0.3);
-         cilindro->draw(tipo_draw, col, modo_dibujado);
+         cilindro->draw(tipo_draw, BLANCO, modo_dibujado);
       glPopMatrix();
       glPushMatrix();
          glTranslatef(0,altura+285,0);
@@ -41,7 +44,6 @@ void Torre::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
 }
 
 void Torre::setMaterial(Material mat){
-   cilindro->setMaterial(mat);
    esfera->setMaterial(mat);
 }
 
