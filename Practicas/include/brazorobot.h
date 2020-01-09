@@ -10,20 +10,21 @@
 #include <cstdlib>
 
 class BrazoRobot{
-   private:
-      PiernaRobot * pierna = nullptr ;
-      Cono * cono = nullptr;
-      float alfa;
-      float delta;
-      bool animacion_neg;
-      bool izquierda;
-   public:
-      BrazoRobot(float a, bool izq);
-      void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
-      void setMaterial(Material mat);
-      void incrementarAngulo(float inc);
-      void incrementarTaladro(float inc);
-      void setAlfa(float a);
+private:
+   PiernaRobot * pierna = nullptr ;
+   Cono * cono = nullptr;
+   float alfa;
+   float delta;
+   bool animacion_neg;
+   bool izquierda;
+
+public:
+   BrazoRobot(float a, bool izq);
+   void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
+   void setMaterial(Material mat);
+   void incrementarAngulo(float inc);
+   void incrementarTaladro(float inc);
+   void setAlfa(float a);
 };
 
 #endif

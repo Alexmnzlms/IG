@@ -3,17 +3,12 @@
 
 #include "aux.h"
 
-class Cilindro: public ObjRevolucion
-{
-   public:
-   Cilindro(  const float altura,
-              const float radio);
+class Cilindro: public ObjRevolucion{
+public:
+   Cilindro(const float altura, const float radio);
 
-   private:
-      void GenerarPerfil(const float altura, const float radio);
-} ;
-
-
-
+private:
+   void GenerarPerfil(const float altura, const float radio);
+};
 
 #endif

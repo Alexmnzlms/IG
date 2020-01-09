@@ -3,14 +3,9 @@
 
 #include "aux.h"
 
-class Cono: public ObjRevolucion
-{
-   public:
-   Cono(    const float altura,
-            const float radio);
-} ;
-
-
-
+class Cono: public ObjRevolucion{
+public:
+   Cono(const float altura, const float radio);
+};
 
 #endif

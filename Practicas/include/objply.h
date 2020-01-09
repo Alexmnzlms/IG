@@ -14,8 +14,6 @@
 #include "ply_reader.h"
 #include "malla.h"
 
-
-
 // *****************************************************************************
 //
 // Clase ObjPLY (práctica 2)
@@ -23,9 +21,7 @@
 // *****************************************************************************
 class ObjPLY: public Malla3D {
 public:
- ObjPLY( const std::string & nombre_archivo, int mult ) ;
-
-
+   ObjPLY( const std::string & nombre_archivo, int mult ) ;
 };
 
 #endif

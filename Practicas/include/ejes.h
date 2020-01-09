@@ -2,7 +2,6 @@
 #define _EJES_H
 
 class Ejes {
-
 private:
 	float axisSize;
 	float vertexArray[18];
@@ -15,6 +14,6 @@ public:
 
 private:
 	void createArrayData();
-	
 };
+
 #endif

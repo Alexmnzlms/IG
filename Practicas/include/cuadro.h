@@ -3,10 +3,9 @@
 
 #include "aux.h"
 
-class Cuadro : public Malla3D
-{
-   public:
-      Cuadro(float l=1) ;
-} ;
+class Cuadro : public Malla3D{
+public:
+   Cuadro(float l=1) ;
+};
 
 #endif

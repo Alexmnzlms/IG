@@ -10,16 +10,17 @@
 #include "esfera.h"
 
 class Torre{
-   private:
-      Cilindro * cilindro = nullptr;
-      Esfera * esfera = nullptr;
-      float altura;
-      bool animacion_neg;
-   public:
-      Torre();
-      void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
-      void setMaterial(Material mat);
-      void incrementarAltura(float inc);
+private:
+   Cilindro * cilindro = nullptr;
+   Esfera * esfera = nullptr;
+   float altura;
+   bool animacion_neg;
+   
+public:
+   Torre();
+   void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
+   void setMaterial(Material mat);
+   void incrementarAltura(float inc);
 };
 
 #endif

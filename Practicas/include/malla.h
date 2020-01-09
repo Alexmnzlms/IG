@@ -22,9 +22,8 @@
 typedef enum {INMED, DIFER, CHESS, SMUZ, PLAIN} dibujo;
 typedef enum {BLANCO, NEGRO, AZUL, VERDE, CIAN, NARANJA, ROSA, AMARILLO, MORADO} color;
 
-class Malla3D
-{
-   public:
+class Malla3D{
+public:
    Malla3D();
 
    // dibuja el objeto en modo inmediato
@@ -43,7 +42,7 @@ class Malla3D
    void setMaterial(Material mat);
    virtual void setTextura(const std::string tex);
 
-   protected:
+protected:
    GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );
    void calcular_normales(); // calcula tabla de normales de vértices (práctica 3)
    void calcular_colores();

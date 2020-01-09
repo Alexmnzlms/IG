@@ -9,17 +9,18 @@
 #include "esfera.h"
 
 class Cuerpo{
-   private:
-      Cubo * cubo = nullptr;
-      Cilindro * cilindro = nullptr;
-      Esfera * esfera = nullptr;
-      float altura;
-      bool animacion_neg;
-   public:
-      Cuerpo();
-      void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
-      void setMaterial(Material mat);
-      void incrementarAltura(float inc);
+private:
+   Cubo * cubo = nullptr;
+   Cilindro * cilindro = nullptr;
+   Esfera * esfera = nullptr;
+   float altura;
+   bool animacion_neg;
+
+public:
+   Cuerpo();
+   void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
+   void setMaterial(Material mat);
+   void incrementarAltura(float inc);
 };
 
 #endif

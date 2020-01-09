@@ -4,18 +4,17 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 class Textura {
-   private:
-      GLuint textura_id;
-      unsigned char * data;
-      int width;
-      int height;
-      bool generada;
-   public:
-      Textura(string archivo);
-      void activar();
+private:
+   GLuint textura_id;
+   unsigned char * data;
+   int width;
+   int height;
+   bool generada;
+   
+public:
+   Textura(std::string archivo);
+   void activar();
 };
 
 #endif

@@ -23,16 +23,11 @@ typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGU
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
 typedef enum {ALFA, BETA} angulo;
 typedef enum {CODOI, CODOD, PIERNAS, TALADROI, TALADROD, ANTENA} grado_libertad;
-class Escena
-{
 
-   private:
-
-
-
- // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)
-
-       // variables que definen la posicion de la camara en coordenadas polares
+class Escena{
+private:
+   // ** PARÁMETROS DE LA CÁMARA (PROVISIONAL)
+   // variables que definen la posicion de la camara en coordenadas polares
    GLfloat Observer_distance;
    GLfloat Observer_angle_x;
    GLfloat Observer_angle_y;
@@ -40,12 +35,7 @@ class Escena
    // variables que controlan la ventana y la transformacion de perspectiva
    GLfloat Width, Height, Front_plane, Back_plane;
 
-    // Transformación de cámara
-	void change_projection( const float ratio_xy );
-	void change_observer();
-
-   void clear_window();
-
+   //Variables de la escena
    menu modoMenu=NADA;
    bool iluminacion = false;
    bool bool_dibujado[3] = {false, false, true};
@@ -61,6 +51,7 @@ class Escena
    dibujo tipo_draw = INMED;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
+
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'
@@ -75,11 +66,11 @@ class Escena
    Cuadro * suelo = nullptr;
    Cuadro * fondo = nullptr;
 
-
    //Luces de la escena
    LuzDireccional * luzdir = nullptr;
    LuzPosicional * luzpos = nullptr;
    LuzPosicional * luzmov = nullptr;
+
    //Materiales de la escena
    Tupla4f colambesmeralda = {0.0215,0.1745,0.0215,1.0};
    Tupla4f coldifesmeralda = {0.07568,0.61424,0.07568,1.0};
@@ -119,12 +110,12 @@ class Escena
    Material * bronce = nullptr;
    Material * blancop = nullptr;
 
+   //Texturas de la escena
    std::string back = "jpg/background.jpg";
    std::string ground = "jpg/ground.jpg";
    std::string edificio = "jpg/edificio.jpg";
 
-   public:
-
+public:
     Escena();
 	void inicializar( int UI_window_width, int UI_window_height );
 	void redimensionar( int newWidth, int newHeight ) ;
@@ -137,5 +128,12 @@ class Escena
 	bool teclaPulsada( unsigned char Tecla1, int x, int y ) ;
 	void teclaEspecial( int Tecla1, int x, int y );
 
+private:
+   // Transformación de cámara
+   void change_projection( const float ratio_xy );
+   void change_observer();
+
+   void clear_window();
 };
+
 #endif
