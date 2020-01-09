@@ -2,13 +2,11 @@
 #include "textura.h"
 #include "jpg_imagen.h"
 
-using namespace jpg;
-
-Textura::Textura(string archivo){
+Textura::Textura(std::string archivo){
    generada = false;
 
-   Imagen * pimg = nullptr;
-   pimg = new Imagen(archivo);
+   jpg::Imagen * pimg = nullptr;
+   pimg = new jpg::Imagen(archivo);
    width = pimg->tamX();
    height = pimg->tamY();
    data = pimg->leerPixels();
