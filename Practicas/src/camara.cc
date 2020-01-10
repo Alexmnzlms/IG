@@ -16,14 +16,32 @@ Camara::Camara(const Tupla3f eye, const Tupla3f at, const Tupla3f up,
    this->bottom = bottom;
 
 }
-void Camara::rotarXExaminar(const float angle){}
-void Camara::rotarYExaminar(const float angle){}
-void Camara::rotarZExaminar(const float angle){}
+void Camara::rotarXExaminar(const float angle){
+   Tupla3f eyeOriginal = eye;
+   eye(1) = eyeOriginal(1) * cos(angle) - eyeOriginal(2) * sin(angle);
+   eye(2) = eyeOriginal(1) * sin(angle) + eyeOriginal(2) * cos(angle);
+}
+
+void Camara::rotarYExaminar(const float angle){
+   Tupla3f eyeOriginal = eye;
+   eye(0) = eyeOriginal(0) * cos(angle) + eyeOriginal(2) * sin(angle);
+   eye(2) = eyeOriginal(0)* -1 * sin(angle) + eyeOriginal(2) * cos(angle);
+}
+
+void Camara::rotarZExaminar(const float angle){
+
+}
+
 void Camara::rotarXFirstPerson(const float angle){}
 void Camara::rotarYFirstPerson(const float angle){}
 void Camara::rotarZFirstPerson(const float angle){}
 void Camara::mover(const float x, const float y, const float z){}
-void Camara::zoom(const float factor){}
+void Camara::zoom(const float factor){
+   right = right * factor;
+   left = left * factor;
+   top = top * factor;
+   bottom = bottom * factor;
+}
 void Camara::setOberver(){
    gluLookAt(eye(0),eye(1),eye(2),at(0),at(1),at(2),up(0),up(1),up(2));
 }
@@ -37,4 +55,35 @@ void Camara::setProyeccion(){
          break;
 
    }
+}
+void Camara::setLetf(const float l){
+   left = l;
+}
+
+float Camara::getLeft() const{
+   return left;
+}
+
+void Camara::setRight(const float l){
+   right = l;
+}
+
+float Camara::getRight() const{
+   return right;
+}
+
+void Camara::setTop(const float l){
+   top = l;
+}
+
+float Camara::getTop() const{
+   return top;
+}
+
+void Camara::setBottom(const float l){
+   bottom = l;
+}
+
+float Camara::getBottom() const{
+   return bottom;
 }

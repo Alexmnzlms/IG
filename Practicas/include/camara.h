@@ -26,6 +26,14 @@ public:
    void zoom(const float factor);
    void setOberver();
    void setProyeccion();
+   void setLetf(const float l);
+   void setRight(const float l);
+   void setTop(const float l);
+   void setBottom(const float l);
+   float getLeft() const;
+   float getRight() const;
+   float getTop() const;
+   float getBottom() const;
 };
 
 #endif

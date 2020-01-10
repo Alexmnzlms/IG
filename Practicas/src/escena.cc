@@ -11,13 +11,13 @@
 Escena::Escena()
 {
    Front_plane       = 50.0;
-   Back_plane        = 2000.0;
+   Back_plane        = 3000.0;
    Observer_distance = 4*Front_plane;
    Observer_angle_x  = 0.0 ;
    Observer_angle_y  = 0.0 ;
 
-   Camara camara0(Tupla3f(0.0,0.0,200.0),Tupla3f(0.0,0.0,0.0), Tupla3f(0.0,1.0,0.0),
-                  0, 50.0, 50.0, Front_plane, Back_plane, 50.0, 50.0);
+   Camara camara0(Tupla3f(0.0,300.0,700.0),Tupla3f(0.0,0.0,0.0), Tupla3f(0.0,1.0,0.0),
+                  0, -50.0, 50.0, Front_plane, Back_plane, 50.0, -50.0);
    camaras.push_back(camara0);
 
 
@@ -81,6 +81,9 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 
 	Width  = UI_window_width/10;
 	Height = UI_window_height/10;
+
+   std::cout << Width << std::endl;
+   std::cout << Height << std::endl;
 
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
@@ -169,13 +172,14 @@ void Escena::dibujar()
             glPopMatrix();
 
             glPushMatrix();
-               glScalef(0.7,0.7,0.7);
-               glTranslatef(0,0,180);
+               glScalef(2.0,2.0,2.0);
+               glTranslatef(0,0,100);
                torre->draw(tipo_draw,col,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
-               glTranslatef(0.0,10.0,0.0);
+               glTranslatef(0.0,0.0,-100.0);
+               glScalef(2.0,2.0,2.0);
                robot->draw(tipo_draw,col,modo_dibujado);
             glPopMatrix();
 
@@ -715,22 +719,30 @@ void Escena::teclaEspecial( int Tecla1, int x, int y )
    switch ( Tecla1 )
    {
 	   case GLUT_KEY_LEFT:
-         Observer_angle_y-- ;
+         //Observer_angle_y-- ;
+         camaras[camaraActiva].rotarYExaminar(-3.0*M_PI/180.0);
          break;
 	   case GLUT_KEY_RIGHT:
-         Observer_angle_y++ ;
+         //Observer_angle_y++ ;
+         camaras[camaraActiva].rotarYExaminar(3.0*M_PI/180.0);
          break;
 	   case GLUT_KEY_UP:
-         Observer_angle_x-- ;
+         //Observer_angle_x-- ;
+         camaras[camaraActiva].rotarXExaminar(3.0*M_PI/180.0);
          break;
 	   case GLUT_KEY_DOWN:
-         Observer_angle_x++ ;
+         //Observer_angle_x++ ;
+         camaras[camaraActiva].rotarXExaminar(-3.0*M_PI/180.0);
          break;
 	   case GLUT_KEY_PAGE_UP:
-         Observer_distance *=1.2 ;
+         //Observer_distance *=1.2 ;
+         camaras[camaraActiva].zoom(1/1.2);
+         change_projection(1.0);
          break;
 	   case GLUT_KEY_PAGE_DOWN:
-         Observer_distance /= 1.2 ;
+         //Observer_distance /= 1.2 ;
+         camaras[camaraActiva].zoom(1.2);
+         change_projection(1.0);
          break;
 	}
 
@@ -748,7 +760,7 @@ void Escena::change_projection( const float ratio_xy )
 {
    glMatrixMode( GL_PROJECTION );
    glLoadIdentity();
-   const float wx = float(Height)*ratio_xy ;
+   //const float wx = float(Height)*ratio_xy ;
    camaras[camaraActiva].setProyeccion();
    //glFrustum( -wx, wx, -Height, Height, Front_plane, Back_plane );
 }
@@ -760,6 +772,10 @@ void Escena::redimensionar( int newWidth, int newHeight )
 {
    Width  = newWidth/10;
    Height = newHeight/10;
+   for(int i = 0; i < camaras.size(); i++){
+      camaras[i].setLetf(camaras[i].getBottom()*Width/Height);
+      camaras[i].setRight(camaras[i].getTop()*Width/Height);
+   }
    change_projection( float(newHeight)/float(newWidth) );
    glViewport( 0, 0, newWidth, newHeight );
 }
