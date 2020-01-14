@@ -20,7 +20,7 @@ void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
          glRotatef(180,1,0,0);
          glRotatef(delta,0,1,0);
          if(modo_dibujado == GL_FILL){
-            cono->draw(tipo_draw,BLANCO,modo_dibujado);
+            cono->draw(tipo_draw,col,modo_dibujado);
          } else {
             cono->draw(tipo_draw,col,modo_dibujado);
          }

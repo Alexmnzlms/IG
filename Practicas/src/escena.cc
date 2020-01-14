@@ -34,7 +34,8 @@ Escena::Escena()
    objply = new ObjPLY(ply,10);
    objrot = new ObjRevolucion(plyrot);
    esfera = new Esfera(100);
-   cilindro = new Cilindro(150, 50);
+   cilindrod = new Cilindro(150, 50);
+   cilindroi = new Cilindro(150, 50);
    cono = new Cono(150,50);
    torre = new Torre();
    robot = new Robot(45.0,-45.0,0.0);
@@ -57,16 +58,10 @@ Escena::Escena()
    perla = new Material(coldifperla,colespperla,colambperla, brilloperla);
    blancop = new Material(Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),128.0);
 
-   robot->setMaterial(*bronce);
-   suelo->setMaterial(*blancop);
-   fondo->setMaterial(*blancop);
-   torre->setMaterial(*rubi);
-   cilindro->setMaterial(*blancop);
-   cubo->setMaterial(*blancop);
-
    suelo->setTextura(ground);
    fondo->setTextura(back);
-   cilindro->setTextura(edificio);
+   cilindrod->setTextura(edificio);
+   cilindroi->setTextura(edificio);
    cubo->setTextura(edificio);
 }
 
@@ -152,62 +147,104 @@ void Escena::dibujar()
             glPopMatrix();
          }
 
+         robot->setMaterial(*bronce);
+         suelo->setMaterial(*blancop);
+         fondo->setMaterial(*blancop);
+         torre->setMaterial(*blancop);
+         cilindrod->setMaterial(*blancop);
+         cilindroi->setMaterial(*blancop);
+         cubo->setMaterial(*blancop);
+
          glPushMatrix();
 
             glPushMatrix();
                glScalef(500.0,1.0,250.0);
                glRotatef(-90,1,0,0);
-               suelo->draw(tipo_draw,coltex,modo_dibujado);
+               colfig = coltex;
+               suelo->draw(tipo_draw,colfig,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(0.0,1250.0,-1250.0);
                glScalef(500.0,250.0,1.0);
-               fondo->draw(tipo_draw,coltex,modo_dibujado);
+               colfig = coltex;
+               fondo->draw(tipo_draw,colfig,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(1250.0,1250.0,0.0);
                glScalef(1.0,250.0,500.0);
                glRotatef(-90.0,0,1,0);
-               fondo->draw(tipo_draw,coltex,modo_dibujado);
+               colfig = coltex;
+               fondo->draw(tipo_draw,colfig,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(-1250.0,1250.0,0.0);
                glScalef(1.0,250.0,500.0);
                glRotatef(90.0,0,1,0);
-               fondo->draw(tipo_draw,coltex,modo_dibujado);
+               colfig = coltex;
+               fondo->draw(tipo_draw,colfig,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glScalef(2.0,2.0,2.0);
                glTranslatef(0,0,100);
-               torre->draw(tipo_draw,coltex,modo_dibujado);
+               if(seleccionado == TORRE){
+                  colfig = AMARILLO;
+                  torre->setMaterial(*rubi);
+               } else {
+                  colfig = coltex;
+               }
+               torre->draw(tipo_draw,colfig,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(0.0,0.0,-100.0);
                glScalef(2.0,2.0,2.0);
-               robot->draw(tipo_draw,col,modo_dibujado);
+               if(seleccionado == ROBOT){
+                  colfig = AMARILLO;
+                  robot->setMaterial(*rubi);
+               } else {
+                  colfig = col;
+               }
+               robot->draw(tipo_draw,colfig,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(-300.0,0.0,-500.0);
                glScalef(1.5,2.0,1.5);
-               cilindro->draw(tipo_draw,coltex,modo_dibujado);
+               if(seleccionado == EDIFI){
+                  colfig = AMARILLO;
+                  cilindrod->setMaterial(*rubi);
+               } else {
+                  colfig = coltex;
+               }
+               cilindrod->draw(tipo_draw,colfig,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(300.0,0.0,-500.0);
                glScalef(1.5,2.0,1.5);
-               cilindro->draw(tipo_draw,coltex,modo_dibujado);
+               if(seleccionado == EDIFD){
+                  colfig = AMARILLO;
+                  cilindroi->setMaterial(*rubi);
+               } else {
+                  colfig = coltex;
+               }
+               cilindroi->draw(tipo_draw,colfig,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(0.0,150.0,-500.0);
                glScalef(1.5,3.0,1.5);
-               cubo->draw(tipo_draw,coltex,modo_dibujado);
+               if(seleccionado == EDIFC){
+                  colfig = AMARILLO;
+                  cubo->setMaterial(*rubi);
+               } else {
+                  colfig = coltex;
+               }
+               cubo->draw(tipo_draw,colfig,modo_dibujado);
             glPopMatrix();
 
          glPopMatrix();
@@ -322,7 +359,12 @@ void Escena::ratonMovido(int x, int y){
       //Mover en primera persona
       //x - x_ant
       //y - y_ant
-      camaras[camaraActiva].girar(x-x_ant, y-y_ant);
+      if(seleccionado == NOSEL){
+         camaras[camaraActiva].girar(x-x_ant, y-y_ant);
+      } else {
+         camaras[camaraActiva].rotarXExaminar(-0.25*(y-y_ant)*M_PI/180.0);
+         camaras[camaraActiva].rotarYExaminar(-0.25*(x-x_ant)*M_PI/180.0);
+      }
       x_ant = x;
       y_ant = y;
       std::cout << "Raton se mueve" << std::endl;
@@ -343,6 +385,10 @@ void Escena::clickRaton(int boton, int status, int x, int y){
       }
    } else if (boton == GLUT_LEFT_BUTTON){
       //Seleccionar objeto
+      if(status == GLUT_DOWN){
+         dibujar_seleccion();
+         procesar_click(x,y);
+      }
    } else if (boton == 3){
       camaras[camaraActiva].zoom(1.2);
       change_projection(1.0);
@@ -352,71 +398,99 @@ void Escena::clickRaton(int boton, int status, int x, int y){
    }
 }
 
-void Escena::dibuja_seleccion(){
-   col = SEL;
+void Escena::dibujar_seleccion(){
+   color colsec;
+   GLenum modo_dibujado_sel = GL_FILL;
+   dibujo tipo_draw_sel = SELECT;
+
+   change_observer();
+   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
+   bool act_dit;
+   act_dit  = false;
+   glDisable(GL_LIGHTING);
+   glDisable(GL_LIGHT1);
+   glDisable(GL_LIGHT2);
+   if(glIsEnabled(GL_DITHER)){
+      glDisable(GL_DITHER);
+      act_dit = true;
+      //std::cout << "DITHER desactivado" << std::endl;
+   }
+
    glPushMatrix();
-
-      glPushMatrix();
-         glScalef(500.0,1.0,250.0);
-         glRotatef(-90,1,0,0);
-         suelo->draw(tipo_draw,col,modo_dibujado);
-      glPopMatrix();
-
-      glPushMatrix();
-         glTranslatef(0.0,1250.0,-1250.0);
-         glScalef(500.0,250.0,1.0);
-         fondo->draw(tipo_draw,col,modo_dibujado);
-      glPopMatrix();
-
-      glPushMatrix();
-         glTranslatef(1250.0,1250.0,0.0);
-         glScalef(1.0,250.0,500.0);
-         glRotatef(-90.0,0,1,0);
-         fondo->draw(tipo_draw,col,modo_dibujado);
-      glPopMatrix();
-
-      glPushMatrix();
-         glTranslatef(-1250.0,1250.0,0.0);
-         glScalef(1.0,250.0,500.0);
-         glRotatef(90.0,0,1,0);
-         fondo->draw(tipo_draw,col,modo_dibujado);
-      glPopMatrix();
 
       glPushMatrix();
          glScalef(2.0,2.0,2.0);
          glTranslatef(0,0,100);
-         torre->draw(tipo_draw,col,modo_dibujado);
+         colsec = VERDE;
+         torre->draw(tipo_draw_sel,colsec,modo_dibujado_sel);
       glPopMatrix();
 
       glPushMatrix();
          glTranslatef(0.0,0.0,-100.0);
          glScalef(2.0,2.0,2.0);
-         robot->draw(tipo_draw,col,modo_dibujado);
+         colsec = AMARILLO;
+         robot->draw(tipo_draw_sel,colsec,modo_dibujado_sel);
       glPopMatrix();
 
       glPushMatrix();
          glTranslatef(-300.0,0.0,-500.0);
          glScalef(1.5,2.0,1.5);
-         cilindro->draw(tipo_draw,col,modo_dibujado);
+         colsec = AZUL;
+         cilindrod->draw(tipo_draw_sel,colsec,modo_dibujado_sel);
       glPopMatrix();
 
       glPushMatrix();
          glTranslatef(300.0,0.0,-500.0);
          glScalef(1.5,2.0,1.5);
-         cilindro->draw(tipo_draw,col,modo_dibujado);
+         colsec = NEGRO;
+         cilindroi->draw(tipo_draw_sel,colsec,modo_dibujado_sel);
       glPopMatrix();
 
       glPushMatrix();
          glTranslatef(0.0,150.0,-500.0);
          glScalef(1.5,3.0,1.5);
-         cubo->draw(tipo_draw,col,modo_dibujado);
+         colsec = ROSA;
+         cubo->draw(tipo_draw_sel,colsec,modo_dibujado_sel);
       glPopMatrix();
 
    glPopMatrix();
+   if(act_dit){
+      glEnable(GL_DITHER);
+      //std::cout << "DITHER activado" << std::endl;
+   }
 }
 
-void Escena::procesar_click(){
+void Escena::procesar_click(int x, int y){
+   GLint viewport[4];
+   GLfloat pixel[3];
+   glGetIntegerv(GL_VIEWPORT,viewport);
+   glReadPixels(x,viewport[3]-y,1,1,GL_RGB,GL_FLOAT,pixel);
 
+   Tupla3f color = {pixel[0],pixel[1],pixel[2]};
+
+   if(color(0) == 0.0 && color(1) == 1.0 && color(2) == 0.0){
+      std::cout << "Seleccionada la torre" << std::endl;
+      seleccionado = TORRE;
+      camaras[camaraActiva].mover(0.0,50.0,150.0);
+   } else if(color(0) == 0.0 && color(1) == 0.0 && color(2) == 0.0){
+      std::cout << "Seleccionado el edificio derecho" << std::endl;
+      seleccionado = EDIFD;
+      camaras[camaraActiva].mover(300.0,50.0,-500.0);
+   } else if(color(0) == 0.0 && color(1) == 0.0 && color(2) == 1.0){
+      std::cout << "Seleccionado el edificio izquierdo" << std::endl;
+      seleccionado = EDIFI;
+      camaras[camaraActiva].mover(-300.0,50.0,-500.0);
+   } else if(color(0) == 1.0 && color(1) == 0.0 && color(2) == 1.0){
+      std::cout << "Seleccionado el edificio central" << std::endl;
+      seleccionado = EDIFC;
+      camaras[camaraActiva].mover(0.0,50.0,-500.0);
+   } else if(color(0) == 1.0 && color(1) == 1.0 && color(2) == 0.0){
+      std::cout << "Seleccionado el robot" << std::endl;
+      seleccionado = ROBOT;
+      camaras[camaraActiva].mover(0.0,50.0,-100.0);
+   } else {
+      seleccionado = NOSEL;
+   }
 }
 
 bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
@@ -766,7 +840,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "+: Alternar tapas" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
-            cilindro->alternar_vista();
+            cilindrod->alternar_vista();
+            cilindroi->alternar_vista();
          }
          break ;
       case '0':
@@ -813,6 +888,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             actluzpos = !actluzpos;
          } else if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado brazo izquierdo" << endl;
+            cout << "+: Aumentar grado de libertad" << endl;
+            cout << "-: Decrementar grado de libertad" << endl;
             gl = CODOI;
             modoMenu = GRADOLIB;
          } else if( modoMenu == CAMARA){
@@ -916,7 +993,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Q: salir" << endl;
             cout << endl;
             objrot->tapas();
-            cilindro->tapas();
+            cilindrod->tapas();
+            cilindroi->tapas();
             cono->tapas();
             esfera->tapas();
          } else if (modoMenu == ANIMA){

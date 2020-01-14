@@ -63,7 +63,12 @@ void Camara::rotarZFirstPerson(const float angle){
 }
 
 void Camara::mover(const float x, const float y, const float z){
-
+   at(0) = x;
+   at(1) = y;
+   at(2) = z;
+   eye(0) = x;
+   eye(1) = y + 400.0;
+   eye(2) = z - 300.0;
 }
 void Camara::zoom(const float factor){
    right = right * factor;

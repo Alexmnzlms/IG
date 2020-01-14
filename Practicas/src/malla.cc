@@ -12,9 +12,9 @@
 Malla3D::Malla3D(){
 }
 
-void Malla3D::draw_ModoInmediato(bool iluminacion, bool suave)
+void Malla3D::draw_ModoInmediato(bool iluminacion, bool suave, bool seleccion)
 {
-   if(iluminacion){
+   if(iluminacion && !seleccion){
       glEnable(GL_LIGHTING);
       if(suave){
          glShadeModel(GL_SMOOTH);
@@ -26,7 +26,7 @@ void Malla3D::draw_ModoInmediato(bool iluminacion, bool suave)
    glEnableClientState( GL_NORMAL_ARRAY );
    glVertexPointer( 3, GL_FLOAT, 0, v.data() );
    glNormalPointer( GL_FLOAT, 0, nv.data() );
-   if(!ct.empty()){
+   if(!ct.empty() && !seleccion){
       glEnable(GL_TEXTURE_2D);
       glEnableClientState( GL_TEXTURE_COORD_ARRAY );
       glTexCoordPointer( 2, GL_FLOAT, 0, ct.data() );
@@ -41,7 +41,7 @@ void Malla3D::draw_ModoInmediato(bool iluminacion, bool suave)
    dibujaInmediato(f.size(),f.data());
    glDisableClientState( GL_VERTEX_ARRAY );
    glDisableClientState( GL_NORMAL_ARRAY );
-   if(!ct.empty()){
+   if(!ct.empty() && !seleccion){
       glDisableClientState( GL_TEXTURE_COORD_ARRAY );
       glDisable(GL_TEXTURE_2D);
    }
@@ -139,7 +139,7 @@ void Malla3D::draw(dibujo tipo, color col, GLenum modo)
 
       switch(tipo){
          case INMED:
-            draw_ModoInmediato(false,false);
+            draw_ModoInmediato(false,false,false);
             break;
          case DIFER:
             draw_ModoDiferido();
@@ -148,10 +148,13 @@ void Malla3D::draw(dibujo tipo, color col, GLenum modo)
             draw_ModoAjedrez();
             break;
          case SMUZ:
-            draw_ModoInmediato(true,true);
+            draw_ModoInmediato(true,true,false);
             break;
          case PLAIN:
-            draw_ModoInmediato(true,false);
+            draw_ModoInmediato(true,false,false);
+            break;
+         case SELECT:
+            draw_ModoInmediato(false,false,true);
             break;
       }
    }
@@ -167,8 +170,8 @@ GLuint Malla3D::CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero
 }
 
 void Malla3D::calcular_colores(){
-    cnegro = {0.16f,0.18f,0.17f};
-    cazul = {0.15f,0.38f,0.48f};
+    cnegro = {0.0f,0.0f,0.0f};
+    cazul = {0.0f,0.0f,1.0f};
     cverde = {0.0f,1.0f,0.0f};
     ccian = {0.45f,0.68f,0.83f};
     cnaranja = {1.0f,0.5333f,0.243137255f};

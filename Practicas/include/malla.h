@@ -19,15 +19,15 @@
 // clase para objetos 3D (mallas indexadas)
 //
 // *****************************************************************************
-typedef enum {INMED, DIFER, CHESS, SMUZ, PLAIN} dibujo;
-typedef enum {BLANCO, NEGRO, AZUL, VERDE, CIAN, NARANJA, ROSA, AMARILLO, MORADO, SEL} color;
+typedef enum {INMED, DIFER, CHESS, SMUZ, PLAIN, SELECT} dibujo;
+typedef enum {BLANCO, NEGRO, AZUL, VERDE, CIAN, NARANJA, ROSA, AMARILLO, MORADO} color;
 
 class Malla3D{
 public:
    Malla3D();
 
    // dibuja el objeto en modo inmediato
-   void draw_ModoInmediato(bool iluminacion, bool suave);
+   void draw_ModoInmediato(bool iluminacion, bool suave, bool seleccion);
 
    // dibuja el objeto en modo diferido (usando VBOs)
    void draw_ModoDiferido();
@@ -61,7 +61,7 @@ protected:
    // completar: tabla de colores, tabla de normales de vértices
    std::vector<Tupla3f> c ;
    std::vector<Tupla3f> c_aux;
-   std::vector<Tupla3f> c_seleccion;
+   Tupla3f cseleccion;
    Tupla3f cnegro;
    Tupla3f cazul;
    Tupla3f cverde;
@@ -73,6 +73,16 @@ protected:
    Tupla3f cblanco;
    std::vector<Tupla2f> ct;
    //float colorArray[8];
+
+   /*cnegro = {0.0f,0.0f,0.0f};
+   cazul = {0.15f,0.38f,0.48f};
+   cverde = {0.0f,1.0f,0.0f};
+   ccian = {0.45f,0.68f,0.83f};
+   cnaranja = {1.0f,0.5333f,0.243137255f};
+   crosa = {1.0f,0.0f,1.0f};
+   camarillo = {1.0f,1.0f,0.0f};
+   cmorado = {0.5f,0.0f,0.5f};
+   cblanco = {1.0f,1.0f,1.0f};*/
 } ;
 
 

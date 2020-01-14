@@ -22,6 +22,7 @@
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO, ANIMA, GRADOLIB, CAMARA} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
+typedef enum {ROBOT, TORRE, EDIFI, EDIFD, EDIFC, NOSEL} seleccionables;
 typedef enum {ALFA, BETA} angulo;
 typedef enum {CODOI, CODOD, PIERNAS, TALADROI, TALADROD, ANTENA} grado_libertad;
 
@@ -46,6 +47,7 @@ private:
    grado_libertad gl;
    color col;
    color coltex;
+   color colfig;
    float vel = 1.0;
    float taladro = 2.0;
    float luzm = 0;
@@ -58,6 +60,7 @@ private:
    std::vector<Camara> camaras;
    bool ratonPulsado;
    float x_ant, y_ant;
+   seleccionables seleccionado = NOSEL;
 
    // Objetos de la escena
    Ejes ejes;
@@ -67,7 +70,8 @@ private:
    ObjRevolucion * objrot = nullptr;
    Esfera * esfera = nullptr;
    Cono * cono = nullptr;
-   Cilindro * cilindro = nullptr;
+   Cilindro * cilindrod = nullptr;
+   Cilindro * cilindroi = nullptr;
    Torre * torre = nullptr;
    Robot * robot = nullptr;
    Cuadro * suelo = nullptr;
@@ -136,8 +140,8 @@ public:
 	void teclaEspecial( int Tecla1, int x, int y );
    void ratonMovido(int x, int y);
    void clickRaton(int boton, int status, int x, int y);
-   void dibuja_seleccion();
-   void procesar_click();
+   void dibujar_seleccion();
+   void procesar_click(int x, int y);
 
 private:
    // Transformación de cámara

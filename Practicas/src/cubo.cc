@@ -85,6 +85,9 @@ Cubo::Cubo(float lado)
    f.push_back(c12);
 
    calcular_colores();
+
+   cseleccion = cazul;
+
    calcular_normales();
 
 }
