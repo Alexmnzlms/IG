@@ -20,7 +20,7 @@
 //
 // *****************************************************************************
 typedef enum {INMED, DIFER, CHESS, SMUZ, PLAIN} dibujo;
-typedef enum {BLANCO, NEGRO, AZUL, VERDE, CIAN, NARANJA, ROSA, AMARILLO, MORADO} color;
+typedef enum {BLANCO, NEGRO, AZUL, VERDE, CIAN, NARANJA, ROSA, AMARILLO, MORADO, SEL} color;
 
 class Malla3D{
 public:
@@ -41,6 +41,7 @@ public:
    void alternar_vista();
    void setMaterial(Material mat);
    virtual void setTextura(const std::string tex);
+   void setColorSeleccion(color col);
 
 protected:
    GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );
@@ -61,15 +62,16 @@ protected:
    // completar: tabla de colores, tabla de normales de vértices
    std::vector<Tupla3f> c ;
    std::vector<Tupla3f> c_aux;
-   std::vector<Tupla3f> cnegro;
-   std::vector<Tupla3f> cazul;
-   std::vector<Tupla3f> cverde;
-   std::vector<Tupla3f> ccian;
-   std::vector<Tupla3f> cnaranja;
-   std::vector<Tupla3f> crosa;
-   std::vector<Tupla3f> camarillo;
-   std::vector<Tupla3f> cmorado;
-   std::vector<Tupla3f> cblanco;
+   std::vector<Tupla3f> c_seleccion;
+   Tupla3f cnegro;
+   Tupla3f cazul;
+   Tupla3f cverde;
+   Tupla3f ccian;
+   Tupla3f cnaranja;
+   Tupla3f crosa;
+   Tupla3f camarillo;
+   Tupla3f cmorado;
+   Tupla3f cblanco;
    std::vector<Tupla2f> ct;
    //float colorArray[8];
 } ;

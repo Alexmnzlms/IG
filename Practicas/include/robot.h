@@ -19,7 +19,7 @@ private:
    float alfa_brazod;
    float alfa_piernas;
    bool animacion_neg;
-   
+
 public:
    Robot(float a, float b, float c);
    void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
@@ -31,6 +31,7 @@ public:
    void incrementarTaladroDer(float inc);
    void incrementarAlturaAntena(float inc);
    void setAlfas(float a, float b, float c);
+   void setColorSeleccion(color col);
 };
 
 #endif

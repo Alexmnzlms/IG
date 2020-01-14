@@ -95,35 +95,38 @@ void Malla3D::draw(dibujo tipo, color col, GLenum modo)
    if(ver){
       switch(col){
          case NEGRO:
-            c = cnegro;
+            c = std::vector<Tupla3f>(v.size(), cnegro);
             break;
          case AZUL:
-            c = cazul;
+            c = std::vector<Tupla3f>(v.size(), cazul);
             break;
          case VERDE:
-            c = cverde;
+            c = std::vector<Tupla3f>(v.size(), cverde);
             break;
          case CIAN:
-            c = ccian;
+            c = std::vector<Tupla3f>(v.size(), ccian);
             break;
          case NARANJA:
-            c = cnaranja;
+            c = std::vector<Tupla3f>(v.size(), cnaranja);
             break;
          case ROSA:
-            c = crosa;
+            c = std::vector<Tupla3f>(v.size(), crosa);
             break;
          case AMARILLO:
-            c = camarillo;
+            c = std::vector<Tupla3f>(v.size(), camarillo);
             break;
          case MORADO:
-            c= cmorado;
+            c= std::vector<Tupla3f>(v.size(), cmorado);
             break;
          case BLANCO:
-            c= cblanco;
+            c= std::vector<Tupla3f>(v.size(), cblanco);
             break;
+         case SEL:
+            if(!c_seleccion.empty())
+               c= std::vector<Tupla3f>(v.size(), c_seleccion.at(0));
       }
       if(tipo == CHESS){
-         c_aux = cnegro;
+         c_aux = std::vector<Tupla3f>(v.size(), cnegro);
       } else {
          c_aux.clear();
       }
@@ -167,43 +170,15 @@ GLuint Malla3D::CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero
 }
 
 void Malla3D::calcular_colores(){
-   Tupla3f negro(0.16f,0.18f,0.17f);
-   Tupla3f azul(0.15f,0.38f,0.48f);
-   Tupla3f verde(0.0f,1.0f,0.0f);
-   Tupla3f cian(0.45f,0.68f,0.83f);
-   Tupla3f naranja(1.0f,0.5333f,0.243137255f);
-   Tupla3f rosa(1.0f,0.0f,1.0f);
-   Tupla3f amarillo(1.0f,1.0f,0.0f);
-   Tupla3f morado(0.5f,0.0f,0.5f);
-   Tupla3f blanco(1.0f,1.0f,1.0f);
-
-   for(int i = 0; i < v.size(); i++){
-      cnegro.push_back(negro);
-   }
-   for(int i = 0; i < v.size(); i++){
-      cazul.push_back(azul);
-   }
-   for(int i = 0; i < v.size(); i++){
-      cverde.push_back(verde);
-   }
-   for(int i = 0; i < v.size(); i++){
-      ccian.push_back(cian);
-   }
-   for(int i = 0; i < v.size(); i++){
-      cnaranja.push_back(naranja);
-   }
-   for(int i = 0; i < v.size(); i++){
-      crosa.push_back(rosa);
-   }
-   for(int i = 0; i < v.size(); i++){
-      camarillo.push_back(amarillo);
-   }
-   for(int i = 0; i < v.size(); i++){
-      cmorado.push_back(morado);
-   }
-   for(int i = 0; i < v.size(); i++){
-      cblanco.push_back(blanco);
-   }
+    cnegro = {0.16f,0.18f,0.17f};
+    cazul = {0.15f,0.38f,0.48f};
+    cverde = {0.0f,1.0f,0.0f};
+    ccian = {0.45f,0.68f,0.83f};
+    cnaranja = {1.0f,0.5333f,0.243137255f};
+    crosa = {1.0f,0.0f,1.0f};
+    camarillo = {1.0f,1.0f,0.0f};
+    cmorado = {0.5f,0.0f,0.5f};
+    cblanco = {1.0f,1.0f,1.0f};
 }
 
 void Malla3D::alternar_vista(){
@@ -255,4 +230,37 @@ void Malla3D::setMaterial(Material mat){
 
 void Malla3D::setTextura(const std::string tex){
    textura = new Textura(tex);
+}
+
+void Malla3D::setColorSeleccion(color col){
+   c_seleccion.resize(v.size());
+   switch(col){
+      case NEGRO:
+         c_seleccion = std::vector<Tupla3f>(v.size(), cnegro);
+         break;
+      case AZUL:
+         c_seleccion = std::vector<Tupla3f>(v.size(), cazul);
+         break;
+      case VERDE:
+         c_seleccion = std::vector<Tupla3f>(v.size(), cverde);
+         break;
+      case CIAN:
+         c_seleccion = std::vector<Tupla3f>(v.size(), ccian);
+         break;
+      case NARANJA:
+         c_seleccion = std::vector<Tupla3f>(v.size(), cnaranja);
+         break;
+      case ROSA:
+         c_seleccion = std::vector<Tupla3f>(v.size(), crosa);
+         break;
+      case AMARILLO:
+         c_seleccion = std::vector<Tupla3f>(v.size(), camarillo);
+         break;
+      case MORADO:
+         c_seleccion= std::vector<Tupla3f>(v.size(), cmorado);
+         break;
+      case BLANCO:
+         c_seleccion= std::vector<Tupla3f>(v.size(), cblanco);
+         break;
+   }
 }

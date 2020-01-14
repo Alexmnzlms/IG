@@ -20,7 +20,7 @@
 #include "textura.h"
 #include "camara.h"
 
-typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO, ANIMA, GRADOLIB} menu;
+typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO, ANIMA, GRADOLIB, CAMARA} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
 typedef enum {ALFA, BETA} angulo;
 typedef enum {CODOI, CODOD, PIERNAS, TALADROI, TALADROD, ANTENA} grado_libertad;
@@ -45,15 +45,19 @@ private:
    angulo ang;
    grado_libertad gl;
    color col;
+   color coltex;
    float vel = 1.0;
    float taladro = 2.0;
    float luzm = 0;
+   float veluz= 1.0;
    GLenum modo_dibujado;
    dibujo tipo_draw = INMED;
    std::string ply = "ply/ant.ply";
    std::string plyrot = "ply/peon.ply";
    int camaraActiva = 0;
    std::vector<Camara> camaras;
+   bool ratonPulsado;
+   float x_ant, y_ant;
 
    // Objetos de la escena
    Ejes ejes;
@@ -130,12 +134,15 @@ public:
 	// Interacción con la escena
 	bool teclaPulsada( unsigned char Tecla1, int x, int y ) ;
 	void teclaEspecial( int Tecla1, int x, int y );
+   void ratonMovido(int x, int y);
+   void clickRaton(int boton, int status, int x, int y);
+   void dibuja_seleccion();
+   void procesar_click();
 
 private:
    // Transformación de cámara
    void change_projection( const float ratio_xy );
    void change_observer();
-
    void clear_window();
 };
 

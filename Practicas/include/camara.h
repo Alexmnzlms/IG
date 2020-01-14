@@ -24,6 +24,7 @@ public:
    void rotarZFirstPerson(const float angle);
    void mover(const float x, const float y, const float z);
    void zoom(const float factor);
+   void girar(const float x, const float y);
    void setOberver();
    void setProyeccion();
    void setLetf(const float l);

@@ -86,6 +86,7 @@ Cubo::Cubo(float lado)
 
    calcular_colores();
    calcular_normales();
+
 }
 
 void Cubo::setTextura(const std::string tex){

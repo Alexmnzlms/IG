@@ -25,6 +25,7 @@ public:
    void incrementarAngulo(float inc);
    void incrementarTaladro(float inc);
    void setAlfa(float a);
+   void setColorSeleccion(color col);
 };
 
 #endif

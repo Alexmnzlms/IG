@@ -58,3 +58,9 @@ void Cuerpo::incrementarAltura(float inc){
    }
    altura += inc;
 }
+
+void Cuerpo::setColorSeleccion(color col){
+   cubo->setColorSeleccion(col);
+   cilindro->setColorSeleccion(col);
+   esfera->setColorSeleccion(col);
+}

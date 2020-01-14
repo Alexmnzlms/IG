@@ -14,7 +14,7 @@ private:
    float alfa;
    float beta;
    bool animacion_neg;
-   
+
 public:
    PiernaRobot(float a);
    void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
@@ -22,6 +22,7 @@ public:
    void incrementarAngulo(float inc);
    float getAlfa();
    void setAlfa(float a);
+   void setColorSeleccion(color col);
 };
 
 #endif

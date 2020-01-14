@@ -18,7 +18,14 @@ Escena::Escena()
 
    Camara camara0(Tupla3f(0.0,300.0,700.0),Tupla3f(0.0,0.0,0.0), Tupla3f(0.0,1.0,0.0),
                   0, -50.0, 50.0, Front_plane, Back_plane, 50.0, -50.0);
+   Camara camara1(Tupla3f(0.0,300.0,700.0),Tupla3f(0.0,0.0,0.0), Tupla3f(0.0,1.0,0.0),
+                  1, -50.0, 50.0, Front_plane, Back_plane, 50.0, -50.0);
+   Camara camara2(Tupla3f(0.0,450.0,-150.0),Tupla3f(0.0,300.0,0.0), Tupla3f(0.0,1.0,0.0),
+                  0, -50.0, 50.0, Front_plane, Back_plane, 50.0, -50.0);
+
    camaras.push_back(camara0);
+   camaras.push_back(camara1);
+   camaras.push_back(camara2);
 
 
    int num_rot = 20;
@@ -61,6 +68,14 @@ Escena::Escena()
    fondo->setTextura(back);
    cilindro->setTextura(edificio);
    cubo->setTextura(edificio);
+
+   robot->setColorSeleccion(AZUL);
+   suelo->setColorSeleccion(VERDE);
+   fondo->setColorSeleccion(CIAN);
+   torre->setColorSeleccion(NARANJA);
+   cilindro->setColorSeleccion(ROSA);
+   cubo->setColorSeleccion(AMARILLO);
+
 }
 
 //**************************************************************************
@@ -93,11 +108,11 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
    cout << "V: seleccion de visualizacion" << endl;
    cout << "D: seleccion de dibujado" << endl;
    cout << "I: seleccion de iluminacion" << endl;
+   cout << "J: seleccion de animacion" << endl;
+   cout << "C: seleccion de camara" << endl;
    cout << "Q: salir" << endl;
    cout << endl;
 }
-
-
 
 // **************************************************************************
 //
@@ -108,7 +123,6 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 
 void Escena::dibujar()
 {
-
    change_observer();
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
    glDisable(GL_LIGHTING);
@@ -121,14 +135,17 @@ void Escena::dibujar()
             case 0:
                modo_dibujado = GL_POINT;
                col = CIAN;
+               coltex = CIAN;
                break;
             case 1:
                modo_dibujado = GL_LINE;
-               col = AZUL;
+               col = VERDE;
+               coltex = VERDE;
                break;
             case 2:
                modo_dibujado = GL_FILL;
                col = NARANJA;
+               coltex = BLANCO;
                break;
          }
 
@@ -148,33 +165,33 @@ void Escena::dibujar()
             glPushMatrix();
                glScalef(500.0,1.0,250.0);
                glRotatef(-90,1,0,0);
-               suelo->draw(tipo_draw,BLANCO,modo_dibujado);
+               suelo->draw(tipo_draw,coltex,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(0.0,1250.0,-1250.0);
                glScalef(500.0,250.0,1.0);
-               fondo->draw(tipo_draw,BLANCO,modo_dibujado);
+               fondo->draw(tipo_draw,coltex,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(1250.0,1250.0,0.0);
                glScalef(1.0,250.0,500.0);
                glRotatef(-90.0,0,1,0);
-               fondo->draw(tipo_draw,BLANCO,modo_dibujado);
+               fondo->draw(tipo_draw,coltex,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(-1250.0,1250.0,0.0);
                glScalef(1.0,250.0,500.0);
                glRotatef(90.0,0,1,0);
-               fondo->draw(tipo_draw,BLANCO,modo_dibujado);
+               fondo->draw(tipo_draw,coltex,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glScalef(2.0,2.0,2.0);
                glTranslatef(0,0,100);
-               torre->draw(tipo_draw,col,modo_dibujado);
+               torre->draw(tipo_draw,coltex,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
@@ -186,19 +203,19 @@ void Escena::dibujar()
             glPushMatrix();
                glTranslatef(-300.0,0.0,-500.0);
                glScalef(1.5,2.0,1.5);
-               cilindro->draw(tipo_draw,BLANCO,modo_dibujado);
+               cilindro->draw(tipo_draw,coltex,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(300.0,0.0,-500.0);
                glScalef(1.5,2.0,1.5);
-               cilindro->draw(tipo_draw,BLANCO,modo_dibujado);
+               cilindro->draw(tipo_draw,coltex,modo_dibujado);
             glPopMatrix();
 
             glPushMatrix();
                glTranslatef(0.0,150.0,-500.0);
                glScalef(1.5,3.0,1.5);
-               cubo->draw(tipo_draw,BLANCO,modo_dibujado);
+               cubo->draw(tipo_draw,coltex,modo_dibujado);
             glPopMatrix();
 
          glPopMatrix();
@@ -214,6 +231,202 @@ void Escena::dibujar()
 //
 //**************************************************************************
 
+void Escena::animarModeloJerarquico(){
+   robot->incrementarAnguloPiernas(vel);
+   robot->incrementarAnguloBrazoIzq(vel);
+   robot->incrementarAnguloBrazoDer(vel);
+   robot->incrementarTaladroIzq(taladro);
+   robot->incrementarTaladroDer(taladro);
+   robot->incrementarAlturaAntena(taladro*0.25);
+   luzm+=veluz;
+   if(luzm > 360.0){
+      luzm = 0.0;
+   }
+}
+
+void Escena::teclaEspecial( int Tecla1, int x, int y )
+{
+   switch ( Tecla1 )
+   {
+	   case GLUT_KEY_LEFT:
+         //Observer_angle_y-- ;
+         camaras[camaraActiva].rotarYExaminar(-3.0*M_PI/180.0);
+         break;
+	   case GLUT_KEY_RIGHT:
+         //Observer_angle_y++ ;
+         camaras[camaraActiva].rotarYExaminar(3.0*M_PI/180.0);
+         break;
+	   case GLUT_KEY_UP:
+         //Observer_angle_x-- ;
+         camaras[camaraActiva].rotarXExaminar(3.0*M_PI/180.0);
+         break;
+	   case GLUT_KEY_DOWN:
+         //Observer_angle_x++ ;
+         camaras[camaraActiva].rotarXExaminar(-3.0*M_PI/180.0);
+         break;
+	   case GLUT_KEY_PAGE_UP:
+         //Observer_distance *=1.2 ;
+         camaras[camaraActiva].zoom(1/1.2);
+         change_projection(1.0);
+         break;
+	   case GLUT_KEY_PAGE_DOWN:
+         //Observer_distance /= 1.2 ;
+         camaras[camaraActiva].zoom(1.2);
+         change_projection(1.0);
+         break;
+	}
+
+	//std::cout << Observer_distance << std::endl;
+}
+
+//**************************************************************************
+// Funcion para definir la transformación de proyeccion
+//
+// ratio_xy : relacción de aspecto del viewport ( == ancho(X) / alto(Y) )
+//
+//***************************************************************************
+
+void Escena::change_projection( const float ratio_xy )
+{
+   glMatrixMode( GL_PROJECTION );
+   glLoadIdentity();
+   //const float wx = float(Height)*ratio_xy ;
+   camaras[camaraActiva].setProyeccion();
+   //glFrustum( -wx, wx, -Height, Height, Front_plane, Back_plane );
+}
+//**************************************************************************
+// Funcion que se invoca cuando cambia el tamaño de la ventana
+//***************************************************************************
+
+void Escena::redimensionar( int newWidth, int newHeight )
+{
+   Width  = newWidth/10;
+   Height = newHeight/10;
+   for(int i = 0; i < camaras.size(); i++){
+      camaras[i].setLetf(camaras[i].getBottom()*Width/Height);
+      camaras[i].setRight(camaras[i].getTop()*Width/Height);
+   }
+   change_projection( float(newHeight)/float(newWidth) );
+   glViewport( 0, 0, newWidth, newHeight );
+}
+
+//**************************************************************************
+// Funcion para definir la transformación de vista (posicionar la camara)
+//***************************************************************************
+
+void Escena::change_observer()
+{
+   // posicion del observador
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
+   camaras[camaraActiva].setOberver();
+   /*glTranslatef( 0.0, 0.0, -Observer_distance );
+   glRotatef( Observer_angle_y, 0.0 ,1.0, 0.0 );
+   glRotatef( Observer_angle_x, 1.0, 0.0, 0.0 );*/
+}
+
+void Escena::ratonMovido(int x, int y){
+   if(ratonPulsado){
+      //Mover en primera persona
+      //x - x_ant
+      //y - y_ant
+      camaras[camaraActiva].girar(x-x_ant, y-y_ant);
+      x_ant = x;
+      y_ant = y;
+      std::cout << "Raton se mueve" << std::endl;
+   }
+}
+
+void Escena::clickRaton(int boton, int status, int x, int y){
+   if(boton == GLUT_RIGHT_BUTTON){
+      //Mover primera persona
+      if(status == GLUT_DOWN){
+         x_ant = x;
+         y_ant = y;
+         ratonPulsado = true;
+         std::cout << "Raton abajo" << std::endl;
+      } else {
+         ratonPulsado = false;
+         std::cout << "Raton arriba" << std::endl;
+      }
+   } else if (boton == GLUT_LEFT_BUTTON){
+      //Seleccionar objeto
+   } else if (boton == 3){
+      camaras[camaraActiva].zoom(1.2);
+      change_projection(1.0);
+   } else if (boton == 4){
+      camaras[camaraActiva].zoom(1/1.2);
+      change_projection(1.0);
+   }
+}
+
+void Escena::dibuja_seleccion(){
+   col = SEL;
+   glPushMatrix();
+
+      glPushMatrix();
+         glScalef(500.0,1.0,250.0);
+         glRotatef(-90,1,0,0);
+         suelo->draw(tipo_draw,col,modo_dibujado);
+      glPopMatrix();
+
+      glPushMatrix();
+         glTranslatef(0.0,1250.0,-1250.0);
+         glScalef(500.0,250.0,1.0);
+         fondo->draw(tipo_draw,col,modo_dibujado);
+      glPopMatrix();
+
+      glPushMatrix();
+         glTranslatef(1250.0,1250.0,0.0);
+         glScalef(1.0,250.0,500.0);
+         glRotatef(-90.0,0,1,0);
+         fondo->draw(tipo_draw,col,modo_dibujado);
+      glPopMatrix();
+
+      glPushMatrix();
+         glTranslatef(-1250.0,1250.0,0.0);
+         glScalef(1.0,250.0,500.0);
+         glRotatef(90.0,0,1,0);
+         fondo->draw(tipo_draw,col,modo_dibujado);
+      glPopMatrix();
+
+      glPushMatrix();
+         glScalef(2.0,2.0,2.0);
+         glTranslatef(0,0,100);
+         torre->draw(tipo_draw,col,modo_dibujado);
+      glPopMatrix();
+
+      glPushMatrix();
+         glTranslatef(0.0,0.0,-100.0);
+         glScalef(2.0,2.0,2.0);
+         robot->draw(tipo_draw,col,modo_dibujado);
+      glPopMatrix();
+
+      glPushMatrix();
+         glTranslatef(-300.0,0.0,-500.0);
+         glScalef(1.5,2.0,1.5);
+         cilindro->draw(tipo_draw,col,modo_dibujado);
+      glPopMatrix();
+
+      glPushMatrix();
+         glTranslatef(300.0,0.0,-500.0);
+         glScalef(1.5,2.0,1.5);
+         cilindro->draw(tipo_draw,col,modo_dibujado);
+      glPopMatrix();
+
+      glPushMatrix();
+         glTranslatef(0.0,150.0,-500.0);
+         glScalef(1.5,3.0,1.5);
+         cubo->draw(tipo_draw,col,modo_dibujado);
+      glPopMatrix();
+
+   glPopMatrix();
+}
+
+void Escena::procesar_click(){
+
+}
+
 bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
 {
    using namespace std ;
@@ -228,6 +441,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "V: seleccion de visualizacion" << endl;
             cout << "D: seleccion de dibujado" << endl;
             cout << "I: seleccion de iluminacion" << endl;
+            cout << "J: seleccion de animacion" << endl;
+            cout << "C: seleccion de camara" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             modoMenu=NADA;
@@ -266,6 +481,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          cout << "L: Modo linea" << endl;
          cout << "S: Modo Solido" << endl;
          cout << "A: Modo ajedrez" << endl;
+         cout << "1: Seleccionar brazo izquierdo" << endl;
+         cout << "2: Seleccionar brazo derecho" << endl;
+         cout << "3: Seleccionar piernas" << endl;
+         cout << "4: Seleccionar taladro izquierdo" << endl;
+         cout << "5: Seleccionar taladro derecho" << endl;
+         cout << "6: Seleccionar antena" << endl;
          cout << "Q: salir" << endl;
          cout << endl;
          break ;
@@ -285,6 +506,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "L: Modo linea" << endl;
             cout << "S: Modo Solido" << endl;
             cout << "A: Modo ajedrez" << endl;
+            cout << "1: Seleccionar brazo izquierdo" << endl;
+            cout << "2: Seleccionar brazo derecho" << endl;
+            cout << "3: Seleccionar piernas" << endl;
+            cout << "4: Seleccionar taladro izquierdo" << endl;
+            cout << "5: Seleccionar taladro derecho" << endl;
+            cout << "6: Seleccionar antena" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             if(tipo_draw == DIFER){
@@ -303,6 +530,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "L: Modo linea" << endl;
             cout << "S: Modo Solido" << endl;
             cout << "A: Modo ajedrez" << endl;
+            cout << "1: Seleccionar brazo izquierdo" << endl;
+            cout << "2: Seleccionar brazo derecho" << endl;
+            cout << "3: Seleccionar piernas" << endl;
+            cout << "4: Seleccionar taladro izquierdo" << endl;
+            cout << "5: Seleccionar taladro derecho" << endl;
+            cout << "6: Seleccionar antena" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             if(tipo_draw == DIFER){
@@ -321,6 +554,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "L: Modo linea" << endl;
             cout << "S: Modo Solido" << endl;
             cout << "A: Modo ajedrez" << endl;
+            cout << "1: Seleccionar brazo izquierdo" << endl;
+            cout << "2: Seleccionar brazo derecho" << endl;
+            cout << "3: Seleccionar piernas" << endl;
+            cout << "4: Seleccionar taladro izquierdo" << endl;
+            cout << "5: Seleccionar taladro derecho" << endl;
+            cout << "6: Seleccionar antena" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             if(tipo_draw == DIFER){
@@ -339,6 +578,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "L: Modo linea" << endl;
             cout << "S: Modo Solido" << endl;
             cout << "A: Modo ajedrez" << endl;
+            cout << "1: Seleccionar brazo izquierdo" << endl;
+            cout << "2: Seleccionar brazo derecho" << endl;
+            cout << "3: Seleccionar piernas" << endl;
+            cout << "4: Seleccionar taladro izquierdo" << endl;
+            cout << "5: Seleccionar taladro derecho" << endl;
+            cout << "6: Seleccionar antena" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             tipo_draw = CHESS;
@@ -416,7 +661,15 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
 
          break ;
       case 'C':
-         if(modoMenu == SELOBJETO){
+         if(modoMenu == NADA){
+            modoMenu=CAMARA;
+            cout << "Seleccione la camara que quiere ver" << endl;
+            cout << "0: Camara perspectiva" << endl;
+            cout << "1: Camara ortogonal" << endl;
+            cout << "2: Camara perspectiva 2" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
+         } else if(modoMenu == SELOBJETO){
             cout << "Seleccionado cubo" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
@@ -529,13 +782,22 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Luz 0 activada (direccional)" << endl;
             cout << "0: Activar luz 0 (direccional)" << endl;
             cout << "1: Activar luz 1 (posicional)" << endl;
+            cout << "2: Parar luz poscional" << endl;
             cout << "A: Seleccionar Alfa" << endl;
             cout << "B: Selecionar Beta" << endl;
             cout << "Q: salir" << endl;
             cout << endl;
             actluzdir = !actluzdir;
-            }
-            break;
+         } else if( modoMenu == CAMARA){
+            cout << "Seleccionada camara perspectiva" << endl;
+            cout << "Seleccione la camara que quiere ver" << endl;
+            cout << "0: Camara perspectiva" << endl;
+            cout << "1: Camara ortogonal" << endl;
+            cout << "Q: salir" << endl;
+            camaraActiva = 0;
+            change_projection(1.0);
+         }
+         break;
       case '1':
          if(modoMenu == SELDIBUJADO){
             cout << "Seleccionado modo inmediato" << endl;
@@ -551,6 +813,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Luz 1 activada (posicional)" << endl;
             cout << "0: Activar luz 0 (direccional)" << endl;
             cout << "1: Activar luz 1 (posicional)" << endl;
+            cout << "2: Parar luz poscional" << endl;
             cout << "A: Seleccionar Alfa" << endl;
             cout << "B: Selecionar Beta" << endl;
             cout << "Q: salir" << endl;
@@ -560,6 +823,14 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Seleccionado brazo izquierdo" << endl;
             gl = CODOI;
             modoMenu = GRADOLIB;
+         } else if( modoMenu == CAMARA){
+            cout << "Seleccionada camara ortogonal" << endl;
+            cout << "Seleccione la camara que quiere ver" << endl;
+            cout << "0: Camara perspectiva" << endl;
+            cout << "1: Camara ortogonal" << endl;
+            cout << "Q: salir" << endl;
+            camaraActiva = 1;
+            change_projection(1.0);
          }
          break ;
       case '2':
@@ -575,13 +846,37 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             bool_dibujado[2] = true;
          }else if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado brazo derecho" << endl;
+            cout << "+: Aumentar grado de libertad" << endl;
+            cout << "-: Decrementar grado de libertad" << endl;
+            cout << "Q: salir" << endl;
             gl = CODOD;
             modoMenu = GRADOLIB;
+         } else if(modoMenu == ILUMINACION){
+            cout << "Luz posicional detenida" << endl;
+            cout << "0: Activar luz 0 (direccional)" << endl;
+            cout << "1: Activar luz 1 (posicional)" << endl;
+            cout << "2: Parar luz poscional" << endl;
+            cout << "A: Seleccionar Alfa" << endl;
+            cout << "B: Selecionar Beta" << endl;
+            cout << "Q: salir" << endl;
+            cout << endl;
+            veluz = 0;
+         } else if( modoMenu == CAMARA){
+            cout << "Seleccionada camara ortogonal" << endl;
+            cout << "Seleccione la camara que quiere ver" << endl;
+            cout << "0: Camara perspectiva" << endl;
+            cout << "1: Camara ortogonal" << endl;
+            cout << "Q: salir" << endl;
+            camaraActiva = 2;
+            change_projection(1.0);
          }
          break ;
       case '3':
          if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado piernas" << endl;
+            cout << "+: Aumentar grado de libertad" << endl;
+            cout << "-: Decrementar grado de libertad" << endl;
+            cout << "Q: salir" << endl;
             gl = PIERNAS;
             modoMenu = GRADOLIB;
          }
@@ -589,6 +884,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case '4':
          if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado taladro izquierdo" << endl;
+            cout << "+: Aumentar grado de libertad" << endl;
+            cout << "-: Decrementar grado de libertad" << endl;
+            cout << "Q: salir" << endl;
             gl = TALADROI;
             modoMenu = GRADOLIB;
          }
@@ -596,6 +894,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case '5':
          if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado taladro derecho" << endl;
+            cout << "+: Aumentar grado de libertad" << endl;
+            cout << "-: Decrementar grado de libertad" << endl;
+            cout << "Q: salir" << endl;
             gl = TALADROD;
             modoMenu = GRADOLIB;
          }
@@ -603,13 +904,15 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case '6':
          if(modoMenu == SELVISUALIZACION){
             cout << "Seleccionado antena" << endl;
+            cout << "+: Aumentar grado de libertad" << endl;
+            cout << "-: Decrementar grado de libertad" << endl;
+            cout << "Q: salir" << endl;
             gl = ANTENA;
             modoMenu = GRADOLIB;
          }
          break;
       case '+':
          if(modoMenu == SELOBJETO){
-            cout << "Q  uitada tapa superior" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
             cout << "Y: Archivo PLY" << endl;
@@ -625,12 +928,16 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cono->tapas();
             esfera->tapas();
          } else if (modoMenu == ANIMA){
+            cout << "+: animacion mas rapida" << endl;
+            cout << "Q: salir" << endl;
             vel = vel + 1.0;
             if(vel >= 15.0){
                vel = 15.0;
             }
             taladro = taladro + 1.0;
          } else if(modoMenu == GRADOLIB){
+            cout << "+: aumentar grado de libertad" << endl;
+            cout << "Q: salir" << endl;
             switch(gl){
                case CODOD:
                   robot->incrementarAnguloBrazoDer(1.0);
@@ -659,9 +966,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          cout << "+: animacion mas rapida" << endl;
          cout << "-: animacion mas lenta" << endl;
          cout << "8: parar" << endl;
+         cout << "Q: salir" << endl;
          break;
       case '-':
          if(modoMenu == ANIMA){
+            cout << "-: animacion mas lenta" << endl;
+            cout << "Q: salir" << endl;
             if(!(vel <= 0.0)){
                vel = vel - 1.0;
             }
@@ -669,6 +979,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
                taladro = taladro - 1.0;
             }
          } else if(modoMenu == GRADOLIB){
+            cout << "-: decremetar grado de libertad" << endl;
+            cout << "Q: salir" << endl;
             switch(gl){
                case CODOD:
                   robot->incrementarAnguloBrazoDer(-1.0);
@@ -692,6 +1004,8 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          }
          break;
       case '8':
+         cout << "Animacion deteniada" << endl;
+         cout << "Q: salir" << endl;
          vel = 0.0;
          taladro = 0.0;
          robot->setAlfas(0.0,0.0,0.0);
@@ -699,98 +1013,4 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       }
 
    return salir;
-}
-//*********************************-*****************************************
-void Escena::animarModeloJerarquico(){
-   robot->incrementarAnguloPiernas(vel);
-   robot->incrementarAnguloBrazoIzq(vel);
-   robot->incrementarAnguloBrazoDer(vel);
-   robot->incrementarTaladroIzq(taladro);
-   robot->incrementarTaladroDer(taladro);
-   robot->incrementarAlturaAntena(taladro*0.25);
-   luzm+=1.0;
-   if(luzm > 360.0){
-      luzm = 0.0;
-   }
-}
-
-void Escena::teclaEspecial( int Tecla1, int x, int y )
-{
-   switch ( Tecla1 )
-   {
-	   case GLUT_KEY_LEFT:
-         //Observer_angle_y-- ;
-         camaras[camaraActiva].rotarYExaminar(-3.0*M_PI/180.0);
-         break;
-	   case GLUT_KEY_RIGHT:
-         //Observer_angle_y++ ;
-         camaras[camaraActiva].rotarYExaminar(3.0*M_PI/180.0);
-         break;
-	   case GLUT_KEY_UP:
-         //Observer_angle_x-- ;
-         camaras[camaraActiva].rotarXExaminar(3.0*M_PI/180.0);
-         break;
-	   case GLUT_KEY_DOWN:
-         //Observer_angle_x++ ;
-         camaras[camaraActiva].rotarXExaminar(-3.0*M_PI/180.0);
-         break;
-	   case GLUT_KEY_PAGE_UP:
-         //Observer_distance *=1.2 ;
-         camaras[camaraActiva].zoom(1/1.2);
-         change_projection(1.0);
-         break;
-	   case GLUT_KEY_PAGE_DOWN:
-         //Observer_distance /= 1.2 ;
-         camaras[camaraActiva].zoom(1.2);
-         change_projection(1.0);
-         break;
-	}
-
-	//std::cout << Observer_distance << std::endl;
-}
-
-//**************************************************************************
-// Funcion para definir la transformación de proyeccion
-//
-// ratio_xy : relacción de aspecto del viewport ( == ancho(X) / alto(Y) )
-//
-//***************************************************************************
-
-void Escena::change_projection( const float ratio_xy )
-{
-   glMatrixMode( GL_PROJECTION );
-   glLoadIdentity();
-   //const float wx = float(Height)*ratio_xy ;
-   camaras[camaraActiva].setProyeccion();
-   //glFrustum( -wx, wx, -Height, Height, Front_plane, Back_plane );
-}
-//**************************************************************************
-// Funcion que se invoca cuando cambia el tamaño de la ventana
-//***************************************************************************
-
-void Escena::redimensionar( int newWidth, int newHeight )
-{
-   Width  = newWidth/10;
-   Height = newHeight/10;
-   for(int i = 0; i < camaras.size(); i++){
-      camaras[i].setLetf(camaras[i].getBottom()*Width/Height);
-      camaras[i].setRight(camaras[i].getTop()*Width/Height);
-   }
-   change_projection( float(newHeight)/float(newWidth) );
-   glViewport( 0, 0, newWidth, newHeight );
-}
-
-//**************************************************************************
-// Funcion para definir la transformación de vista (posicionar la camara)
-//***************************************************************************
-
-void Escena::change_observer()
-{
-   // posicion del observador
-   glMatrixMode(GL_MODELVIEW);
-   glLoadIdentity();
-   camaras[camaraActiva].setOberver();
-   /*glTranslatef( 0.0, 0.0, -Observer_distance );
-   glRotatef( Observer_angle_y, 0.0 ,1.0, 0.0 );
-   glRotatef( Observer_angle_x, 1.0, 0.0, 0.0 );*/
 }

@@ -19,7 +19,12 @@ void BrazoRobot::draw(dibujo tipo_draw, color col, GLenum modo_dibujado){
          glTranslatef(-10.5,-60*cos(pierna->getAlfa()*M_PI/180.0),0);
          glRotatef(180,1,0,0);
          glRotatef(delta,0,1,0);
-         cono->draw(tipo_draw,BLANCO,modo_dibujado);
+         if(modo_dibujado == GL_FILL){
+            cono->draw(tipo_draw,BLANCO,modo_dibujado);
+         } else {
+            cono->draw(tipo_draw,col,modo_dibujado);
+         }
+
       glPopMatrix();
    glPopMatrix();
 }
@@ -72,4 +77,9 @@ void BrazoRobot::incrementarTaladro(float inc){
 
 void BrazoRobot::setAlfa(float a){
    alfa = a;
+}
+
+void BrazoRobot::setColorSeleccion(color col){
+   pierna->setColorSeleccion(col);
+   cono->setColorSeleccion(col);
 }

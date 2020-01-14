@@ -145,7 +145,7 @@ void ObjRevolucion::calcularCoorTex(int tipo){
 
       for(int i = 0; i < v.size(); i++){
          alfa = atan2(v[i](2),v[i](0));
-         u = 1.0 - (alfa/(2*M_PI));
+         u = 1.0 - (alfa/(2.0*M_PI));
          u = fmod(u,1);
          w = (v[i](1) - y_min) / (y_max - y_min);
          ct[i] = Tupla2f(u,w);
@@ -156,7 +156,7 @@ void ObjRevolucion::calcularCoorTex(int tipo){
       for(int i = 0; i < v.size(); i++){
          alfa = atan2(v[i](2),v[i](0));
          beta = atan2(v[i](1),sqrt(pow(v[i](0),2)+pow(v[i](2),2)));
-         u = 1.0 - (alfa/(2*M_PI));
+         u = 1.0 - (alfa/(2.0*M_PI));
          u = fmod(u,1);
          w = 0.5 - (beta/M_PI);
          ct[i] = Tupla2f(u,w);
@@ -164,7 +164,11 @@ void ObjRevolucion::calcularCoorTex(int tipo){
    }
 
    for(int i = vertices_perfil*instancias; i < vertices_perfil*(instancias+1); i++){
-      ct[i](0) = 1.0;
+      ct[i](0) = 1.0f;
+   }
+
+   for(int i = 0; i < ct.size(); i++){
+      std::cout << ct[i] << std::endl;
    }
 
 }
