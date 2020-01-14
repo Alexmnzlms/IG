@@ -87,6 +87,8 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
 
+   cout << endl;
+   cout << endl;
    cout << "Seleccione menu" << endl;
    cout << "O: Seleccion de objeto" << endl;
    cout << "V: seleccion de visualizacion" << endl;
@@ -275,34 +277,26 @@ void Escena::teclaEspecial( int Tecla1, int x, int y )
    switch ( Tecla1 )
    {
 	   case GLUT_KEY_LEFT:
-         //Observer_angle_y-- ;
          camaras[camaraActiva].rotarYExaminar(-3.0*M_PI/180.0);
          break;
 	   case GLUT_KEY_RIGHT:
-         //Observer_angle_y++ ;
          camaras[camaraActiva].rotarYExaminar(3.0*M_PI/180.0);
          break;
 	   case GLUT_KEY_UP:
-         //Observer_angle_x-- ;
          camaras[camaraActiva].rotarXExaminar(3.0*M_PI/180.0);
          break;
 	   case GLUT_KEY_DOWN:
-         //Observer_angle_x++ ;
          camaras[camaraActiva].rotarXExaminar(-3.0*M_PI/180.0);
          break;
 	   case GLUT_KEY_PAGE_UP:
-         //Observer_distance *=1.2 ;
          camaras[camaraActiva].zoom(1/1.2);
          change_projection(1.0);
          break;
 	   case GLUT_KEY_PAGE_DOWN:
-         //Observer_distance /= 1.2 ;
          camaras[camaraActiva].zoom(1.2);
          change_projection(1.0);
          break;
 	}
-
-	//std::cout << Observer_distance << std::endl;
 }
 
 //**************************************************************************
@@ -316,9 +310,7 @@ void Escena::change_projection( const float ratio_xy )
 {
    glMatrixMode( GL_PROJECTION );
    glLoadIdentity();
-   //const float wx = float(Height)*ratio_xy ;
    camaras[camaraActiva].setProyeccion();
-   //glFrustum( -wx, wx, -Height, Height, Front_plane, Back_plane );
 }
 //**************************************************************************
 // Funcion que se invoca cuando cambia el tamaño de la ventana
@@ -346,9 +338,6 @@ void Escena::change_observer()
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
    camaras[camaraActiva].setOberver();
-   /*glTranslatef( 0.0, 0.0, -Observer_distance );
-   glRotatef( Observer_angle_y, 0.0 ,1.0, 0.0 );
-   glRotatef( Observer_angle_x, 1.0, 0.0, 0.0 );*/
 }
 
 void Escena::ratonMovido(int x, int y){
@@ -717,15 +706,14 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
 
          break ;
       case 'C':
-         if(modoMenu == NADA){
-            modoMenu=CAMARA;
-            cout << "Seleccione la camara que quiere ver" << endl;
-            cout << "0: Camara perspectiva" << endl;
-            cout << "1: Camara ortogonal" << endl;
-            cout << "2: Camara perspectiva 2" << endl;
-            cout << "Q: salir" << endl;
-            cout << endl;
-         } else if(modoMenu == SELOBJETO){
+         modoMenu=CAMARA;
+         cout << "Seleccione la camara que quiere ver" << endl;
+         cout << "0: Camara perspectiva" << endl;
+         cout << "1: Camara ortogonal" << endl;
+         cout << "2: Camara perspectiva 2" << endl;
+         cout << "Q: salir" << endl;
+         cout << endl;
+         if(modoMenu == SELOBJETO){
             cout << "Seleccionado cubo" << endl;
             cout << "C: Cubo" << endl;
             cout << "T: Tetraedro" << endl;
@@ -850,6 +838,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Seleccione la camara que quiere ver" << endl;
             cout << "0: Camara perspectiva" << endl;
             cout << "1: Camara ortogonal" << endl;
+            cout << "2: Camara perspectiva 2" << endl;
             cout << "Q: salir" << endl;
             camaraActiva = 0;
             change_projection(1.0);
@@ -887,6 +876,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Seleccione la camara que quiere ver" << endl;
             cout << "0: Camara perspectiva" << endl;
             cout << "1: Camara ortogonal" << endl;
+            cout << "2: Camara perspectiva 2" << endl;
             cout << "Q: salir" << endl;
             camaraActiva = 1;
             change_projection(1.0);
@@ -925,6 +915,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Seleccione la camara que quiere ver" << endl;
             cout << "0: Camara perspectiva" << endl;
             cout << "1: Camara ortogonal" << endl;
+            cout << "2: Camara perspectiva 2" << endl;
             cout << "Q: salir" << endl;
             camaraActiva = 2;
             change_projection(1.0);

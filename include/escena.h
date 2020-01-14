@@ -80,7 +80,6 @@ private:
    //Luces de la escena
    LuzDireccional * luzdir = nullptr;
    LuzPosicional * luzpos = nullptr;
-   LuzPosicional * luzmov = nullptr;
 
    //Materiales de la escena
    Tupla4f colambesmeralda = {0.0215,0.1745,0.0215,1.0};
