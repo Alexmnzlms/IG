@@ -1,8 +1,3 @@
 # Informatica Grafica
-## Practicas
 
-Aqui estan las practicas programadas para la asignaturas
-
-## Proyecto
-
-Aqui esta el proyecto final de la asignatura
+Proyecto/Practicas de la asignatura de Informatica Grafica de 3º de GII
