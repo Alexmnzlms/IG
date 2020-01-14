@@ -12,9 +12,6 @@ LuzDireccional::LuzDireccional(const Tupla3f & direccion, GLenum idLuzOpenGL, Tu
    beta = atan(direccion(1)/direccion(0));
    posicion = {direccion(0),direccion(1),direccion(2),0.0};
    posicion_original = posicion;
-   std::cout << "Alpha: " << alpha*180.0/M_PI << std::endl;
-   std::cout << "Beta: " << beta*180.0/M_PI << std::endl;
-   std::cout << "Posicion direccional: " << direccion(0) << ", " << direccion(1) << ", " << direccion(2) << std::endl;
 }
 
 void LuzDireccional::variarAnguloAlpha( float incremento ){

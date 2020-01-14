@@ -84,9 +84,6 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 	Width  = UI_window_width/10;
 	Height = UI_window_height/10;
 
-   std::cout << Width << std::endl;
-   std::cout << Height << std::endl;
-
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
 
@@ -357,8 +354,6 @@ void Escena::change_observer()
 void Escena::ratonMovido(int x, int y){
    if(ratonPulsado){
       //Mover en primera persona
-      //x - x_ant
-      //y - y_ant
       if(seleccionado == NOSEL){
          camaras[camaraActiva].girar(x-x_ant, y-y_ant);
       } else {
@@ -367,7 +362,6 @@ void Escena::ratonMovido(int x, int y){
       }
       x_ant = x;
       y_ant = y;
-      std::cout << "Raton se mueve" << std::endl;
    }
 }
 
@@ -378,10 +372,8 @@ void Escena::clickRaton(int boton, int status, int x, int y){
          x_ant = x;
          y_ant = y;
          ratonPulsado = true;
-         std::cout << "Raton abajo" << std::endl;
       } else {
          ratonPulsado = false;
-         std::cout << "Raton arriba" << std::endl;
       }
    } else if (boton == GLUT_LEFT_BUTTON){
       //Seleccionar objeto
@@ -413,7 +405,6 @@ void Escena::dibujar_seleccion(){
    if(glIsEnabled(GL_DITHER)){
       glDisable(GL_DITHER);
       act_dit = true;
-      //std::cout << "DITHER desactivado" << std::endl;
    }
 
    glPushMatrix();
@@ -456,7 +447,6 @@ void Escena::dibujar_seleccion(){
    glPopMatrix();
    if(act_dit){
       glEnable(GL_DITHER);
-      //std::cout << "DITHER activado" << std::endl;
    }
 }
 
