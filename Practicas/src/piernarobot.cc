@@ -55,9 +55,3 @@ void PiernaRobot::setAlfa(float a){
    alfa = a;
    beta = -2.0*alfa;
 }
-
-void PiernaRobot::setColorSeleccion(color col){
-   pie->setColorSeleccion(col);
-   pierna->setColorSeleccion(col);
-   femur->setColorSeleccion(col);
-}

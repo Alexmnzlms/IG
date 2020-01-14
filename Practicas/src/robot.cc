@@ -106,11 +106,3 @@ void Robot::setAlfas(float a, float b, float c){
    piernai->setAlfa(alfa_piernas);
    piernad->setAlfa(-alfa_piernas);
 }
-
-void Robot::setColorSeleccion(color col){
-   piernai->setColorSeleccion(col);
-   piernad->setColorSeleccion(col);
-   brazoi->setColorSeleccion(col);
-   brazod->setColorSeleccion(col);
-   cuerpo->setColorSeleccion(col);
-}

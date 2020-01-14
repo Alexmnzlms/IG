@@ -22,7 +22,6 @@ public:
    void incrementarAngulo(float inc);
    float getAlfa();
    void setAlfa(float a);
-   void setColorSeleccion(color col);
 };
 
 #endif

@@ -68,14 +68,6 @@ Escena::Escena()
    fondo->setTextura(back);
    cilindro->setTextura(edificio);
    cubo->setTextura(edificio);
-
-   robot->setColorSeleccion(AZUL);
-   suelo->setColorSeleccion(VERDE);
-   fondo->setColorSeleccion(CIAN);
-   torre->setColorSeleccion(NARANJA);
-   cilindro->setColorSeleccion(ROSA);
-   cubo->setColorSeleccion(AMARILLO);
-
 }
 
 //**************************************************************************

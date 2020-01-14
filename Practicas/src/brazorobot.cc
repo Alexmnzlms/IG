@@ -78,8 +78,3 @@ void BrazoRobot::incrementarTaladro(float inc){
 void BrazoRobot::setAlfa(float a){
    alfa = a;
 }
-
-void BrazoRobot::setColorSeleccion(color col){
-   pierna->setColorSeleccion(col);
-   cono->setColorSeleccion(col);
-}

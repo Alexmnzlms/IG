@@ -73,7 +73,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> &perfil_original, eje eje_ro
    }
 
    for(int i = 1; i <= instancias; i++){
-      //std::cout << "i: " << i << std::endl;
       alfa = ((2*M_PI*i)/instancias);
       for(int j = 0; j < num_vertices; j++){
          switch (eje_rotacion) {
@@ -166,11 +165,6 @@ void ObjRevolucion::calcularCoorTex(int tipo){
    for(int i = vertices_perfil*instancias; i < vertices_perfil*(instancias+1); i++){
       ct[i](0) = 1.0f;
    }
-
-   for(int i = 0; i < ct.size(); i++){
-      std::cout << ct[i] << std::endl;
-   }
-
 }
 
 void ObjRevolucion::setTextura(const std::string tex){

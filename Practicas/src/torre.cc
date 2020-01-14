@@ -6,7 +6,7 @@ Torre::Torre(){
    altura = 0.0;
    animacion_neg = false;
    cilindro->setTextura("jpg/edificio.jpg");
-      Material * blancop = new Material(Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),128.0);
+   Material * blancop = new Material(Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),Tupla4f(1.0,1.0,1.0,1.0),128.0);
    cilindro->setMaterial(*blancop);
 }
 
@@ -57,9 +57,4 @@ void Torre::incrementarAltura(float inc){
       inc = -1*inc;
    }
    altura += inc;
-}
-
-void Torre::setColorSeleccion(color col){
-   cilindro->setColorSeleccion(col);
-   esfera->setColorSeleccion(col);
 }

@@ -41,7 +41,6 @@ public:
    void alternar_vista();
    void setMaterial(Material mat);
    virtual void setTextura(const std::string tex);
-   void setColorSeleccion(color col);
 
 protected:
    GLuint CrearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid * puntero_ram );

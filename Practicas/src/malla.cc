@@ -121,9 +121,6 @@ void Malla3D::draw(dibujo tipo, color col, GLenum modo)
          case BLANCO:
             c= std::vector<Tupla3f>(v.size(), cblanco);
             break;
-         case SEL:
-            if(!c_seleccion.empty())
-               c= std::vector<Tupla3f>(v.size(), c_seleccion.at(0));
       }
       if(tipo == CHESS){
          c_aux = std::vector<Tupla3f>(v.size(), cnegro);
@@ -230,37 +227,4 @@ void Malla3D::setMaterial(Material mat){
 
 void Malla3D::setTextura(const std::string tex){
    textura = new Textura(tex);
-}
-
-void Malla3D::setColorSeleccion(color col){
-   c_seleccion.resize(v.size());
-   switch(col){
-      case NEGRO:
-         c_seleccion = std::vector<Tupla3f>(v.size(), cnegro);
-         break;
-      case AZUL:
-         c_seleccion = std::vector<Tupla3f>(v.size(), cazul);
-         break;
-      case VERDE:
-         c_seleccion = std::vector<Tupla3f>(v.size(), cverde);
-         break;
-      case CIAN:
-         c_seleccion = std::vector<Tupla3f>(v.size(), ccian);
-         break;
-      case NARANJA:
-         c_seleccion = std::vector<Tupla3f>(v.size(), cnaranja);
-         break;
-      case ROSA:
-         c_seleccion = std::vector<Tupla3f>(v.size(), crosa);
-         break;
-      case AMARILLO:
-         c_seleccion = std::vector<Tupla3f>(v.size(), camarillo);
-         break;
-      case MORADO:
-         c_seleccion= std::vector<Tupla3f>(v.size(), cmorado);
-         break;
-      case BLANCO:
-         c_seleccion= std::vector<Tupla3f>(v.size(), cblanco);
-         break;
-   }
 }

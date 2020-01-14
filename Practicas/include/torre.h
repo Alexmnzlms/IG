@@ -21,7 +21,6 @@ public:
    void draw(dibujo tipo_draw, color col, GLenum modo_dibujado) ;
    void setMaterial(Material mat);
    void incrementarAltura(float inc);
-   void setColorSeleccion(color col);
 };
 
 #endif

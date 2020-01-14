@@ -81,7 +81,6 @@ void Camara::setOberver(){
    gluLookAt(eye(0),eye(1),eye(2),at(0),at(1),at(2),up(0),up(1),up(2));
 }
 void Camara::setProyeccion(){
-   std::cout << "Tipo: " << tipo << std::endl;
    switch (tipo) {
       case 0:
          glFrustum(left,right,bottom,top,near,far);

@@ -31,7 +31,6 @@ public:
    void incrementarTaladroDer(float inc);
    void incrementarAlturaAntena(float inc);
    void setAlfas(float a, float b, float c);
-   void setColorSeleccion(color col);
 };
 
 #endif
