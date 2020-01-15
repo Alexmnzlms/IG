@@ -56,9 +56,6 @@ Cubo::Cubo(float lado)
    Tupla3f v23(lado,lado,lado);
    v.push_back(v23);
 
-   // inicializar la tabla de caras o triángulos:
-   // (es importante en cada cara ordenar los vértices en sentido contrario
-   //  de las agujas del reloj, cuando esa cara se observa desde el exterior del cubo)
    Tupla3i c1(3,5,7);
    f.push_back(c1);
    Tupla3i c2(3,1,5);
@@ -85,9 +82,6 @@ Cubo::Cubo(float lado)
    f.push_back(c12);
 
    calcular_colores();
-
-   cseleccion = cazul;
-
    calcular_normales();
 
 }

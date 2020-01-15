@@ -70,9 +70,6 @@ void Malla3D::draw_ModoAjedrez()
 
 void Malla3D::draw_ModoDiferido()
 {
-   // (la primera vez, se deben crear los VBOs y guardar sus identificadores en el objeto)
-   // completar (práctica 1)
-   // .....
    if(id_vbo_ver == 0 || id_vbo_tri == 0){
       id_vbo_ver = CrearVBO(GL_ARRAY_BUFFER, (3*v.size()) * sizeof(float), v.data());
    }
@@ -105,8 +102,7 @@ void Malla3D::draw_ModoDiferido()
 }
 
 // -----------------------------------------------------------------------------
-// Función de visualización de la malla,
-// puede llamar a  draw_ModoInmediato o bien a draw_ModoDiferido
+// Función de visualización de la malla
 
 void Malla3D::draw(dibujo tipo, color col, GLenum modo)
 {

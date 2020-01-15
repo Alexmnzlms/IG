@@ -342,7 +342,6 @@ void Escena::change_observer()
 
 void Escena::ratonMovido(int x, int y){
    if(ratonPulsado){
-      //Mover en primera persona
       if(camaras[camaraActiva].getSeleccionado() == NOSEL){
          camaras[camaraActiva].girar(x-x_ant, y-y_ant);
       } else {

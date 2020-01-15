@@ -58,10 +58,8 @@ protected:
    std::vector<Tupla3i> f ; // una terna de 3 enteros por cada cara o triángulo
    std::vector<Tupla3f> nv ;
 
-   // completar: tabla de colores, tabla de normales de vértices
    std::vector<Tupla3f> c ;
    std::vector<Tupla3f> c_aux;
-   Tupla3f cseleccion;
    Tupla3f cnegro;
    Tupla3f cazul;
    Tupla3f cverde;
@@ -72,17 +70,6 @@ protected:
    Tupla3f cmorado;
    Tupla3f cblanco;
    std::vector<Tupla2f> ct;
-   //float colorArray[8];
-
-   /*cnegro = {0.0f,0.0f,0.0f};
-   cazul = {0.15f,0.38f,0.48f};
-   cverde = {0.0f,1.0f,0.0f};
-   ccian = {0.45f,0.68f,0.83f};
-   cnaranja = {1.0f,0.5333f,0.243137255f};
-   crosa = {1.0f,0.0f,1.0f};
-   camarillo = {1.0f,1.0f,0.0f};
-   cmorado = {0.5f,0.0f,0.5f};
-   cblanco = {1.0f,1.0f,1.0f};*/
 } ;
 
 

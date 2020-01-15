@@ -19,10 +19,6 @@
 //
 // *****************************************************************************
 
-// *****************************************************************************
-// Cubo con centro en el origen y lado unidad por defecto
-// (tiene 9 vertices y 6 caras)
-
 typedef enum {RX, RY, RZ} eje;
 
 class ObjRevolucion : public Malla3D{
