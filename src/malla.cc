@@ -75,15 +75,33 @@ void Malla3D::draw_ModoDiferido()
    // .....
    if(id_vbo_ver == 0 || id_vbo_tri == 0){
       id_vbo_ver = CrearVBO(GL_ARRAY_BUFFER, (3*v.size()) * sizeof(float), v.data());
+   }
+   if(id_vbo_tri == 0){
       id_vbo_tri = CrearVBO(GL_ELEMENT_ARRAY_BUFFER, (3*f.size()) * sizeof(int), f.data());
+   }
+   if(id_vbo_col == 0){
+      id_vbo_col = CrearVBO(GL_ARRAY_BUFFER, (3*c.size()) * sizeof(float), c.data());
    }
    glPointSize(5.0);
    glBindBuffer( GL_ARRAY_BUFFER, id_vbo_ver);
    glVertexPointer( 3, GL_FLOAT, 0, 0 );
    glBindBuffer( GL_ARRAY_BUFFER, 0);
    glEnableClientState( GL_VERTEX_ARRAY );
-   glColorPointer(3, GL_FLOAT, 0, c.data() );
+   glBindBuffer( GL_ARRAY_BUFFER, id_vbo_col);
+   glColorPointer(3, GL_FLOAT, 0, 0 );
+   glBindBuffer( GL_ARRAY_BUFFER, 0);
+   if(!ct.empty()){
+      glEnable(GL_TEXTURE_2D);
+      glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+      glTexCoordPointer( 2, GL_FLOAT, 0, ct.data() );
+      if(textura!= nullptr)
+         textura->activar();
+   }
    dibujaDiferido(f.size(),f.data());
+   if(!ct.empty()){
+      glDisableClientState( GL_TEXTURE_COORD_ARRAY );
+      glDisable(GL_TEXTURE_2D);
+   }
 }
 
 // -----------------------------------------------------------------------------

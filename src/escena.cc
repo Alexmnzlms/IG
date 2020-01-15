@@ -108,7 +108,7 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 // **************************************************************************
 
 void Escena::dibujar()
-{
+{   
    change_observer();
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
    glDisable(GL_LIGHTING);

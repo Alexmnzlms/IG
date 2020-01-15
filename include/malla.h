@@ -51,7 +51,7 @@ protected:
    virtual void dibujaDiferido(int tamanio,  GLvoid * indice);
    dibujo tipo_draw;
    bool ver = true;
-   GLuint id_vbo_ver = 0, id_vbo_tri = 0;
+   GLuint id_vbo_ver = 0, id_vbo_tri = 0, id_vbo_col = 0;
    Material m;
    Textura * textura = nullptr;
    std::vector<Tupla3f> v ;   // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
