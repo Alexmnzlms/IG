@@ -6,7 +6,6 @@
 Cuadro::Cuadro(float lado)
 {
    lado = lado / 2.0;
-   // inicializar la tabla de vértices
    Tupla3f v0(-lado,-lado,0);
    v.push_back(v0);
    Tupla3f v1(-lado,lado,0);
@@ -16,9 +15,6 @@ Cuadro::Cuadro(float lado)
    Tupla3f v3(lado,-lado,0);
    v.push_back(v3);
 
-   // inicializar la tabla de caras o triángulos:
-   // (es importante en cada cara ordenar los vértices en sentido contrario
-   //  de las agujas del reloj, cuando esa cara se observa desde el exterior del cubo)
    Tupla3i c1(0,3,1);
    f.push_back(c1);
    Tupla3i c2(3,2,1);
@@ -35,5 +31,4 @@ Cuadro::Cuadro(float lado)
    ct.push_back(t1);
    ct.push_back(t4);
    ct.push_back(t3);
-   //textura = new Textura("jpg/gato.jpg");
 }

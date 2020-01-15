@@ -3,9 +3,9 @@
 PiernaRobot::PiernaRobot(float a){
    alfa = a;
    beta = -2.0*a;
-   pie = new ObjPLY("ply/pie",10);
-   pierna = new ObjPLY("ply/pierna",10);
-   femur = new ObjPLY("ply/femur",10);
+   pie = new ObjPLY("ply/pie.ply",10);
+   pierna = new ObjPLY("ply/pierna.ply",10);
+   femur = new ObjPLY("ply/femur.ply",10);
    animacion_neg = false;
 
 }
