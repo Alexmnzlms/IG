@@ -3,6 +3,8 @@
 
 #include "aux.h"
 
+typedef enum {ROBOT, TORRE, EDIFI, EDIFD, EDIFC, NOSEL} seleccionables;
+
 class Camara{
 private:
    Tupla3f eye;
@@ -10,6 +12,7 @@ private:
    Tupla3f up;
    int tipo;
    float left, right, near, far, top, bottom;
+   seleccionables seleccionado;
 
 public:
    Camara(const Tupla3f eye, const Tupla3f at, const Tupla3f up,
@@ -35,6 +38,8 @@ public:
    float getRight() const;
    float getTop() const;
    float getBottom() const;
+   seleccionables getSeleccionado() const;
+   void setSeleccionado(const seleccionables obj);
 };
 
 #endif

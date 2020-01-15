@@ -108,7 +108,7 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 // **************************************************************************
 
 void Escena::dibujar()
-{   
+{
    change_observer();
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
    glDisable(GL_LIGHTING);
@@ -189,7 +189,7 @@ void Escena::dibujar()
             glPushMatrix();
                glScalef(2.0,2.0,2.0);
                glTranslatef(0,0,100);
-               if(seleccionado == TORRE){
+               if(camaras[camaraActiva].getSeleccionado() == TORRE){
                   colfig = AMARILLO;
                   torre->setMaterial(*rubi);
                } else {
@@ -201,7 +201,7 @@ void Escena::dibujar()
             glPushMatrix();
                glTranslatef(0.0,0.0,-100.0);
                glScalef(2.0,2.0,2.0);
-               if(seleccionado == ROBOT){
+               if(camaras[camaraActiva].getSeleccionado() == ROBOT){
                   colfig = AMARILLO;
                   robot->setMaterial(*rubi);
                } else {
@@ -213,7 +213,7 @@ void Escena::dibujar()
             glPushMatrix();
                glTranslatef(-300.0,0.0,-500.0);
                glScalef(1.5,2.0,1.5);
-               if(seleccionado == EDIFI){
+               if(camaras[camaraActiva].getSeleccionado() == EDIFI){
                   colfig = AMARILLO;
                   cilindrod->setMaterial(*rubi);
                } else {
@@ -225,7 +225,7 @@ void Escena::dibujar()
             glPushMatrix();
                glTranslatef(300.0,0.0,-500.0);
                glScalef(1.5,2.0,1.5);
-               if(seleccionado == EDIFD){
+               if(camaras[camaraActiva].getSeleccionado() == EDIFD){
                   colfig = AMARILLO;
                   cilindroi->setMaterial(*rubi);
                } else {
@@ -237,7 +237,7 @@ void Escena::dibujar()
             glPushMatrix();
                glTranslatef(0.0,150.0,-500.0);
                glScalef(1.5,3.0,1.5);
-               if(seleccionado == EDIFC){
+               if(camaras[camaraActiva].getSeleccionado() == EDIFC){
                   colfig = AMARILLO;
                   cubo->setMaterial(*rubi);
                } else {
@@ -343,7 +343,7 @@ void Escena::change_observer()
 void Escena::ratonMovido(int x, int y){
    if(ratonPulsado){
       //Mover en primera persona
-      if(seleccionado == NOSEL){
+      if(camaras[camaraActiva].getSeleccionado() == NOSEL){
          camaras[camaraActiva].girar(x-x_ant, y-y_ant);
       } else {
          camaras[camaraActiva].rotarXExaminar(-0.25*(y-y_ant)*M_PI/180.0);
@@ -449,26 +449,26 @@ void Escena::procesar_click(int x, int y){
 
    if(color(0) == 0.0 && color(1) == 1.0 && color(2) == 0.0){
       std::cout << "Seleccionada la torre" << std::endl;
-      seleccionado = TORRE;
+      camaras[camaraActiva].setSeleccionado(TORRE);
       camaras[camaraActiva].mover(0.0,50.0,150.0);
    } else if(color(0) == 0.0 && color(1) == 0.0 && color(2) == 0.0){
       std::cout << "Seleccionado el edificio derecho" << std::endl;
-      seleccionado = EDIFD;
+      camaras[camaraActiva].setSeleccionado(EDIFD);
       camaras[camaraActiva].mover(300.0,50.0,-500.0);
    } else if(color(0) == 0.0 && color(1) == 0.0 && color(2) == 1.0){
       std::cout << "Seleccionado el edificio izquierdo" << std::endl;
-      seleccionado = EDIFI;
+      camaras[camaraActiva].setSeleccionado(EDIFI);
       camaras[camaraActiva].mover(-300.0,50.0,-500.0);
    } else if(color(0) == 1.0 && color(1) == 0.0 && color(2) == 1.0){
       std::cout << "Seleccionado el edificio central" << std::endl;
-      seleccionado = EDIFC;
+      camaras[camaraActiva].setSeleccionado(EDIFC);
       camaras[camaraActiva].mover(0.0,50.0,-500.0);
    } else if(color(0) == 1.0 && color(1) == 1.0 && color(2) == 0.0){
       std::cout << "Seleccionado el robot" << std::endl;
-      seleccionado = ROBOT;
+      camaras[camaraActiva].setSeleccionado(ROBOT);
       camaras[camaraActiva].mover(0.0,50.0,-100.0);
    } else {
-      seleccionado = NOSEL;
+      camaras[camaraActiva].setSeleccionado(NOSEL);
    }
 }
 

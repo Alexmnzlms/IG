@@ -22,7 +22,6 @@
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO, ILUMINACION, SELANGULO, ANIMA, GRADOLIB, CAMARA} menu;
 typedef enum {CUBO, TETRAEDRO, PLY, ROT, CON, ESF, CIL, MULT} malla;
-typedef enum {ROBOT, TORRE, EDIFI, EDIFD, EDIFC, NOSEL} seleccionables;
 typedef enum {ALFA, BETA} angulo;
 typedef enum {CODOI, CODOD, PIERNAS, TALADROI, TALADROD, ANTENA} grado_libertad;
 
@@ -60,7 +59,6 @@ private:
    std::vector<Camara> camaras;
    bool ratonPulsado;
    float x_ant, y_ant;
-   seleccionables seleccionado = NOSEL;
 
    // Objetos de la escena
    Ejes ejes;

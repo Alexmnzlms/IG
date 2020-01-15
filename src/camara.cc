@@ -14,6 +14,7 @@ Camara::Camara(const Tupla3f eye, const Tupla3f at, const Tupla3f up,
    this->far = far;
    this->top = top;
    this->bottom = bottom;
+   seleccionado = NOSEL;
 
 }
 void Camara::rotarXExaminar(const float angle){
@@ -126,4 +127,12 @@ void Camara::setBottom(const float l){
 
 float Camara::getBottom() const{
    return bottom;
+}
+
+seleccionables Camara::getSeleccionado() const{
+   return seleccionado;
+}
+
+void Camara::setSeleccionado(const seleccionables obj){
+   seleccionado = obj;
 }
